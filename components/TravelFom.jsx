@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button, Checkbox } from "@heroui/react";
+import Image from "next/image";
 
 export default function TravelForm() {
   const [formData, setFormData] = useState({
@@ -35,29 +36,90 @@ export default function TravelForm() {
 
   return (
     <div className="min-h-screen bg-[#ebebf2] flex items-center justify-center p-8">
-      <div className="w-full max-w-6xl relative">
-        <div className="absolute inset-0 border-[1.5px] border-indigo-400 rounded-xl pointer-events-none" />
+      <div className="w-[919.5vw] max-w-6xl relative ">
+        <div
+          className="absolute top-0 left-0 w-full h-[6px] bg-repeat-x"
+          style={{
+            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='6'><path d='M0 3 Q5 0 10 3 T20 3' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
+          }}
+        />
+
+        <div
+          className="absolute bottom-0 left-0 w-full h-[6px] bg-repeat-x"
+          style={{
+            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='6'><path d='M0 3 Q5 6 10 3 T20 3' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
+          }}
+        />
+
+        <div
+          className="absolute top-0 left-0 h-full w-[6px] bg-repeat-y"
+          style={{
+            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='20'><path d='M3 0 Q0 5 3 10 T3 20' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
+          }}
+        />
+        <div
+          className="absolute top-0 right-0 h-full w-[6px] bg-repeat-y"
+          style={{
+            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='20'><path d='M3 0 Q6 5 3 10 T3 20' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
+          }}
+        />
+
+        <div className="absolute inset-0 rounded-xl pointer-events-none" />
 
         <form
           onSubmit={handleSubmit}
-          className="bg-[#ebebf2] rounded-xl px-10 py-12"
+          className="bg-[#ebebf2] rounded-xl px-10 py-4"
         >
           <div className="mb-10">
-            <p className="text-sm italic text-indigo-500">tailor-made</p>
+            <span className="text-[2.4vw] font-taprom text-[#2C3078]">
+              tailor-made
+            </span>
 
-            <h1 className="text-4xl font-semibold text-indigo-900">
+            <h1 className="text-[3.2vw] font-semibold text-indigo-900">
               Build Your Own Journey
             </h1>
 
-            <div className="flex flex-wrap gap-3 mt-3 text-sm text-[#33377c]">
+            <div className="flex flex-wrap items-center gap-3 mt-3 text-[#33377c] text-[1.05vw]">
               <span>Anywhere</span>
-              <span className="flex items-center gap-1">✦ Any Duration</span>
-              <span className="flex items-center gap-1">✦ Any Group Size</span>
-              <span className="flex items-center gap-1">✦ Any Season</span>
-              <span className="flex items-center gap-1">✦ All Budgets</span>
+
+              <Image
+                src="/Vectorblue.png"
+                alt="star separator"
+                width={15}
+                height={15}
+                className="object-contain"
+              />
+              <span>Any Duration</span>
+
+              <Image
+                src="/Vectorblue.png"
+                alt="star separator"
+                width={15}
+                height={15}
+                className="object-contain"
+              />
+              <span>Any Group Size</span>
+
+              <Image
+                src="/Vectorblue.png"
+                alt="star separator"
+                width={15}
+                height={15}
+                className="object-contain"
+              />
+              <span>Any Season</span>
+
+              <Image
+                src="/Vectorblue.png"
+                alt="star separator"
+                width={15}
+                height={15}
+                className="object-contain"
+              />
+              <span>All Budgets</span>
             </div>
 
-            <p className="text-sm text-[#33377c] mt-4 max-w-3xl leading-relaxed">
+            <p className="text-[1.05vw] text-[#33377c] mt-4 max-w-3xl leading-relaxed">
               Tired of one-size-fits-all journeys? Tell us how you want to do
               it. Simply share your idea of travel below and let TravelOStyle
               figure out the rest. We've got your back.
@@ -84,13 +146,13 @@ export default function TravelForm() {
                   name={field.name}
                   value={formData[field.name]}
                   onChange={handleChange}
-                  className="bg-transparent border-0 border-b-[1.6px] border-[#2d3494] text-[13px] text-[#7b84c9] pb-2 outline-none focus:border-[#1e2a78]"
+                  className="bg-transparent border-0 border-b-[1.6px] border-[#2d3494] text-[0.9vw] text-[#7b84c9] pb-2 outline-none focus:border-[#1e2a78]"
                   placeholder="Enter here"
                 />
               </div>
             ))}
             <div className="flex flex-col gap-2 w-full">
-              <label className="text-[13px] font-semibold text-[#2d3494]">
+              <label className="text-[0.9vw] font-semibold text-[#2d3494]">
                 Flexibility*
               </label>
 
@@ -99,7 +161,7 @@ export default function TravelForm() {
                   name="flexibility"
                   value={formData.flexibility}
                   onChange={handleChange}
-                  className="appearance-none w-full bg-transparent border-0 border-b-[1.6px] border-[#2d3494] text-[13px] text-[#7b84c9] pb-2 pr-6 outline-none cursor-pointer"
+                  className="appearance-none w-full bg-transparent border-0 border-b-[1.6px] border-[#2d3494] text-[0.9vw] text-[#7b84c9] pb-2 pr-6 outline-none cursor-pointer"
                 >
                   <option value="">Select</option>
                   <option>Exact Match</option>
@@ -117,7 +179,7 @@ export default function TravelForm() {
 
           {/* MESSAGE */}
           <div className="mt-12">
-            <label className="text-[13px] font-semibold text-[#2d3494]">
+            <label className="text-[0.9vw] font-semibold text-[#2d3494]">
               Your Message
             </label>
             <textarea
@@ -138,7 +200,7 @@ export default function TravelForm() {
                 checked={formData.agree}
                 onChange={handleChange}
               />
-              <span className="text-sm text-gray-600">
+              <span className="text-gray-600 text-[0.9vw]">
                 I agree to be contacted by TravelOStyle regarding my inquiry
               </span>
             </div>
@@ -152,7 +214,7 @@ export default function TravelForm() {
               {" "}
               Submit Inquiry{" "}
             </Button>{" "}
-            <span className="text-sm text-gray-600">
+            <span className="text-sm text-gray-600 text-[1.05vw] w-[36vw]">
               {" "}
               TravelOStyle typically responds within 48 hours. Your details are
               never shared with third parties.{" "}

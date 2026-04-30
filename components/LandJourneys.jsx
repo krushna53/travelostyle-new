@@ -33,7 +33,6 @@ const journeys = [
 export default function LandJourneys() {
   return (
     <section className="bg-[#f2f2f2] py-20 px-6 min-h-screen flex flex-col items-center">
-      {/* Star Icon & Heading */}
       <div className="flex flex-col items-center mb-16">
         <div className="mb-4 text-[#2B3481]">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -45,12 +44,9 @@ export default function LandJourneys() {
         </h2>
       </div>
 
-      {/* Cards Container */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl w-full">
         {journeyData.map((journey, index) => (
           <div key={index} className="relative group">
-            {/* --- Ticket Effect Container --- */}
-            {/* "radial-gradient" ka use karke side ke cutouts banaye hain */}
             <div
               className="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col relative"
               style={{
@@ -62,14 +58,6 @@ export default function LandJourneys() {
                 WebkitMaskComposite: "source-in",
               }}
             >
-              {/* Image Section */}
-              {/* <div className="p-4">
-                <Image
-                  src={journey.image}
-                  alt={journey.title}
-                  className="w-full h-64 object-cover rounded-lg"
-                />
-              </div> */}
               <Image
                 src={"/imagestravel1.jpg"}
                 alt="travel"
@@ -77,8 +65,6 @@ export default function LandJourneys() {
                 height={200}
                 className="w-full h-64 object-cover rounded-lg"
               />
-
-              {/* Decorative Wavy Divider (Image ke niche wali line) */}
               <div className="px-6 py-2">
                 <div
                   className="w-full h-[2px] opacity-30"
@@ -89,8 +75,6 @@ export default function LandJourneys() {
                   }}
                 ></div>
               </div>
-
-              {/* Content Section */}
               <div className="px-8 pb-8 pt-2 flex flex-col flex-grow">
                 <h3 className="text-2xl font-bold text-[#2B3481] mb-3">
                   {journey.title}
@@ -104,17 +88,14 @@ export default function LandJourneys() {
                   <p>{journey.location}</p>
                 </div>
 
-                {/* Date Tag */}
                 <div className="mb-8">
                   <span className="border border-[#2B3481] text-[#2B3481] text-[10px] font-bold px-2 py-1 rounded">
                     {journey.date}
                   </span>
                 </div>
 
-                {/* Divider Line */}
                 <div className="w-full h-[1px] bg-slate-200 mb-6"></div>
 
-                {/* Price & Action */}
                 <div className="flex justify-between items-center mt-auto">
                   <div>
                     <p className="text-[10px] text-slate-400 uppercase">from</p>
@@ -137,8 +118,6 @@ export default function LandJourneys() {
                   </Button>
                 </div>
               </div>
-
-              {/* Bottom Scalloped Edge Effect */}
               <div className="absolute bottom-0 left-0 w-full h-2 flex gap-1 justify-center overflow-hidden translate-y-1">
                 {[...Array(20)].map((_, i) => (
                   <div

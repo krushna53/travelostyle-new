@@ -18,14 +18,14 @@ const cruises = [
     nights: "3 Nights",
     route: "Round Trip | Port Canaveral, FL",
     price: "$X",
-    image: "/imagestravel1.jpg",
+    image: "/ShipPort.png",
   },
   {
     title: "WESTERN CARIBBEAN",
     nights: "7 Nights",
     route: "Round Trip | Miami, FL",
     price: "$X",
-    image: "/travel2.avif",
+    image: "/Island.png",
   },
   {
     title: "EASTERN CARIBBEAN",

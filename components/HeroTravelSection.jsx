@@ -4,14 +4,18 @@ import Image from "next/image";
 import CruiseJourneys from "./CruiseJourneys";
 import TravelForm from "./TravelFom";
 import LandJourneys from "./LandJourneys";
+import WhereTravelStyle from "./WhereTravelStyle";
+import ValuesSection from "./ValuesSection";
+import FaqData from "./Fqa";
+import CollaborateSection from "./CollaborateSection";
 
 const images = [
-  "/imagestravel1.jpg",
-  "/travel2.avif",
-  "/imagestravel1.jpg",
-  "/travel2.avif",
-  "/travel2.avif",
-  "/travel2.avif",
+  "/Rectangle1.png",
+  "/Rectangle2.png",
+  "/Rectangle3.png",
+  "/Rectangle4.png",
+  "/Rectangle1.png",
+  "/Rectangle2.png",
 ];
 
 const features = [
@@ -58,32 +62,22 @@ const steps = [
 
 export default function HeroTravelSection() {
   return (
-    <div className="p-4 ">
-      <div className="w-[80vw] overflow-x-auto bg-[#2c3078] p-2 custom-scroll">
+    <div>
+      <div className="overflow-x-auto bg-[#2c3078] p-2 custom-scroll">
         <div className="flex items-center">
           {images.map((src, index) => (
-            <div key={index} className="flex items-center relative">
-              {/* Image Card */}
-              <div className="w-74 h-40 rounded-lg overflow-hidden flex-shrink-0 px-1">
+            <div key={index} className="flex items-center relative mx-1">
+              <div className="w-[24.55vw] h-[16.41vw] rounded-lg overflow-hidden flex-shrink-0 ">
                 <Image
                   src={src}
                   alt="travel"
-                  width={340}
-                  height={200}
+                  fill
                   className="w-full h-full object-cover"
                 />
               </div>
-
-              {/* Star between images */}
               {index !== images.length - 1 && (
-                <div className="absolute right-[-30px] z-10">
-                  <Image
-                    src="/star.png"
-                    alt="star"
-                    width={60}
-                    height={60}
-                    className="opacity-90"
-                  />
+                <div className="absolute right-[-35px] z-10">
+                  <Image src="/Vector.png" alt="star" width={60} height={60} />
                 </div>
               )}
             </div>
@@ -91,23 +85,23 @@ export default function HeroTravelSection() {
         </div>
       </div>
 
-      <section className="bg-[#f9f9f9] py-20 px-4 text-center">
-        <h1 className="text-3xl  font-semibold italic text-indigo-900 leading-snug font-[cursive]">
-          Experience travel the way it was always supposed to feel
+      <section className="py-15 px-4 text-center">
+        <h1 className="text-[39.4px] font-taprom text-indigo-900">
+          Making travel feel the way it is supposed to
         </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-gray-500 text-sm md:text-base">
-          TravelOStyle plans thoughtful journeys around real budgets, real
-          rhythms, and what matters to you—so the trip starts feeling easy long
-          before you leave.
+        <p className="mt-4 max-w-[43.2vw] mx-auto text-[1.05vw]">
+          Travel is full of options. TravelOStyle makes sense of them - for your
+          budget, your time, your preferences and your idea of an exceptional
+          trip.
         </p>
         <div className="mt-2">
           <Button
             variant="bordered"
             className="
            border-2
-           text-[12px] 
-           text-indigo-900 
-           p-1
+           text-[1.05vw] 
+         w-[9.65vw]
+         h-[1.95vw]
            rounded-full"
           >
             View Journeys
@@ -116,30 +110,25 @@ export default function HeroTravelSection() {
       </section>
 
       <div className="relative">
-        <div className="w-[80vw] overflow-x-auto bg-[#2c3078] p-2 custom-scroll">
+        <div className="overflow-x-auto bg-[#2c3078] p-2 custom-scroll">
           <div className="flex items-center">
             {images.map((src, index) => (
-              <div key={index} className="flex items-center relative">
-                {/* Image Card */}
-                <div className="w-74 h-40 rounded-lg overflow-hidden flex-shrink-0 px-1">
+              <div key={index} className="flex items-center relative mx-1">
+                <div className="w-[24.55vw] h-[16.41vw] rounded-lg overflow-hidden flex-shrink-0 ">
                   <Image
                     src={src}
                     alt="travel"
-                    width={340}
-                    height={200}
+                    fill
                     className="w-full h-full object-cover"
                   />
                 </div>
-
-                {/* Star between images */}
                 {index !== images.length - 1 && (
-                  <div className="absolute right-[-30px] z-10">
+                  <div className="absolute right-[-35px] z-10">
                     <Image
-                      src="/star.png"
+                      src="/Vector.png"
                       alt="star"
                       width={60}
                       height={60}
-                      className="opacity-90"
                     />
                   </div>
                 )}
@@ -147,56 +136,47 @@ export default function HeroTravelSection() {
             ))}
           </div>
         </div>
-        <div className="absolute top-14 left-0 w-[80vw] flex justify-center z-50">
-          <div className="flex items-center justify-between h-[70px] w-[70vw] px-6 border border-2 border rounded-md border-white/80 bg-[#2c3078]/55 backdrop-blur-lg shadow-lg text-white">
-            <div className="flex gap-6 text-sm">
-              <span>About</span>
-              <span>Journeys</span>
-              <span>How it works</span>
+        <div className="absolute top-20 left-30 h-[6vw] w-[85.95vw] flex justify-center z-50">
+          <div className="flex items-center justify-between h-[6vw] w-[85.95vw] px-6 border border-2 border rounded-md border-white/80 bg-[#2c3078]/55 backdrop-blur-lg shadow-lg text-white">
+            <div className="flex gap-6 ">
+              <span className="text-[1.05vw]">About</span>
+              <span className="text-[1.05vw]">Journeys</span>
+              <span className="text-[1.05vw]">How it works</span>
             </div>
-
-            <div className="text-lg tracking-widest font-light">
-              TRAVEL<span className="italic">O</span>STYLE
-            </div>
+            <Image src="/TravelOstyle.png" alt="star" width={299} height={57} />
             <div className="flex items-center gap-6 text-sm">
-              <span>FAQ</span>
-              <button className="bg-white text-black px-4 py-1.5 rounded-full text-sm">
+              <span className="text-[1.05vw]">FAQ</span>
+              <button className="bg-white text-black px-4 py-1.5 rounded-full text-[1.05vw">
                 Plan Your Journey
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div className="bg-[#f9f9f9] py-16 ">
-        <div className="max-w-5xl ml-8 border-dashed border-[#2c3078] py-10 [border-width:2px] [border-spacing:40px">
-          <div className="grid grid-cols-1 md:grid-cols-4 text-center gap-6 relative">
+      <div className="bg-[#f9f9f9]  py-20">
+        <div className="max-w-[85.2vw] h-[12vw] mx-auto border-2 border-dashed border-[#2c3078] py-8 px-3 rounded-xl">
+          <div className="grid grid-cols-1 md:grid-cols-4 text-center gap-8 relative">
             {features.map((item, index) => (
-              <div key={index} className="relative px-4">
-                <h3 className="text-indigo-900 font-semibold text-sm mb-2">
+              <div
+                key={index}
+                className="relative px-4 flex flex-col items-center"
+              >
+                <h3 className="text-indigo-900 font-bold text-[1.05vw] mb-3">
                   {item.title}
                 </h3>
-
-                <p className="text-gray-500 text-xs leading-relaxed">
+                <p className="text-gray-500 text-xs leading-relaxed max-w-[15vw] text-[0.8vw]">
                   {item.desc}
                 </p>
-
-                {/* Star Separator */}
                 {index !== features.length - 1 && (
-                  <span
-                    className="
-                  hidden md:flex
-                  items-center
-                  justify-center
-                  absolute
-                 right-0
-                top-0
-                left-60
-                 h-full
-               text-indigo-900
-    "
-                  >
-                    ✦
-                  </span>
+                  <div className="hidden md:block absolute top-1/2 right-[-15px] -translate-y-1/2 z-10">
+                    <Image
+                      src="/Vectorblue.png"
+                      alt="star separator"
+                      width={15}
+                      height={15}
+                      className="object-contain"
+                    />
+                  </div>
                 )}
               </div>
             ))}
@@ -204,18 +184,20 @@ export default function HeroTravelSection() {
         </div>
       </div>
 
-      <section className="bg-[#282c6e] p-10 text-center text-white max-w-6xl">
-        <p className="italic text-sm opacity-80 mb-2">season’s favorite</p>
-        <h2 className="text-3xl md:text-4xl font-semibold mb-4">
+      <section className="bg-[#282c6e] h-[39.1vw] text-center text-white py-20 flex flex-col justify-center items-center">
+        <p className="text-[2.4vw] opacity-80 mb-2 font-taprom">
+          season’s favorite
+        </p>
+        <h2 className="text-3xl md:text-[3.2vw] font-semibold mb-4">
           Take A Journey With Us
         </h2>
-        <p className="max-w-2xl mx-auto text-sm md:text-base opacity-80 mb-10">
-          Arriving somewhere in its best season is its own kind of magic. Reach
-          out for the complete itinerary and pricing, and we’ll take it from
-          there.
+        <p className="max-w-[52.5vw] mx-auto text-[1.05vw] md:text-base opacity-80 mb-10">
+          Arriving in the perfect place at the perfect moment is a rare kind of
+          magic. Share your interest with us, and we’ll curate the complete
+          itinerary and pricing , then handle every detail from there
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl ">
           {steps.map((item, index) => (
             <div
               key={index}
@@ -232,6 +214,10 @@ export default function HeroTravelSection() {
       <CruiseJourneys />
       <LandJourneys />
       <TravelForm />
+      <WhereTravelStyle />
+      <ValuesSection />
+      <FaqData />
+      <CollaborateSection />
       <div className="p-6 flex gap-4">
         <Button color="primary">Click Me</Button>
 

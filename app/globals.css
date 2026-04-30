@@ -20,6 +20,11 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: sans-serif;
+}
+
+.font-taprom {
+ font-family: "Taprom";
 }
 /* Hide scrollbar by default */
 .custom-scroll::-webkit-scrollbar {
