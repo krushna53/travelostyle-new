@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { Button, Checkbox } from "@heroui/react";
+import { Button } from "@heroui/react";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function TravelForm() {
   const [formData, setFormData] = useState({
@@ -122,7 +122,7 @@ export default function TravelForm() {
             <p className="text-[1.05vw] text-[#33377c] mt-4 max-w-3xl leading-relaxed">
               Tired of one-size-fits-all journeys? Tell us how you want to do
               it. Simply share your idea of travel below and let TravelOStyle
-              figure out the rest. We've got your back.
+              figure out the rest. We ve got your back.
             </p>
           </div>
 
@@ -177,7 +177,6 @@ export default function TravelForm() {
             </div>
           </div>
 
-          {/* MESSAGE */}
           <div className="mt-12">
             <label className="text-[0.9vw] font-semibold text-[#2d3494]">
               Your Message

@@ -54,8 +54,8 @@ const FAQSection = () => {
           <br />
           <p className="text-[#2C3078] max-w-sm text-lg leading-relaxed">
             Honest answers to the things people wonder most before reaching out.
-            If something isn't here, ask us directly — we'd always rather you
-            ask than assume.
+            If something isn t here, ask us directly —we d always rather you ask
+            than assume.
           </p>
           <br />
           <button className="bg-[#2D316B] text-white px-8 py-3 rounded-full font-medium hover:bg-opacity-90 transition-all">

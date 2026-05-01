@@ -218,11 +218,7 @@ export default function HeroTravelSection() {
       <ValuesSection />
       <FaqData />
       <CollaborateSection />
-      <div className="p-6 flex gap-4">
-        <Button color="primary">Click Me</Button>
-
-        <Card className="p-4">HeroUI is working 🚀</Card>
-      </div>
+      <div className="p-6 flex gap-4"></div>
     </div>
   );
 }
