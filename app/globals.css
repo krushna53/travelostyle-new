@@ -21,6 +21,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: sans-serif;
+  color: #2C3078
 }
 
 .font-taprom {

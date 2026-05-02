@@ -32,7 +32,7 @@ const journeys = [
 
 export default function LandJourneys() {
   return (
-    <section className="bg-[#f2f2f2] py-20 px-6 min-h-screen flex flex-col items-center">
+    <section className="bg-[#f2f2f2] py-20 px-6 min-h-screen flex flex-col items-center max-w-6xl mx-auto">
       <div className="flex flex-col items-center mb-16">
         <div className="mb-4 text-[#2B3481]">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">

@@ -42,7 +42,10 @@ const FAQSection = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F9F7F4] flex items-center justify-center p-6 md:p-12">
+    <div
+      id="faq"
+      className="min-h-screen bg-[#F9F7F4] flex items-center justify-center p-6 md:p-12"
+    >
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
           <span className="text-[3vw] text-[#2C3078] font-taprom">FAQs</span>
@@ -58,7 +61,12 @@ const FAQSection = () => {
             than assume.
           </p>
           <br />
-          <button className="bg-[#2D316B] text-white px-8 py-3 rounded-full font-medium hover:bg-opacity-90 transition-all">
+          <button
+            onClick={() => {
+              window.open("mailto:example@gmail.com", "_self");
+            }}
+            className="cursor-pointer bg-[#2D316B] text-white px-8 py-3 rounded-full font-medium hover:bg-opacity-90 transition-all"
+          >
             Ask Us Anything
           </button>
         </div>

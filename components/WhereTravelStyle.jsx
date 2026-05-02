@@ -1,6 +1,9 @@
 export default function WhereTravelStyle() {
   return (
-    <div className="min-h-screen flex items-center justify-center py-15 bg-[#f4f5f7]">
+    <div
+      id="ouroriginstory"
+      className="min-h-screen flex items-center justify-center py-15 bg-[#f4f5f7]"
+    >
       <div className="text-center max-w-3xl">
         <p className="text-[2.4vw] font-taprom text-[#2C3078] mb-1 tracking-wide">
           our origin story

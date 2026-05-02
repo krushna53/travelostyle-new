@@ -35,7 +35,10 @@ export default function TravelForm() {
   };
 
   return (
-    <div className="min-h-screen bg-[#ebebf2] flex items-center justify-center p-8">
+    <div
+      id="build-your-own-Journey"
+      className="min-h-screen bg-[#ebebf2] flex items-center justify-center p-8"
+    >
       <div className="w-[919.5vw] max-w-6xl relative ">
         <div
           className="absolute top-0 left-0 w-full h-[6px] bg-repeat-x"
