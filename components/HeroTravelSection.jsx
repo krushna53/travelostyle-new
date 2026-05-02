@@ -8,6 +8,7 @@ import WhereTravelStyle from "./WhereTravelStyle";
 import ValuesSection from "./ValuesSection";
 import FaqData from "./Fqa";
 import CollaborateSection from "./CollaborateSection";
+import Navbar from "./Navbar";
 
 const images = [
   "/Rectangle1.png",
@@ -63,6 +64,7 @@ const steps = [
 export default function HeroTravelSection() {
   return (
     <div>
+      <Navbar />
       <div className="overflow-x-auto bg-[#2c3078] p-2 custom-scroll">
         <div className="flex items-center">
           {images.map((src, index) => (
@@ -86,24 +88,16 @@ export default function HeroTravelSection() {
       </div>
 
       <section className="py-15 px-4 text-center">
-        <h1 className="text-[39.4px] font-taprom text-indigo-900">
+        <h1 className="text-[56px] font-taprom text-[#2C3078]">
           Making travel feel the way it is supposed to
         </h1>
-        <p className="mt-4 max-w-[43.2vw] mx-auto text-[1.05vw]">
+        <p className="max-w-[43.2vw] mx-auto text-[21px] text-[#2C3078]">
           Travel is full of options. TravelOStyle makes sense of them - for your
           budget, your time, your preferences and your idea of an exceptional
           trip.
         </p>
         <div className="mt-2">
-          <Button
-            variant="bordered"
-            className="
-           border-2
-           text-[1.05vw] 
-         w-[9.65vw]
-         h-[1.95vw]
-           rounded-full"
-          >
+          <Button variant="bordered" className="border-2 text-[1.05vw] w-[9.65vw] h-[1.95vw] rounded-full text-[#2C3078]">
             View Journeys
           </Button>
         </div>
@@ -134,22 +128,6 @@ export default function HeroTravelSection() {
                 )}
               </div>
             ))}
-          </div>
-        </div>
-        <div className="absolute top-20 left-30 h-[6vw] w-[85.95vw] flex justify-center z-50">
-          <div className="flex items-center justify-between h-[6vw] w-[85.95vw] px-6 border border-2 border rounded-md border-white/80 bg-[#2c3078]/55 backdrop-blur-lg shadow-lg text-white">
-            <div className="flex gap-6 ">
-              <span className="text-[1.05vw]">About</span>
-              <span className="text-[1.05vw]">Journeys</span>
-              <span className="text-[1.05vw]">How it works</span>
-            </div>
-            <Image src="/TravelOstyle.png" alt="star" width={299} height={57} />
-            <div className="flex items-center gap-6 text-sm">
-              <span className="text-[1.05vw]">FAQ</span>
-              <button className="bg-white text-black px-4 py-1.5 rounded-full text-[1.05vw">
-                Plan Your Journey
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -184,28 +162,28 @@ export default function HeroTravelSection() {
         </div>
       </div>
 
-      <section className="bg-[#282c6e] h-[39.1vw] text-center text-white py-20 flex flex-col justify-center items-center">
+      <section className="bg-[#282c6e] py-20 text-center text-white flex flex-col justify-center items-center">
         <p className="text-[2.4vw] opacity-80 mb-2 font-taprom">
-          season’s favorite
+          season's favorite
         </p>
         <h2 className="text-3xl md:text-[3.2vw] font-semibold mb-4">
           Take A Journey With Us
         </h2>
-        <p className="max-w-[52.5vw] mx-auto text-[1.05vw] md:text-base opacity-80 mb-10">
+        <p className="max-w-[42.5vw] mx-auto text-[1.05vw] md:text-base opacity-80 mb-10">
           Arriving in the perfect place at the perfect moment is a rare kind of
           magic. Share your interest with us, and we’ll curate the complete
           itinerary and pricing , then handle every detail from there
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-[85.2vw] w-full h-[12vw]">
           {steps.map((item, index) => (
             <div
               key={index}
-              className="border border-dashed border-white rounded-xl p-6 text-center [border-width:2px] [border-spacing:40px"
+              className="border border-dashed border-white rounded-xl p-6 text-center [border-width:2px] [border-spacing:40px] flex flex-col items-center justify-center gap-2"
             >
-              <h3 className="text-lg font-semibold mb-2">{item.no}</h3>
-              <h4 className="font-medium mb-2">{item.title}</h4>
-              <p className="text-xs opacity-80 leading-relaxed">{item.desc}</p>
+              <h3 className="text-2xl font-semibold mb-2">{item.no}</h3>
+              <h4 className="font-medium text-xl mb-2">{item.title}</h4>
+              <p className="opacity-80 leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
