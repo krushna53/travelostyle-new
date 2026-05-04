@@ -20,7 +20,7 @@ const filters = [
 ];
 
 const MODAL_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbx8ORK8Ms5gd7ClmtD5WNXSL8ol7_6DADcYy3GDG8N-KymxTjKJIqbtKvUYaPgk2fMigg/exec";
+  "https://script.google.com/macros/s/AKfycbz-iRyvd470V8eXmni3neMj8kQGUDHFsVu8udr0DDo94rUDwCDb-R1MsQbXL9h_epm5Ng/exec";
 
 export default function CruiseJourneys() {
   const [active, setActive] = useState(0);

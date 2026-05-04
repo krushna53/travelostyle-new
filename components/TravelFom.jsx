@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 const INQUIRY_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzljAcFJgwXyO-yw3fWEMStvKRIyR9sdPrwZt9vEFyVRiNCnzSp8kmiBavcH2Yrm6lCiA/exec";
+  "https://script.google.com/macros/s/AKfycbwNOxfBmGHU1nb8Og4EDDhd1IuiXwq6s7PRxRSeVs2hos14vsBPzrnQbcTWo86xcMyRNw/exec";
 
 export default function TravelForm() {
   const [formData, setFormData] = useState({
