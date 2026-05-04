@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function CollaborateSection() {
   return (
-    <section className="w-full">
+    <section id="collaborate" className="w-full">
       <div className="hidden md:flex items-stretch">
         <div className="w-full md:w-1/2 bg-gray-100 flex items-center px-8 md:px-16 py-12">
           <div className="max-w-md">

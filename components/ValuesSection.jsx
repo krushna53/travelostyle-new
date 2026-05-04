@@ -24,7 +24,7 @@ export default function ValuesSection() {
     },
   ];
   return (
-    <section className="bg-[#2d3475] px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
+    <section id="values-section" className="bg-[#2d3475] px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
       <div className="mx-auto max-w-[85.2vw] border-2 border-dashed border-white/85 px-6 py-8 text-center sm:px-8 sm:py-10 lg:px-10 lg:py-12">
         <div className="grid grid-cols-1 gap-8 text-center text-white md:grid-cols-4 md:gap-10">
           {features.map((item, i) => (

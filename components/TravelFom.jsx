@@ -35,7 +35,7 @@ export default function TravelForm() {
   };
 
   return (
-    <div className="min-h-screen bg-[#ebebf2] flex items-center justify-center px-4 py-10 sm:p-8">
+    <div id="inquiry-form" className="min-h-screen bg-[#ebebf2] flex items-center justify-center px-4 py-10 sm:p-8">
       <div className="relative w-full max-w-[85.2vw]">
         <div
           className="absolute top-0 left-0 h-1.5 w-full bg-repeat-x"

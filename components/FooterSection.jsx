@@ -42,7 +42,7 @@ function InstagramIcon() {
 
 export default function FooterSection() {
   return (
-    <footer className="relative overflow-hidden border-t border-[#39a6de] bg-[#2a0c6f] text-white py-20">
+    <footer id="footer" className="relative overflow-hidden border-t border-[#39a6de] bg-[#2a0c6f] text-white py-20">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_10%,rgba(126,64,230,0.35),transparent_40%),radial-gradient(circle_at_85%_92%,rgba(70,22,150,0.45),transparent_55%),radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03),transparent_68%)]" />
 
       <div className="relative mx-auto max-w-[85.2vw] px-4 pb-16 pt-10 sm:px-6 sm:pb-20 sm:pt-12 lg:px-8 lg:pb-24">

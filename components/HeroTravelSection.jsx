@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@heroui/react";
 import Image from "next/image";
+import Link from "next/link";
 import CruiseJourneys from "./CruiseJourneys";
 import TravelForm from "./TravelFom";
 import LandJourneys from "./LandJourneys";
@@ -105,12 +106,14 @@ export default function HeroTravelSection() {
           trip.
         </p>
         <div className="mt-4">
-          <Button
-            variant="bordered"
-            className="rounded-full border-2 px-5 py-2 text-[#2C3078]"
-          >
-            View Journeys
-          </Button>
+          <Link href="#cruise-journeys">
+            <Button
+              variant="bordered"
+              className="rounded-full border-2 px-5 py-2 text-[#2C3078]"
+            >
+              View Journeys
+            </Button>
+          </Link>
         </div>
       </section>
 

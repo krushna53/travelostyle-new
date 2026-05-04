@@ -1,8 +1,14 @@
 "use client";
 
-import { Button, Card } from "@heroui/react";
+import { Button } from "@heroui/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import CelebrityPrincessCruises from "./Cruise/CelebrityPrincessCruises";
+import DisneyCruiseLine from "./Cruise/DisneyCruiseLine";
+import EuropeanRiverCruise from "./Cruise/EuropeanRiverCruise";
+import HollandAmerica from "./Cruise/HollandAmerica";
+import Mediterranean from "./Cruise/Mediterranean";
+import RoyalCaribbean from "./Cruise/RoyalCaribbean";
 
 const filters = [
   "Royal Caribbean",
@@ -13,246 +19,113 @@ const filters = [
   "Mediterranean & Barges",
 ];
 
-const cruises = [
-  {
-    title: "BAHAMAS",
-    nights: "3 Nights",
-    route: "Round Trip | Port Canaveral, FL",
-    price: "$X",
-    image: "/ShipPort.png",
-  },
-  {
-    title: "WESTERN CARIBBEAN",
-    nights: "7 Nights",
-    route: "Round Trip | Miami, FL",
-    price: "$X",
-    image: "/Island.png",
-  },
-  {
-    title: "EASTERN CARIBBEAN",
-    nights: "7 Nights",
-    route: "Round Trip | Port Canaveral, FL",
-    price: "$X",
-    image: "/imagestravel1.jpg",
-  },
-  {
-    title: "MEDITERRANEAN",
-    nights: "7 Nights",
-    route: "Round Trip | Barcelona, Spain",
-    price: "$X",
-    image: "/imagestravel1.jpg",
-  },
-];
-
 export default function CruiseJourneys() {
   const [active, setActive] = useState(0);
   const [selectedCruise, setSelectedCruise] = useState(null);
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
+  const cruiseData = [
+    { name: "Royal Caribbean", component: <RoyalCaribbean onGetDetails={openModal} /> },
+    { name: "Disney Cruise Line", component: <DisneyCruiseLine onGetDetails={openModal} /> },
+    {
+      name: "Celebrity & Princess Cruises",
+      component: <CelebrityPrincessCruises onGetDetails={openModal} />,
+    },
+    { name: "Holland America & Virgin Voyages", component: <HollandAmerica onGetDetails={openModal} /> },
+    { name: "European River Cruise", component: <EuropeanRiverCruise onGetDetails={openModal} /> },
+    { name: "Mediterranean & Barges", component: <Mediterranean onGetDetails={openModal} /> },
+  ];
 
-  useEffect(() => {
-    if (!selectedCruise) return undefined;
-
-    const onKeyDown = (event) => {
-      if (event.key === "Escape") closeModal();
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [selectedCruise]);
-
-  const openModal = (cruise) => {
+  function openModal(cruise) {
     setSelectedCruise(cruise);
     setAdults(0);
     setChildren(0);
-  };
+  }
 
-  const closeModal = () => setSelectedCruise(null);
+  function closeModal() {
+    setSelectedCruise(null);
+  }
 
-  const updateCount = (setter, nextValue) => {
+  function updateCount(setter, nextValue) {
     setter(Math.max(0, nextValue));
-  };
+  }
 
   return (
-    <>
-      <section className="bg-[#f7f8fc] px-4 py-14 md:px-10">
-        <div className="mx-auto max-w-[85.2vw]">
-          <h2 className="mb-8 text-center text-3xl font-extrabold tracking-wide text-[#1c2c5b]">
-            CRUISE JOURNEYS
-          </h2>
+    <section id="cruise-journeys" className="bg-[#f7f8fc] px-4 py-14 md:px-10">
+      <div className="mx-auto max-w-[85.2vw]">
+        <h2 className="mb-8 text-center text-3xl font-extrabold tracking-wide text-[#1c2c5b]">
+          CRUISE JOURNEYS
+        </h2>
 
-          <div className="mb-6 hidden flex-wrap justify-center gap-3 sm:flex">
-            {filters.map((item, index) => (
-              <Button
-                key={item}
-                onClick={() => setActive(index)}
-                className={`cursor-pointer rounded-full border px-5 py-2 text-sm transition ${
-                  active === index
-                    ? "border-[#1c2c5b] bg-[#1c2c5b] text-white"
-                    : "border-gray-300 bg-white text-[#1c2c5b]"
-                }`}
-              >
-                {item}
-              </Button>
-            ))}
-          </div>
+        <div className="mb-6 hidden flex-wrap justify-center gap-3 sm:flex">
+          {filters.map((item, index) => (
+            <Button
+              key={item}
+              onClick={() => setActive(index)}
+              className={`cursor-pointer rounded-full border px-5 py-2 text-sm transition ${
+                active === index
+                  ? "border-[#1c2c5b] bg-[#1c2c5b] text-white"
+                  : "border-gray-300 bg-white text-[#1c2c5b]"
+              }`}
+            >
+              {item}
+            </Button>
+          ))}
+        </div>
 
-          <div className="mb-5 sm:hidden">
-            <label className="mb-3 block text-[16px] font-semibold text-[#1c2c5b]">
-              Select Cruise Type
-            </label>
-            <div className="relative">
-              <select
-                value={active}
-                onChange={(event) => setActive(Number(event.target.value))}
-                className="w-full rounded-sm border border-[#6b5bc4] bg-white px-4 py-3 pr-10 text-[14px] font-medium text-[#1c2c5b] outline-none"
-              >
-                {filters.map((item, index) => (
-                  <option key={item} value={index}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[18px] text-[#3b1c8e]">
-                ▼
-              </span>
-            </div>
-          </div>
-
-          <div className="mb-10">
-            <div className="h-px bg-[#c7d2fe]" />
-          </div>
-
-          <div className="hidden grid-cols-1 gap-8 sm:grid sm:grid-cols-2 lg:grid-cols-4">
-            {cruises.map((item) => (
-              <div
-                key={item.title}
-                className="relative w-full"
-                style={{ aspectRatio: "410 / 489" }}
-              >
-                <div className="absolute inset-0">
-                  <Image
-                    src="/zig-zag-border.png"
-                    alt="border"
-                    fill
-                    className="object-fill"
-                  />
-                </div>
-
-                <div className="relative z-10 h-full p-5">
-                  <Card className="flex h-full w-full flex-col justify-between rounded-xl bg-white">
-                    <div className="p-3 pb-0">
-                      <div className="relative h-45 w-full overflow-hidden rounded-lg">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          className="object-cover shadow-2xl shadow-black"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="flex-1 px-5 pt-4">
-                      <h3 className="text-lg font-extrabold text-[#1c2c5b]">
-                        {item.title}
-                      </h3>
-                      <p className="mt-2 text-sm text-[#1c2c5b]">{item.nights}</p>
-                      <p className="text-sm text-[#1c2c5b]">{item.route}</p>
-                      <div className="my-4 border-t border-dashed border-[#1c2c5b] opacity-40" />
-                    </div>
-
-                    <div className="flex items-center justify-between px-5 pb-5">
-                      <div>
-                        <p className="text-xs text-gray-500">from</p>
-                        <p className="text-lg font-bold text-[#1c2c5b]">
-                          {item.price}
-                          <span className="text-sm font-normal"> /person</span>
-                        </p>
-                        <p className="text-xs text-gray-400">double occupancy*</p>
-                      </div>
-
-                      <Button
-                        onClick={() => openModal(item)}
-                        className="rounded-full bg-[#3b3f8c] px-4 py-2 text-sm text-white"
-                      >
-                        Get Details
-                      </Button>
-                    </div>
-                  </Card>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="sm:hidden">
-            <div className="relative mx-auto w-full max-w-[88vw]" style={{ aspectRatio: "410 / 489" }}>
-              <div className="absolute inset-0">
-                <Image
-                  src="/zig-zag-border.png"
-                  alt="border"
-                  fill
-                  className="object-fill"
-                />
-              </div>
-
-              <div className="relative z-10 h-full p-4">
-                <Card className="flex h-full w-full flex-col justify-between rounded-xl bg-white">
-                  <div className="p-3 pb-0">
-                    <div className="relative h-45 w-full overflow-hidden rounded-lg">
-                      <Image
-                        src={cruises[active].image}
-                        alt={cruises[active].title}
-                        fill
-                        className="object-cover shadow-2xl shadow-black"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex-1 px-4 pt-4">
-                    <h3 className="text-[18px] font-extrabold text-[#1c2c5b]">
-                      {cruises[active].title}
-                    </h3>
-                    <p className="md:mt-6 text-[14px] text-[#1c2c5b]">
-                      {cruises[active].nights}
-                    </p>
-                    <p className="text-[14px] text-[#1c2c5b]">
-                      {cruises[active].route}
-                    </p>
-                    <div className="my-4 border-t border-dashed border-[#1c2c5b] opacity-40" />
-                  </div>
-
-                  <div className="flex items-center justify-between px-4 pb-4">
-                    <div>
-                      <p className="text-[12px] text-gray-500">from</p>
-                      <p className="text-[18px] font-bold text-[#1c2c5b]">
-                        {cruises[active].price}
-                        <span className="text-sm font-normal"> /person</span>
-                      </p>
-                      <p className="text-[12px] text-gray-400">double occupancy*</p>
-                    </div>
-
-                    <Button
-                      onClick={() => openModal(cruises[active])}
-                      className="rounded-full bg-[#3b3f8c] px-4 py-2 text-sm text-white"
-                    >
-                      Get Details
-                    </Button>
-                  </div>
-                </Card>
-              </div>
-            </div>
-
-            <div className="mt-5 flex items-center justify-between px-3 text-[28px] text-[#3b1c8e]">
-              <button type="button" onClick={() => setActive((active - 1 + cruises.length) % cruises.length)} aria-label="Previous cruise">
-                ←
-              </button>
-              <button type="button" onClick={() => setActive((active + 1) % cruises.length)} aria-label="Next cruise">
-                →
-              </button>
-            </div>
+        <div className="mb-5 sm:hidden">
+          <label className="mb-3 block text-[16px] font-semibold text-[#1c2c5b]">
+            Select Cruise Type
+          </label>
+          <div className="relative">
+            <select
+              value={active}
+              onChange={(event) => setActive(Number(event.target.value))}
+              className="w-full rounded-sm border border-[#6b5bc4] bg-white px-4 py-3 pr-10 text-[14px] font-medium text-[#1c2c5b] outline-none"
+            >
+              {filters.map((item, index) => (
+                <option key={item} value={index}>
+                  {item}
+                </option>
+              ))}
+            </select>
+            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[18px] text-[#3b1c8e]">
+              ▼
+            </span>
           </div>
         </div>
-      </section>
+
+        <div className="mb-10">
+          <div className="h-px bg-[#c7d2fe]" />
+        </div>
+
+        <div className="hidden sm:block transition-all duration-300">
+          {cruiseData[active].component}
+        </div>
+
+        <div className="sm:hidden">
+          <div className="transition-all duration-300">
+            {cruiseData[active].component}
+          </div>
+
+          <div className="mt-5 flex items-center justify-between px-3 text-[28px] text-[#3b1c8e]">
+            <button
+              type="button"
+              onClick={() => setActive((active - 1 + cruiseData.length) % cruiseData.length)}
+              aria-label="Previous cruise"
+            >
+              ←
+            </button>
+            <button
+              type="button"
+              onClick={() => setActive((active + 1) % cruiseData.length)}
+              aria-label="Next cruise"
+            >
+              →
+            </button>
+          </div>
+        </div>
+      </div>
 
       {selectedCruise && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/35 px-0 py-0 sm:px-4 sm:py-6">
@@ -298,25 +171,31 @@ export default function CruiseJourneys() {
                     className="relative w-full overflow-hidden rounded-sm sm:shrink-0"
                     style={{ width: 122, height: 88 }}
                   >
-                    <Image
-                      src={selectedCruise.image}
-                      alt={selectedCruise.title}
-                      fill
-                      className="object-cover"
-                    />
+                    {selectedCruise?.image ? (
+                      <Image
+                        src={selectedCruise.image}
+                        alt={selectedCruise.title ?? "Cruise image"}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-white text-[11px] font-semibold uppercase tracking-wide text-[#3a219a]">
+                        {selectedCruise?.title ?? "Cruise"}
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex flex-1 flex-col justify-center gap-1.5 text-[#3a219a] sm:py-1">
                     <p className="text-[13px] sm:text-[15px]">
                       <span className="font-semibold">Trip Name:</span>{" "}
                       <span className="font-normal text-[#4d4a7e]">
-                        {formatCruiseTitle(selectedCruise.title)}
+                        {formatCruiseTitle(selectedCruise?.title ?? "")}
                       </span>
                     </p>
                     <p className="text-[13px] sm:text-[15px]">
                       <span className="font-semibold">Duration:</span>{" "}
                       <span className="font-normal text-[#4d4a7e]">
-                        {selectedCruise.nights}
+                        {selectedCruise?.nights}
                       </span>
                     </p>
                     <p className="text-[13px] leading-snug sm:text-[15px]">
@@ -394,7 +273,7 @@ export default function CruiseJourneys() {
           </div>
         </div>
       )}
-    </>
+    </section>
   );
 }
 
@@ -459,5 +338,6 @@ function Counter({ label, value, onIncrement, onDecrement }) {
 }
 
 function formatCruiseTitle(title) {
+  if (!title) return "";
   return `${title.charAt(0)}${title.slice(1).toLowerCase()}`;
 }
