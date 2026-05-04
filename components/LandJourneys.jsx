@@ -44,7 +44,7 @@ export default function LandJourneys() {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-[85.2vw] w-full">
         {journeyData.map((journey, index) => (
           <div key={index} className="relative group">
             <div
