@@ -2,7 +2,6 @@
 
 import { Button } from "@heroui/react";
 import Image from "next/image";
-import Link from "next/link";
 
 const journeys = [
   {
@@ -32,6 +31,19 @@ const journeys = [
 ];
 
 export default function LandJourneys() {
+  function openJourneyModal(journey) {
+    window.dispatchEvent(
+      new CustomEvent("openInquiry", {
+        detail: {
+          title: journey.title,
+          nights: journey.duration,
+          image: journey.image,
+          source: "land",
+        },
+      })
+    );
+  }
+
   return (
     <section id="land-journeys" className="bg-[#f2f2f2] py-20 px-6 min-h-screen flex flex-col items-center max-w-[85.2vw] mx-auto">
       <div className="flex flex-col items-center mb-16">
@@ -111,14 +123,14 @@ export default function LandJourneys() {
                     </p>
                   </div>
 
-                  <Link href="#inquiry-form">
-                    <Button
-                      className="bg-[#2B3481] text-white rounded-full px-6 font-bold"
-                      size="md"
-                    >
-                      Get Details
-                    </Button>
-                  </Link>
+                  <Button
+                    type="button"
+                    onClick={() => openJourneyModal(journey)}
+                    className="bg-[#2B3481] text-white rounded-full px-6 font-bold"
+                    size="md"
+                  >
+                    Get Details
+                  </Button>
                 </div>
               </div>
               <div className="absolute bottom-0 left-0 w-full h-2 flex gap-1 justify-center overflow-hidden translate-y-1">

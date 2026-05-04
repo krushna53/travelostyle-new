@@ -2,7 +2,10 @@
 
 import { Button } from "@heroui/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const INQUIRY_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbzljAcFJgwXyO-yw3fWEMStvKRIyR9sdPrwZt9vEFyVRiNCnzSp8kmiBavcH2Yrm6lCiA/exec";
 
 export default function TravelForm() {
   const [formData, setFormData] = useState({
@@ -20,6 +23,9 @@ export default function TravelForm() {
     agree: false,
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState("");
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -30,9 +36,60 @@ export default function TravelForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    alert(JSON.stringify(formData, null, 2));
+    // Basic client-side validation
+    if (!formData.firstName || !formData.email) {
+      setSubmitStatus("Please provide your name and email.");
+      return;
+    }
+
+    if (!formData.agree) {
+      setSubmitStatus("Please agree to be contacted.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus("");
+
+    fetch(INQUIRY_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+      body: JSON.stringify({
+        ...formData,
+        source: "inquiry-form",
+      }),
+    })
+      .then(() => {
+        setSubmitStatus("Your inquiry has been sent successfully.");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          title: "",
+          phone: "",
+          email: "",
+          destination: "",
+          guests: "",
+          duration: "",
+          month: "",
+          flexibility: "",
+          message: "",
+          agree: false,
+        });
+      })
+      .catch(() => {
+        setSubmitStatus("Unable to submit your inquiry right now. Please try again.");
+      })
+      .finally(() => setIsSubmitting(false));
   };
+
+  // Auto-clear submitStatus after 5s
+  useEffect(() => {
+    if (!submitStatus) return;
+    const id = setTimeout(() => setSubmitStatus(""), 5000);
+    return () => clearTimeout(id);
+  }, [submitStatus]);
 
   return (
     <div id="inquiry-form" className="min-h-screen bg-[#ebebf2] flex items-center justify-center px-4 py-10 sm:p-8">
@@ -139,13 +196,31 @@ export default function TravelForm() {
                 <label className="text-[13px] font-semibold text-[#2d3494] sm:text-[13px]">
                   {field.label}
                 </label>
-                <input
-                  name={field.name}
-                  value={formData[field.name]}
-                  onChange={handleChange}
-                  className="border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pb-2 text-[14px] text-[#7b84c9] outline-none focus:border-[#1e2a78] sm:text-[0.9vw]"
-                  placeholder="Enter here"
-                />
+                {field.name === "title" ? (
+                  <div className="relative">
+                    <select
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={handleChange}
+                      className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pb-2 pr-6 text-[14px] text-[#7b84c9] outline-none sm:text-[0.9vw]"
+                    >
+                      <option value="">Select</option>
+                      <option>Mr</option>
+                      <option>Ms</option>
+                      <option>Mrs</option>
+                      <option>Dr</option>
+                    </select>
+                    <span className="absolute right-1 top-1/2 -translate-y-1/2 text-[#2d3494] text-sm pointer-events-none">▾</span>
+                  </div>
+                ) : (
+                  <input
+                    name={field.name}
+                    value={formData[field.name]}
+                    onChange={handleChange}
+                    className="border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pb-2 text-[14px] text-[#7b84c9] outline-none focus:border-[#1e2a78] sm:text-[0.9vw]"
+                    placeholder="Enter here"
+                  />
+                )}
               </div>
             ))}
             <div className="flex flex-col gap-2 w-full">
@@ -204,9 +279,10 @@ export default function TravelForm() {
           <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <Button
               type="submit"
-              className="bg-[#2c3078] text-white px-8 py-2 rounded-full"
+              disabled={isSubmitting}
+              className="bg-[#2c3078] text-white px-8 py-2 rounded-full disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Submit Inquiry{" "}
+              {isSubmitting ? "Sending..." : "Submit Inquiry"}
             </Button>{" "}
             <span className="w-full text-[13px] text-gray-600 sm:w-[36vw] sm:text-[1.05vw]">
               TravelOStyle typically responds within 48 hours. Your details are
@@ -215,6 +291,20 @@ export default function TravelForm() {
           </div>
         </form>
       </div>
+
+      {submitStatus ? (
+        <div
+          role="status"
+          className={`fixed right-6 top-6 z-50 transform rounded-md px-4 py-2 text-sm font-medium shadow-lg transition-opacity duration-200 ${
+            submitStatus.toLowerCase().includes("unable")
+              ? "bg-red-600 text-white"
+              : "bg-green-600 text-white"
+          }`}
+        >
+          {submitStatus}
+        </div>
+      ) : null}
+
     </div>
   );
 }

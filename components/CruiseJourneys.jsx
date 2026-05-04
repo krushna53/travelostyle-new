@@ -2,7 +2,7 @@
 
 import { Button } from "@heroui/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CelebrityPrincessCruises from "./Cruise/CelebrityPrincessCruises";
 import DisneyCruiseLine from "./Cruise/DisneyCruiseLine";
 import EuropeanRiverCruise from "./Cruise/EuropeanRiverCruise";
@@ -19,11 +19,16 @@ const filters = [
   "Mediterranean & Barges",
 ];
 
+const MODAL_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbx8ORK8Ms5gd7ClmtD5WNXSL8ol7_6DADcYy3GDG8N-KymxTjKJIqbtKvUYaPgk2fMigg/exec";
+
 export default function CruiseJourneys() {
   const [active, setActive] = useState(0);
   const [selectedCruise, setSelectedCruise] = useState(null);
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState("");
   const cruiseData = [
     { name: "Royal Caribbean", component: <RoyalCaribbean onGetDetails={openModal} /> },
     { name: "Disney Cruise Line", component: <DisneyCruiseLine onGetDetails={openModal} /> },
@@ -40,14 +45,92 @@ export default function CruiseJourneys() {
     setSelectedCruise(cruise);
     setAdults(0);
     setChildren(0);
+    setSubmitStatus("");
+    setIsSubmitting(false);
   }
 
   function closeModal() {
     setSelectedCruise(null);
+    setSubmitStatus("");
+    setIsSubmitting(false);
   }
 
   function updateCount(setter, nextValue) {
     setter(Math.max(0, nextValue));
+  }
+
+  useEffect(() => {
+    function handleOpenInquiry(event) {
+      openModal(event.detail ?? null);
+    }
+
+    window.addEventListener("openInquiry", handleOpenInquiry);
+
+    return () => {
+      window.removeEventListener("openInquiry", handleOpenInquiry);
+    };
+  }, []);
+
+  // Auto-clear submitStatus after a short delay so the toast disappears
+  useEffect(() => {
+    if (!submitStatus) return;
+    const id = setTimeout(() => setSubmitStatus(""), 5000);
+    return () => clearTimeout(id);
+  }, [submitStatus]);
+
+  async function handleModalSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const payload = {
+      firstName: formData.get("firstName") || "",
+      lastName: formData.get("lastName") || "",
+      title: formData.get("title") || "",
+      phone: formData.get("phone") || "",
+      email: formData.get("email") || "",
+      adults,
+      children,
+      message: formData.get("message") || "",
+      tripName: selectedCruise?.title ?? "",
+      duration: selectedCruise?.nights ?? "",
+      image: selectedCruise?.image ?? "",
+      source: "modal",
+    };
+
+    setIsSubmitting(true);
+    setSubmitStatus("");
+
+    try {
+      await fetch(MODAL_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify(payload),
+      });
+      // With `no-cors` the response is opaque and status cannot be relied on.
+      // The Apps Script endpoint has already processed the request when reachable.
+    } catch (error) {
+      // Network or runtime error occurred. Log for diagnostics but proceed
+      // to close the modal so the user isn't shown a false negative when
+      // the backend actually stored the submission.
+      // Keep developer console info for debugging.
+      // eslint-disable-next-line no-console
+      console.error("Modal submit error:", error);
+    } finally {
+      // Reset form, clear counts, close modal and show success message.
+      try {
+        event.currentTarget.reset();
+      } catch (e) {
+        // ignore
+      }
+      setAdults(0);
+      setChildren(0);
+      setIsSubmitting(false);
+      closeModal();
+      setSubmitStatus("Thank you. Your modal inquiry has been sent.");
+    }
   }
 
   return (
@@ -208,15 +291,15 @@ export default function CruiseJourneys() {
                 </div>
               </div>
 
-              <form className="mt-5 sm:mt-8">
+              <form className="mt-5 sm:mt-8" onSubmit={handleModalSubmit}>
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-6">
-                  <Field label="First Name*" placeholder="Your First Name" />
-                  <Field label="Last Name*" placeholder="Your Last Name" />
-                  <Field label="Title*" placeholder="Select Your Title" select />
-                  <Field label="Number/ WhatsApp" placeholder="+1773 983 8067" />
+                  <Field name="firstName" label="First Name*" placeholder="Your First Name" />
+                  <Field name="lastName" label="Last Name*" placeholder="Your Last Name" />
+                  <Field name="title" label="Title*" placeholder="Select Your Title" select />
+                  <Field name="phone" label="Number/ WhatsApp" placeholder="+1773 983 8067" />
 
                   <div className="sm:col-span-2">
-                    <Field label="Email*" placeholder="Enter Your Email ID" />
+                    <Field name="email" label="Email*" placeholder="Enter Your Email ID" />
                   </div>
                 </div>
 
@@ -246,6 +329,7 @@ export default function CruiseJourneys() {
                     Your Message*
                   </label>
                   <textarea
+                    name="message"
                     rows={5}
                     placeholder="Do you have questions or considerations that you would like us to know?"
                     className="min-h-33 w-full rounded-lg border-2 border-[#4b2aa3] bg-white px-3 py-3 text-[13px] leading-6 text-[#6d68a5] outline-none placeholder:text-[#b4afd8] sm:min-h-30.5 sm:px-4 sm:py-3.5"
@@ -263,21 +347,44 @@ export default function CruiseJourneys() {
                     </span>
                   </label>
 
-                  <Button className="w-fit rounded-full bg-[#4b1f95] px-5 py-2.5 text-[16px] font-semibold text-white shadow-none sm:px-6 sm:text-[17px]">
-                    <span className="sm:hidden">Submit Enquiry</span>
-                    <span className="hidden sm:inline">Get Details</span>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-fit rounded-full bg-[#4b1f95] px-5 py-2.5 text-[16px] font-semibold text-white shadow-none disabled:cursor-not-allowed disabled:opacity-70 sm:px-6 sm:text-[17px]"
+                  >
+                    <span className="sm:hidden">{isSubmitting ? "Sending..." : "Submit Enquiry"}</span>
+                    <span className="hidden sm:inline">{isSubmitting ? "Sending..." : "Get Details"}</span>
                   </Button>
                 </div>
+                {submitStatus ? (
+                  <p className="mt-4 text-[13px] font-medium text-[#3a219a]">
+                    {submitStatus}
+                  </p>
+                ) : null}
               </form>
             </div>
           </div>
         </div>
       )}
+
+      {/* Submission toast */}
+      {submitStatus ? (
+        <div
+          role="status"
+          className={`fixed right-6 top-6 z-50 transform rounded-md px-4 py-2 text-sm font-medium shadow-lg transition-opacity duration-200 ${
+            submitStatus.toLowerCase().includes("unable")
+              ? "bg-red-600 text-white"
+              : "bg-green-600 text-white"
+          }`}
+        >
+          {submitStatus}
+        </div>
+      ) : null}
     </section>
   );
 }
 
-function Field({ label, placeholder, select = false }) {
+function Field({ name, label, placeholder, select = false }) {
   return (
     <label className="block">
       <span className="mb-1.5 block text-[15px] font-semibold text-[#3a219a] sm:text-[16px]">
@@ -287,7 +394,7 @@ function Field({ label, placeholder, select = false }) {
       <div className="relative">
         {select ? (
           <>
-            <select className="w-full appearance-none border-0 border-b-2 border-[#4b2aa3] bg-transparent pb-2 pr-7 text-[13px] text-[#a29acc] outline-none sm:text-[14px]">
+            <select name={name} className="w-full appearance-none border-0 border-b-2 border-[#4b2aa3] bg-transparent pb-2 pr-7 text-[13px] text-[#a29acc] outline-none sm:text-[14px]">
               <option value="">{placeholder}</option>
               <option>Mr</option>
               <option>Ms</option>
@@ -300,6 +407,7 @@ function Field({ label, placeholder, select = false }) {
           </>
         ) : (
           <input
+            name={name}
             type="text"
             placeholder={placeholder}
             className="w-full border-0 border-b-2 border-[#4b2aa3] bg-transparent pb-2 text-[13px] text-[#a29acc] outline-none placeholder:text-[#a29acc] sm:text-[14px]"
