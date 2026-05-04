@@ -96,7 +96,7 @@ export default function HeroTravelSection() {
       </div>
 
       {/* TEXT SECTION */}
-      <section className="px-4 py-10 text-center sm:py-15">
+      <section id="about" className="px-4 py-10 text-center sm:py-15">
         <h1 className="text-[34px] leading-tight font-taprom text-[#2C3078] sm:text-[56px]">
           Making travel feel the way it is supposed to
         </h1>
@@ -196,7 +196,7 @@ export default function HeroTravelSection() {
         </div>
       </div>
 
-      <section className="bg-[#282c6e] py-16 text-white sm:py-20">
+      <section id="how-it-works" className="bg-[#282c6e] py-16 text-white sm:py-20">
         <div className="mx-auto flex w-full max-w-[90vw] flex-col items-center px-4 text-center sm:max-w-[85.2vw] sm:px-4">
           <p className="mb-2 text-[18px] opacity-80 font-taprom sm:text-[2.4vw]">
             season’s favorite
