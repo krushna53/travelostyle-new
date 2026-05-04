@@ -1,24 +1,21 @@
 export default function WhereTravelStyle() {
   return (
-    <div
-      id="ouroriginstory"
-      className="min-h-screen flex items-center justify-center py-15 bg-[#f4f5f7]"
-    >
-      <div className="text-center max-w-3xl">
-        <p className="text-[2.4vw] font-taprom text-[#2C3078] mb-1 tracking-wide">
+    <div id="where-travel-style" className="min-h-screen flex items-center justify-center py-15 bg-[#f4f5f7]">
+      <div className="text-center md:max-w-[85.2vw] mx-auto px-4">
+        <p className="text-2xl font-taprom text-[#2C3078] mb-1 tracking-wide">
           our origin story
         </p>
 
-        <h1 className="text-[3.2vw] font-semibold text-[#2C3078] mb-8 leading-tight">
+        <h1 className="text-3xl md:text-4xl font-semibold text-[#2C3078] mb-8 leading-tight">
           Where TravelOStyle began
         </h1>
-        <div className="space-y-6 text-[1.05vw] text-[#2C3078] leading-7 ">
+        <div className="space-y-6 text-lg text-[#2C3078] leading-7 ">
           <p className=" mx-auto">
             We started from a simple observation: travel should be a respite.
             But for most people, planning it is anything but.
           </p>
 
-          <p className="max-w-[55vw] mx-auto text-[1.05vw] text-[#2C3078]">
+          <p className="md:max-w-[55vw] mx-auto text-lg text-[#2C3078]">
             We believe every traveller carries a dream of what a journey could
             be. Our role is to bring that dream to life with grace regardless of
             budget or experience level. Every traveler deserves to experience
@@ -26,7 +23,7 @@ export default function WhereTravelStyle() {
             version.
           </p>
 
-          <p className="max-w-[55vw] mx-auto text-[1.05vw] text-[#2C3078]">
+          <p className="md:max-w-[55vw] mx-auto text-lg text-[#2C3078]">
             With 30+ years of combined experience across land, air, and cruise,
             and across very different travel budgets and expectations — we’ve
             taken everything we know — about systems, logistics, on-ground
@@ -37,9 +34,9 @@ export default function WhereTravelStyle() {
         </div>
 
         <div className="my-10 flex justify-center">
-          <span className="text-[#2d3475] text-lg">✦</span>
+          <span className="text-[#2d3475] text-2xl">✦</span>
         </div>
-        <p className=" text-[1.05vw] text-[#2C3078] max-w-[35vw] mx-auto leading-6">
+        <p className=" text-lg text-[#2C3078] md:max-w-[35vw] mx-auto leading-6">
           The full website is launching mid-2026. Until then, our journeys are
           available, our advisors are here, and the conversation can start
           today.

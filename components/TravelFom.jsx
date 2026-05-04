@@ -35,33 +35,30 @@ export default function TravelForm() {
   };
 
   return (
-    <div
-      id="build-your-own-Journey"
-      className="min-h-screen bg-[#ebebf2] flex items-center justify-center p-8"
-    >
-      <div className="w-[919.5vw] max-w-6xl relative ">
+    <div id="inquiry-form" className="min-h-screen bg-[#ebebf2] flex items-center justify-center px-4 py-10 sm:p-8">
+      <div className="relative w-full max-w-[85.2vw]">
         <div
-          className="absolute top-0 left-0 w-full h-[6px] bg-repeat-x"
+          className="absolute top-0 left-0 h-1.5 w-full bg-repeat-x"
           style={{
             backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='6'><path d='M0 3 Q5 0 10 3 T20 3' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
           }}
         />
 
         <div
-          className="absolute bottom-0 left-0 w-full h-[6px] bg-repeat-x"
+          className="absolute bottom-0 left-0 h-1.5 w-full bg-repeat-x"
           style={{
             backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='6'><path d='M0 3 Q5 6 10 3 T20 3' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
           }}
         />
 
         <div
-          className="absolute top-0 left-0 h-full w-[6px] bg-repeat-y"
+          className="absolute top-0 left-0 h-full w-1.5 bg-repeat-y"
           style={{
             backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='20'><path d='M3 0 Q0 5 3 10 T3 20' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
           }}
         />
         <div
-          className="absolute top-0 right-0 h-full w-[6px] bg-repeat-y"
+          className="absolute top-0 right-0 h-full w-1.5 bg-repeat-y"
           style={{
             backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='20'><path d='M3 0 Q6 5 3 10 T3 20' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
           }}
@@ -69,20 +66,17 @@ export default function TravelForm() {
 
         <div className="absolute inset-0 rounded-xl pointer-events-none" />
 
-        <form
-          onSubmit={handleSubmit}
-          className="bg-[#ebebf2] rounded-xl px-10 py-4"
-        >
+        <form onSubmit={handleSubmit} className="rounded-xl bg-[#ebebf2] px-4 py-4 sm:px-10">
           <div className="mb-10">
-            <span className="text-[2.4vw] font-taprom text-[#2C3078]">
+            <span className="text-[22px] font-taprom text-[#2C3078] sm:text-[2.4vw]">
               tailor-made
             </span>
 
-            <h1 className="text-[3.2vw] font-semibold text-indigo-900">
+            <h1 className="text-[30px] font-semibold text-indigo-900 sm:text-[3.2vw]">
               Build Your Own Journey
             </h1>
 
-            <div className="flex flex-wrap items-center gap-3 mt-3 text-[#33377c] text-[1.05vw]">
+            <div className="mt-3 flex flex-wrap items-center gap-3 text-[14px] text-[#33377c] sm:text-[1.05vw]">
               <span>Anywhere</span>
 
               <Image
@@ -122,14 +116,14 @@ export default function TravelForm() {
               <span>All Budgets</span>
             </div>
 
-            <p className="text-[1.05vw] text-[#33377c] mt-4 max-w-3xl leading-relaxed">
+            <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-[#33377c] sm:text-[1.05vw]">
               Tired of one-size-fits-all journeys? Tell us how you want to do
               it. Simply share your idea of travel below and let TravelOStyle
               figure out the rest. We ve got your back.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-10">
+          <div className="grid grid-cols-1 gap-x-12 gap-y-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-y-10">
             {[
               { label: "First Name", name: "firstName" },
               { label: "Last Name", name: "lastName" },
@@ -142,20 +136,20 @@ export default function TravelForm() {
               { label: "Month of Travel", name: "month" },
             ].map((field, i) => (
               <div key={i} className="flex flex-col gap-2">
-                <label className="text-[13px] font-semibold text-[#2d3494]">
+                <label className="text-[13px] font-semibold text-[#2d3494] sm:text-[13px]">
                   {field.label}
                 </label>
                 <input
                   name={field.name}
                   value={formData[field.name]}
                   onChange={handleChange}
-                  className="bg-transparent border-0 border-b-[1.6px] border-[#2d3494] text-[0.9vw] text-[#7b84c9] pb-2 outline-none focus:border-[#1e2a78]"
+                  className="border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pb-2 text-[14px] text-[#7b84c9] outline-none focus:border-[#1e2a78] sm:text-[0.9vw]"
                   placeholder="Enter here"
                 />
               </div>
             ))}
             <div className="flex flex-col gap-2 w-full">
-              <label className="text-[0.9vw] font-semibold text-[#2d3494]">
+              <label className="text-[13px] font-semibold text-[#2d3494] sm:text-[0.9vw]">
                 Flexibility*
               </label>
 
@@ -164,7 +158,7 @@ export default function TravelForm() {
                   name="flexibility"
                   value={formData.flexibility}
                   onChange={handleChange}
-                  className="appearance-none w-full bg-transparent border-0 border-b-[1.6px] border-[#2d3494] text-[0.9vw] text-[#7b84c9] pb-2 pr-6 outline-none cursor-pointer"
+                  className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pb-2 pr-6 text-[14px] text-[#7b84c9] outline-none sm:text-[0.9vw]"
                 >
                   <option value="">Select</option>
                   <option>Exact Match</option>
@@ -181,7 +175,7 @@ export default function TravelForm() {
           </div>
 
           <div className="mt-12">
-            <label className="text-[0.9vw] font-semibold text-[#2d3494]">
+            <label className="text-[13px] font-semibold text-[#2d3494] sm:text-[0.9vw]">
               Your Message
             </label>
             <textarea
@@ -189,12 +183,12 @@ export default function TravelForm() {
               value={formData.message}
               onChange={handleChange}
               rows={5}
-              className="w-full mt-2 bg-white border border-[#2d3494] rounded-lg p-4 text-[13px] text-[#7b84c9] outline-none"
+              className="mt-2 w-full rounded-lg border border-[#2d3494] bg-white p-4 text-[13px] text-[#7b84c9] outline-none"
             />
           </div>
 
           {/* FOOTER */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-10 gap-6">
+          <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
@@ -202,24 +196,21 @@ export default function TravelForm() {
                 checked={formData.agree}
                 onChange={handleChange}
               />
-              <span className="text-gray-600 text-[0.9vw]">
+              <span className="text-[13px] text-gray-600 sm:text-[0.9vw]">
                 I agree to be contacted by TravelOStyle regarding my inquiry
               </span>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-10 gap-6">
-            {" "}
+          <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <Button
               type="submit"
               className="bg-[#2c3078] text-white px-8 py-2 rounded-full"
             >
-              {" "}
               Submit Inquiry{" "}
             </Button>{" "}
-            <span className="text-sm text-gray-600 text-[1.05vw] w-[36vw]">
-              {" "}
+            <span className="w-full text-[13px] text-gray-600 sm:w-[36vw] sm:text-[1.05vw]">
               TravelOStyle typically responds within 48 hours. Your details are
-              never shared with third parties.{" "}
+              never shared with third parties.
             </span>{" "}
           </div>
         </form>

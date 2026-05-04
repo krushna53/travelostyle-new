@@ -42,31 +42,23 @@ const FAQSection = () => {
   ];
 
   return (
-    <div
-      id="faq"
-      className="min-h-screen bg-[#F9F7F4] flex items-center justify-center p-6 md:p-12"
-    >
-      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12">
+    <div id="faq" className="min-h-screen bg-[#F9F7F4] flex items-center justify-center px-4 py-10 md:p-12">
+      <div className="grid w-full max-w-[85.2vw] grid-cols-1 gap-12 px-0 md:grid-cols-2 md:px-20">
         <div>
-          <span className="text-[3vw] text-[#2C3078] font-taprom">FAQs</span>
+          <span className="text-[20px] text-[#2C3078] font-taprom sm:text-[3vw]">FAQs</span>
           <br />
-          <span className="text-[40px] font-bold text-[#2C3078]">
+          <span className="text-[34px] font-bold text-[#2C3078] sm:text-[40px]">
             Questions Worth <br /> Asking
           </span>
           <br />
           <br />
-          <p className="text-[#2C3078] max-w-sm text-lg leading-relaxed">
+          <p className="max-w-sm text-[15px] leading-relaxed text-[#2C3078] sm:text-lg">
             Honest answers to the things people wonder most before reaching out.
             If something isn t here, ask us directly —we d always rather you ask
             than assume.
           </p>
           <br />
-          <button
-            onClick={() => {
-              window.open("mailto:example@gmail.com", "_self");
-            }}
-            className="cursor-pointer bg-[#2D316B] text-white px-8 py-3 rounded-full font-medium hover:bg-opacity-90 transition-all"
-          >
+          <button className="rounded-full bg-[#2D316B] px-8 py-3 font-medium text-white transition-all hover:bg-opacity-90">
             Ask Us Anything
           </button>
         </div>
@@ -79,7 +71,7 @@ const FAQSection = () => {
                 className="w-full flex justify-between items-center text-left py-2 group"
               >
                 <span
-                  className={` text-[1.05vw] font-medium transition-colors ${openId === faq.id ? "text-[#2D316B]" : "text-gray-700 group-hover:text-[#2D316B]"}`}
+                  className={`font-medium transition-colors ${openId === faq.id ? "text-[#2D316B]" : "text-gray-700 group-hover:text-[#2D316B]"}`}
                 >
                   {faq.question}
                 </span>

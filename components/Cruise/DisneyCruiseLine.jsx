@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, Card } from "@heroui/react";
 import Image from "next/image";
-export default function DisneyCruiseLine() {
+
+export default function DisneyCruiseLine({ onGetDetails }) {
   const cruises = [
     {
       title: "BAHAMAS",
@@ -33,11 +34,11 @@ export default function DisneyCruiseLine() {
     },
   ];
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  w-[87vw] mx-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full sm:w-[87vw] mx-auto px-2 sm:px-0">
       {cruises.map((item, index) => (
         <div
           key={index}
-          className="w-[20.5vw] min-h-[23.35vw] p-3"
+          className="w-full sm:w-[20.5vw] min-h-auto sm:min-h-[23.35vw] p-3"
           style={{
             backgroundImage: "url('/zig-zag-border.png')",
             backgroundRepeat: "no-repeat",
@@ -46,7 +47,7 @@ export default function DisneyCruiseLine() {
         >
           <Card className="w-full h-full rounded-xl bg-white flex flex-col justify-between">
             <div className="p-3 pb-0">
-              <div className="relative h-[10.25vw]  w-[16.75vw] overflow-hidden">
+              <div className="relative h-50 sm:h-[10.25vw] w-full sm:w-[16.75vw] overflow-hidden">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -84,7 +85,10 @@ export default function DisneyCruiseLine() {
                 <p className="text-xs text-gray-400">double occupancy*</p>
               </div>
 
-              <Button className="bg-[#2C3078] text-white text-sm px-4 py-2 rounded-full">
+              <Button
+                onClick={() => onGetDetails?.(item)}
+                className="bg-[#2C3078] text-white text-sm px-4 py-2 rounded-full"
+              >
                 Get Details
               </Button>
             </div>

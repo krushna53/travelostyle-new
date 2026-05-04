@@ -24,28 +24,35 @@ export default function ValuesSection() {
     },
   ];
   return (
-    <section className="bg-[#2d3475] py-8 px-12">
-      <div className="border border-dashed border-[#e9e9ee] rounded-xl p-6 text-center [border-width:2px] [border-spacing:40px">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 text-center text-white">
+    <section id="values-section" className="bg-[#2d3475] px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
+      <div className="mx-auto max-w-[85.2vw] border-2 border-dashed border-white/85 px-6 py-8 text-center sm:px-8 sm:py-10 lg:px-10 lg:py-12">
+        <div className="grid grid-cols-1 gap-8 text-center text-white md:grid-cols-4 md:gap-10">
           {features.map((item, i) => (
-            <div key={i} className="space-y-4 relative">
-              <div className="ml-[6vw]">
-                <Image src={item.icon} alt="star" width={60} height={60} />
+            <div key={i} className="relative flex flex-col items-center justify-start gap-4">
+              <div className="flex h-16 w-16 items-center justify-center">
+                <Image
+                  src={item.icon}
+                  alt={item.title}
+                  width={60}
+                  height={60}
+                  className="h-15 w-15 object-contain"
+                />
               </div>
-              <h3 className="font-semibold text-sm leading-snug">
+              <h3 className="text-sm font-semibold leading-snug sm:text-[0.95rem]">
                 {item.title}
               </h3>
-              <p className="text-xs text-white/80 leading-5 max-w-[220px] mx-auto">
+              <p className="mx-auto max-w-55 text-xs leading-5 text-white/80 sm:text-[0.8rem] sm:leading-6">
                 {item.desc}
               </p>
 
               {i !== features.length - 1 && (
-                <span className="hidden md:block absolute -right-7 top-1/2 -translate-y-1/2 text-white/60">
+                <span className="absolute right-[-1.4rem] top-1/2 hidden -translate-y-1/2 md:block text-white/60">
                   <Image
                     src={"/smallstar.png"}
-                    alt="star"
+                    alt="separator"
                     width={20}
                     height={20}
+                    className="h-5 w-5"
                   />
                 </span>
               )}
