@@ -14,7 +14,7 @@ export default function CruiseCard({ item, onGetDetails }) {
         viewBox="0 0 410 467"
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
-        style={{ filter: "drop-shadow(0px 12px 10px rgba(0,0,0,0.05))" }}
+        style={{ filter: "drop-shadow(0px 12px 10px rgba(0,0,0,0.2))" }}
       >
         <path d={STAMP_PATH} fill="#FAFAFA" />
       </svg>

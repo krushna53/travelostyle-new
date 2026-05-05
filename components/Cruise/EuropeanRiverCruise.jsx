@@ -24,7 +24,7 @@ export default function EuropeanRiverCruise({ onGetDetails }) {
   return (
     <>
       {/* Mobile: Single card with navigation */}
-      <div className="sm:hidden px-4">
+      <div className="sm:hidden">
         <div
           className="transition-all duration-500 ease-in-out"
           key={currentIndex}
@@ -33,7 +33,7 @@ export default function EuropeanRiverCruise({ onGetDetails }) {
         </div>
 
         {/* Navigation buttons below card */}
-        <div className="mt-6 flex items-center justify-center gap-8">
+        <div className="mt-6 flex items-center justify-between gap-8">
           <button
             type="button"
             onClick={handlePrev}
