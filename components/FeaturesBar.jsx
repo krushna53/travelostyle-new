@@ -29,7 +29,7 @@ export default function FeaturesBar() {
             <div
               key={i}
               className={`relative flex flex-col gap-3 px-6 py-8 text-center
-                ${i !== features.length - 1 ? "border-b border-dashed border-[#2C3078] lg:border-b-0 lg:border-r lg:border-dashed lg:border-[#2C3078]" : ""}`}
+                ${i !== features.length - 1 ? " " : ""}`}
             >
               <h3 className="text-[15px] font-semibold text-[#2C3078] lg:text-[1vw]">
                 {item.title}
@@ -38,13 +38,15 @@ export default function FeaturesBar() {
                 {item.desc}
               </p>
 
-              {/* + separator only on desktop between columns */}
+              {/* star separator only on desktop between columns */}
               {i !== features.length - 1 && (
                 <span
-                  className="absolute right-0 top-1/2 z-10 hidden -translate-y-1/2 translate-x-1/2 bg-[#fafafa] px-1 text-lg font-light text-[#2C3078] lg:flex"
+                  className="absolute right-0 top-1/2 z-10 hidden -translate-y-1/2 translate-x-1/2 bg-[#fafafa] px-1 lg:flex"
                   aria-hidden
                 >
-                  +
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 12C10.2868 12.9463 11.0537 13.7132 12 24C12.9463 13.7132 13.7132 12.9463 24 12C13.7132 11.0537 12.9463 10.2868 12 0C11.0537 10.2868 10.2868 11.0537 0 12Z" fill="#2C3078"/>
+                  </svg>
                 </span>
               )}
             </div>
