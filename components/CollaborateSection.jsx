@@ -18,9 +18,12 @@ export default function CollaborateSection() {
               know, we d like to hear from you.
             </p>
 
-            <button className="mt-6 flex items-center gap-2 bg-indigo-900 text-white text-sm px-5 py-2 rounded-full font-sans">
+            <a
+              href="mailto:info@travelostyle.com"
+              className="mt-6 inline-flex items-center gap-2 bg-indigo-900 text-white text-sm px-5 py-2 rounded-full font-sans"
+            >
               Write To Us
-            </button>
+            </a>
           </div>
         </div>
 
@@ -49,9 +52,12 @@ export default function CollaborateSection() {
                 we operate in. If you work in a destination we should know, we&apos;d like
                 to hear from you.
               </p>
-              <button className="mt-6 rounded-full bg-white px-5 py-2 text-[16px] font-semibold text-[#2a0c6f]">
+              <a
+                href="mailto:info@travelostyle.com"
+                className="mt-6 inline-block rounded-full bg-white px-5 py-2 text-[16px] font-semibold text-[#2a0c6f]"
+              >
                 Ask Us Anything
-              </button>
+              </a>
             </div>
           </div>
         </div>

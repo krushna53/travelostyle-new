@@ -11,6 +11,8 @@ import FaqData from "./Fqa";
 import CollaborateSection from "./CollaborateSection";
 import Navbar from "./Navbar";
 import FooterSection from "./FooterSection";
+import FeaturesBar from "./FeaturesBar";
+import HowItWorks from "./HowItWorks";
 
 const images = [
   "/Rectangle1.png",
@@ -30,7 +32,7 @@ export default function HeroTravelSection() {
       <div className="overflow-hidden bg-[#2c3078] p-2">
         <div className="flex w-max animate-scroll-left gap-2">
           {duplicated.map((src, index) => (
-            <div key={index} className="relative flex-shrink-0 w-[48vw] sm:w-[24vw]">
+            <div key={index} className="relative shrink-0 w-[48vw] sm:w-[24vw]">
               <div className="relative h-[52vw] sm:h-[16.41vw] rounded-lg overflow-hidden">
                 <Image src={src} alt="travel" fill className="object-cover" />
               </div>
@@ -48,11 +50,33 @@ export default function HeroTravelSection() {
 
       {/* TEXT */}
       <section className="px-4 py-10 text-center sm:py-15">
-        <h1 className="text-[34px] sm:text-[56px] text-[#2C3078]">
+        <h1
+          className="font-taprom text-[#2C3078]"
+          style={{
+            fontSize: "clamp(34px, 2.9vw, 56px)",
+            fontWeight: 400,
+            lineHeight: "64px",
+            letterSpacing: "0em",
+            textAlign: "center",
+          }}
+        >
           Making travel feel the way it is supposed to
         </h1>
-        <p className="mx-auto mt-4 max-w-[92vw] sm:max-w-[43.2vw] text-[#2C3078]">
-          Travel is full of options. TravelOStyle makes sense of them.
+        <p
+          className="mx-auto mt-4 max-w-[92vw] sm:max-w-[50vw]"
+          style={{
+            fontFamily: "Nohemi, sans-serif",
+            fontWeight: 300,
+            fontSize: "clamp(16px, 1.09vw, 21px)",
+            lineHeight: "40px",
+            letterSpacing: "0.05em",
+            textAlign: "center",
+            color: "#2C3078",
+          }}
+        >
+          Travel is full of options. TravelOStyle makes sense of them — for
+          your budget, your time, your preferences and your idea of an
+          exceptional trip.
         </p>
         <div className="mt-4">
           <Link href="#cruise-journeys">
@@ -67,7 +91,7 @@ export default function HeroTravelSection() {
       <div className="overflow-hidden bg-[#2c3078] p-2">
         <div className="flex w-max animate-scroll-right gap-2">
           {duplicated.map((src, index) => (
-            <div key={index} className="relative flex-shrink-0 w-[48vw] sm:w-[24vw]">
+            <div key={index} className="relative shrink-0 w-[48vw] sm:w-[24vw]">
               <div className="relative h-[52vw] sm:h-[16.41vw] rounded-lg overflow-hidden">
                 <Image src={src} alt="travel" fill className="object-cover" />
               </div>
@@ -81,6 +105,9 @@ export default function HeroTravelSection() {
           ))}
         </div>
       </div>
+
+      <FeaturesBar />
+      <HowItWorks />
 
       <CruiseJourneys />
       <LandJourneys />

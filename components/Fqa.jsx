@@ -58,9 +58,12 @@ const FAQSection = () => {
             than assume.
           </p>
           <br />
-          <button className="rounded-full bg-[#2D316B] px-8 py-3 font-medium text-white transition-all hover:bg-opacity-90">
+          <a
+            href="mailto:info@travelostyle.com"
+            className="inline-block rounded-full bg-[#2D316B] px-8 py-3 font-medium text-white transition-all hover:bg-opacity-90"
+          >
             Ask Us Anything
-          </button>
+          </a>
         </div>
 
         <div className="divide-y divide-gray-300 border-t border-gray-300">
