@@ -6,7 +6,7 @@ const STAMP_PATH =
 
 export default function CruiseCard({ item, onGetDetails }) {
   return (
-    <div className="relative">
+    <div className="relative p-3">
       {/* Exact Figma stamp shape — drop-shadow on the SVG only so shadow follows the outline */}
       <svg
         aria-hidden="true"

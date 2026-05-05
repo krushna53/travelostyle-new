@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import CruiseCard from "./CruiseCard";
 
 const cruises = [
@@ -8,11 +11,54 @@ const cruises = [
 ];
 
 export default function EuropeanRiverCruise({ onGetDetails }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + cruises.length) % cruises.length);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % cruises.length);
+  };
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
-      {cruises.map((item, i) => (
-        <CruiseCard key={i} item={item} onGetDetails={onGetDetails} />
-      ))}
-    </div>
+    <>
+      {/* Mobile: Single card with navigation */}
+      <div className="sm:hidden px-4">
+        <div
+          className="transition-all duration-500 ease-in-out"
+          key={currentIndex}
+        >
+          <CruiseCard item={cruises[currentIndex]} onGetDetails={onGetDetails} />
+        </div>
+
+        {/* Navigation buttons below card */}
+        <div className="mt-6 flex items-center justify-center gap-8">
+          <button
+            type="button"
+            onClick={handlePrev}
+            aria-label="Previous cruise"
+            className="shrink-0 text-2xl text-[#3b1c8e] hover:opacity-70 transition"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label="Next cruise"
+            className="shrink-0 text-2xl text-[#3b1c8e] hover:opacity-70 transition"
+          >
+            →
+          </button>
+        </div>
+      </div>
+
+      {/* Desktop: Grid layout */}
+      <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+        {cruises.map((item, i) => (
+          <CruiseCard key={i} item={item} onGetDetails={onGetDetails} />
+        ))}
+      </div>
+    </>
   );
 }

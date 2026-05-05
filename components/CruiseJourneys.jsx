@@ -164,7 +164,7 @@ export default function CruiseJourneys() {
             <select
               value={active}
               onChange={(event) => setActive(Number(event.target.value))}
-              className="w-full rounded-sm border border-[#6b5bc4] bg-white px-4 py-3 pr-10 text-[14px] font-medium text-[#1c2c5b] outline-none"
+              className="appearance-none w-full rounded-sm border border-[#6b5bc4] bg-white px-4 py-3 pr-10 text-[14px] font-medium text-[#1c2c5b] outline-none"
             >
               {filters.map((item, index) => (
                 <option key={item} value={index}>
@@ -189,23 +189,6 @@ export default function CruiseJourneys() {
         <div className="sm:hidden">
           <div className="transition-all duration-300">
             {cruiseData[active].component}
-          </div>
-
-          <div className="mt-5 flex items-center justify-between px-3 text-[28px] text-[#3b1c8e]">
-            <button
-              type="button"
-              onClick={() => setActive((active - 1 + cruiseData.length) % cruiseData.length)}
-              aria-label="Previous cruise"
-            >
-              ←
-            </button>
-            <button
-              type="button"
-              onClick={() => setActive((active + 1) % cruiseData.length)}
-              aria-label="Next cruise"
-            >
-              →
-            </button>
           </div>
         </div>
       </div>
