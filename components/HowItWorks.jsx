@@ -39,7 +39,7 @@ export default function HowItWorks() {
             textAlign: "center",
           }}
         >
-          season&apos;s favorite
+          reader&apos;s favorite
         </p>
 
         <h2
@@ -58,34 +58,73 @@ export default function HowItWorks() {
           itinerary and pricing, then handle every detail from there.
         </p>
 
-        {/* Steps — 1 col mobile, 2 col sm, 4 col lg */}
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step) => (
-            <div
-              key={step.number}
-              className="flex flex-col items-center gap-4 px-6 py-8 text-center"
-              style={{ border: "3px dashed #fafafa" }}
-            >
-              <span
-                className="font-bold text-white"
-                style={{ fontSize: "clamp(32px, 3vw, 48px)" }}
-              >
-                {step.number}
-              </span>
-              <h3
-                className="font-semibold text-white"
-                style={{ fontSize: "clamp(14px, 1.1vw, 18px)" }}
-              >
-                {step.title}
-              </h3>
-              <p
-                className="leading-6 text-white/75"
-                style={{ fontSize: "clamp(12px, 0.9vw, 15px)" }}
-              >
-                {step.desc}
-              </p>
+        {/* Mobile: Vertical timeline | Desktop: Grid */}
+        <div className="mt-10">
+          {/* Mobile Timeline */}
+          <div className="sm:hidden relative px-6">
+            {/* Vertical connecting line */}
+            <div className="absolute left-[37px] top-5 bottom-24 w-1 bg-gradient-to-b from-white/30 via-white/20 to-white/30" />
+
+            <div className="space-y-8">
+              {steps.map((step, index) => (
+                <div key={step.number} className="relative flex items-start gap-6 text-left">
+                  {/* Star and number */}
+                  <div className="relative flex flex-col items-center flex-shrink-0">
+                    <span className="text-4xl text-white mb-2">✦</span>
+                  </div>
+
+                  {/* Text content */}
+                  <div className="flex-1 pt-1">
+                    <span
+                      className="font-bold text-white text-center"
+                      style={{ fontSize: "24px" }}
+                    >
+                      {step.number}
+                    </span>
+                    <h3 className="font-semibold text-white text-left" style={{ fontSize: "16px" }}>
+                      {step.title}
+                    </h3>
+                    <p
+                      className="mt-1 leading-6 text-white/75 text-left"
+                      style={{ fontSize: "13px" }}
+                    >
+                      {step.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          {/* Desktop: Grid layout */}
+          <div className="hidden sm:grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((step) => (
+              <div
+                key={step.number}
+                className="flex flex-col items-center gap-4 px-6 py-8 text-center"
+                style={{ border: "3px dashed #fafafa" }}
+              >
+                <span
+                  className="font-bold text-white"
+                  style={{ fontSize: "clamp(32px, 3vw, 48px)" }}
+                >
+                  {step.number}
+                </span>
+                <h3
+                  className="font-semibold text-white"
+                  style={{ fontSize: "clamp(14px, 1.1vw, 18px)" }}
+                >
+                  {step.title}
+                </h3>
+                <p
+                  className="leading-6 text-white/75"
+                  style={{ fontSize: "clamp(12px, 0.9vw, 15px)" }}
+                >
+                  {step.desc}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

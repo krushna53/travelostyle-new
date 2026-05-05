@@ -4,14 +4,19 @@ export default function CollaborateSection() {
   return (
     <section id="collaborate" className="w-full">
       {/* Single unified layout — gradient & text position adapt via CSS */}
-      <div className="relative min-h-125 md:h-[clamp(320px,28vw,480px)]">
-
+      <div className="relative h-[620px]">
         {/* Background image */}
         <Image
           src="/collebrate.png"
           alt="Collaborate with TravelOStyle"
           fill
-          className="object-cover object-center"
+          className="
+          object-cover 
+          object-[75%_100%]
+          md:object-center
+          mt-40
+          md:mt-0
+          "
           priority
         />
 
@@ -25,15 +30,12 @@ export default function CollaborateSection() {
         />
 
         {/* Desktop gradient: solid light left → transparent right */}
-        <div
-          className="absolute inset-0 hidden md:block"
-        />
+        <div className="absolute inset-0 hidden md:block" />
 
         {/* Text — top on mobile, vertically centered on desktop */}
         <div className="absolute inset-0 flex items-start pt-8 md:items-center md:pt-0">
           <div className="mx-auto w-full max-w-[85.2vw] px-6 md:px-12">
             <div className="max-w-xs md:max-w-md">
-
               <h2
                 className="font-taprom leading-snug text-white md:text-[#2C3078]"
                 style={{ fontSize: "clamp(26px, 2.4vw, 40px)" }}
@@ -57,11 +59,9 @@ export default function CollaborateSection() {
               >
                 Write To Us
               </a>
-
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );
