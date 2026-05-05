@@ -42,8 +42,8 @@ const FAQSection = () => {
   ];
 
   return (
-    <div id="faq" className="min-h-screen bg-[#F9F7F4] flex items-center justify-center px-4 py-10 md:p-12">
-      <div className="grid w-full max-w-[85.2vw] grid-cols-1 gap-12 px-0 md:grid-cols-2 md:px-20">
+    <div id="faq" className="bg-[#F9F7F4] px-4 py-12 sm:px-6 sm:py-16 md:px-12 md:py-20">
+      <div className="grid w-full max-w-[85.2vw] mx-auto grid-cols-1 gap-10 px-0 md:grid-cols-2 md:gap-12 md:px-20">
         <div>
           <span className="text-[20px] text-[#2C3078] font-taprom sm:text-[3vw]">FAQs</span>
           <br />

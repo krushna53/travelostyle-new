@@ -25,16 +25,16 @@ export default function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="bg-[#2c3078] px-4 py-14 sm:px-6 sm:py-18 lg:px-8 lg:py-20"
+      className="bg-[#2c3078] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
     >
       <div className="mx-auto max-w-[85.2vw] text-center">
-        {/* season's favorite — exact Figma specs */}
+        {/* season's favorite — Taprom, exact Figma specs */}
         <p
           className="font-taprom text-white"
           style={{
-            fontSize: "clamp(28px, 2.5vw, 48px)",
+            fontSize: "clamp(24px, 2.5vw, 48px)",
             fontWeight: 400,
-            lineHeight: "64px",
+            lineHeight: "1.4",
             letterSpacing: "0.05em",
             textAlign: "center",
           }}
@@ -42,30 +42,46 @@ export default function HowItWorks() {
           season&apos;s favorite
         </p>
 
-        <h2 className="mt-1 text-[32px] font-bold text-white sm:text-[2.8vw] leading-tight">
+        <h2
+          className="mt-2 font-bold text-white leading-tight"
+          style={{ fontSize: "clamp(26px, 2.8vw, 48px)" }}
+        >
           Take A Journey With Us
         </h2>
 
-        <p className="mx-auto mt-5 max-w-[90vw] text-[14px] leading-7 text-white/80 sm:max-w-[50vw] sm:text-[1vw]">
+        <p
+          className="mx-auto mt-4 max-w-[90vw] leading-7 text-white/80 sm:max-w-[55vw]"
+          style={{ fontSize: "clamp(13px, 1vw, 18px)" }}
+        >
           Arriving in the perfect place at the perfect moment is a rare kind of
           magic. Share your interest with us, and we&apos;ll curate the complete
           itinerary and pricing, then handle every detail from there.
         </p>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Steps — 1 col mobile, 2 col sm, 4 col lg */}
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step) => (
             <div
               key={step.number}
-              className="flex flex-col items-center gap-4 px-6 py-10 text-center"
+              className="flex flex-col items-center gap-4 px-6 py-8 text-center"
               style={{ border: "3px dashed #fafafa" }}
             >
-              <span className="text-[40px] font-bold text-white sm:text-[3vw]">
+              <span
+                className="font-bold text-white"
+                style={{ fontSize: "clamp(32px, 3vw, 48px)" }}
+              >
                 {step.number}
               </span>
-              <h3 className="text-[16px] font-semibold text-white sm:text-[1.1vw]">
+              <h3
+                className="font-semibold text-white"
+                style={{ fontSize: "clamp(14px, 1.1vw, 18px)" }}
+              >
                 {step.title}
               </h3>
-              <p className="text-[13px] leading-6 text-white/75 sm:text-[0.9vw]">
+              <p
+                className="leading-6 text-white/75"
+                style={{ fontSize: "clamp(12px, 0.9vw, 15px)" }}
+              >
                 {step.desc}
               </p>
             </div>

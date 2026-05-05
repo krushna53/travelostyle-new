@@ -38,7 +38,7 @@ export default function CollaborateSection() {
       </div>
 
       <div className="relative md:hidden">
-        <div className="relative h-140 overflow-hidden">
+        <div className="relative min-h-125 overflow-hidden">
           <Image src="/collebrate.png" alt="collaboration" fill className="object-cover" />
           <div className="absolute inset-0 bg-linear-to-t from-[#2a0c6f]/90 via-[#2a0c6f]/50 to-[#2a0c6f]/20" />
           <div className="absolute inset-0 flex flex-col justify-between p-5 text-white">

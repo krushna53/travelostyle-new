@@ -9,7 +9,7 @@ export default function ValuesSection() {
     },
     {
       title: "Respect isn't a premium add-on",
-      desc: "Every traveler gets the same quality of attention no matter the budget. We don’t sort people by what they spend.",
+      desc: "Every traveler gets the same quality of attention no matter the budget. We don't sort people by what they spend.",
       icon: "/equal .png",
     },
     {
@@ -19,36 +19,43 @@ export default function ValuesSection() {
     },
     {
       title: "The journey gives something back",
-      desc: "We design travel that restores, reconnects, and shows people what’s possible.",
+      desc: "We design travel that restores, reconnects, and shows people what's possible.",
       icon: "/happytrip.png",
     },
   ];
+
   return (
-    <section id="values-section" className="bg-[#2d3475] px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
-      <div className="mx-auto max-w-[85.2vw] border-2 border-dashed border-white/85 px-6 py-8 text-center sm:px-8 sm:py-10 lg:px-10 lg:py-12">
-        <div className="grid grid-cols-1 gap-8 text-center text-white md:grid-cols-4 md:gap-10">
+    <section
+      id="values-section"
+      className="bg-[#2d3475] px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16"
+    >
+      <div className="mx-auto max-w-[85.2vw] border-2 border-dashed border-white/85 px-5 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
+        <div className="grid grid-cols-2 gap-8 text-center text-white md:grid-cols-4 md:gap-10">
           {features.map((item, i) => (
-            <div key={i} className="relative flex flex-col items-center justify-start gap-4">
-              <div className="flex h-16 w-16 items-center justify-center">
+            <div
+              key={i}
+              className="relative flex flex-col items-center justify-start gap-3"
+            >
+              <div className="flex h-14 w-14 items-center justify-center">
                 <Image
                   src={item.icon}
                   alt={item.title}
-                  width={60}
-                  height={60}
-                  className="h-15 w-15 object-contain"
+                  width={52}
+                  height={52}
+                  className="h-12 w-12 object-contain"
                 />
               </div>
-              <h3 className="text-sm font-semibold leading-snug sm:text-[0.95rem]">
+              <h3 className="text-xs font-semibold leading-snug sm:text-[0.95rem]">
                 {item.title}
               </h3>
-              <p className="mx-auto max-w-55 text-xs leading-5 text-white/80 sm:text-[0.8rem] sm:leading-6">
+              <p className="mx-auto max-w-48 text-[11px] leading-5 text-white/80 sm:max-w-55 sm:text-[0.8rem] sm:leading-6">
                 {item.desc}
               </p>
 
               {i !== features.length - 1 && (
                 <span className="absolute right-[-1.4rem] top-1/2 hidden -translate-y-1/2 md:block text-white/60">
                   <Image
-                    src={"/smallstar.png"}
+                    src="/smallstar.png"
                     alt="separator"
                     width={20}
                     height={20}
