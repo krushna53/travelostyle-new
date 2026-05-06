@@ -47,8 +47,7 @@ export default function LandJourneys() {
   return (
     <section
       id="land-journeys"
-      className="bg-[#f2f2f2] py-14 px-4 sm:py-20 sm:px-6"
-      style={{ backgroundImage: "url('/background.jpg')", backgroundRepeat: 'repeat', backgroundSize: 'auto', backgroundPosition: '0 0' }}
+      className="bg-[#f2f2f2] py-14 px-4 sm:py-20 sm:px-6 bg-[url('/background.jpg')] bg-repeat bg-cover bg-top-left"
     >
       <div className="mx-auto max-w-[85.2vw]">
         {/* Header */}

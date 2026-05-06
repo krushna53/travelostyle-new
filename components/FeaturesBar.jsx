@@ -22,7 +22,7 @@ const features = [
 
 export default function FeaturesBar() {
   return (
-    <section className="bg-[#fafafa] px-4 py-8 sm:px-6 sm:py-12 lg:px-8" style={{ backgroundImage: "url('/background.jpg')", backgroundRepeat: 'repeat', backgroundSize: 'auto', backgroundPosition: '0 0' }}>
+    <section className="bg-[#fafafa] px-4 py-8 sm:px-6 sm:py-12 lg:px-8 bg-[url('/background.jpg')] bg-repeat bg-cover bg-top-left">
       <div className="mx-auto max-w-[85.2vw]">
         <DashedBorderFrame
           borderColor="#2C3078"

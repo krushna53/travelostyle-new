@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function WhereTravelStyle() {
   return (
-    <div id="where-travel-style" className="bg-[#f4f5f7] py-14 sm:py-20 px-4 sm:px-6" style={{ backgroundImage: "url('/background.jpg')", backgroundRepeat: 'repeat', backgroundSize: 'auto', backgroundPosition: '0 0' }}>
+    <div id="where-travel-style" className="bg-[#f4f5f7] py-14 sm:py-20 px-4 sm:px-6 bg-[url('/background.jpg')] bg-repeat bg-cover bg-top-left">
       <div className="md:text-center max-w-[85.2vw] mx-auto">
         <p className="text-2xl sm:text-4xl font-taprom text-[#2C3078] mb-1 tracking-wide">
           our origin story

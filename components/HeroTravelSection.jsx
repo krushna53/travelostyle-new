@@ -109,7 +109,7 @@ export default function HeroTravelSection() {
       <FeaturesBar />
       <HowItWorks />
 
-      <div style={{ backgroundImage: "url('/background.jpg')", backgroundRepeat: 'repeat', backgroundSize: 'auto', backgroundPosition: '0 0' }}>
+      <div className="bg-[url('/background.jpg')] bg-repeat bg-cover bg-top-left">
         <CruiseJourneys />
         <LandJourneys />
       </div>
