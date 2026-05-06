@@ -116,7 +116,7 @@ export default function FooterSection() {
 
         <div className="md:mt-16 flex flex-col items-center justify-center sm:mt-20">
           <Image
-            src="/TravelOstyle.png"
+            src="/logo.svg"
             alt="Travel O Style"
             width={560}
             height={104}
