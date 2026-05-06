@@ -24,7 +24,7 @@ export default function CelebrityPrincessCruises({ onGetDetails }) {
   return (
     <>
       {/* Mobile: Single card with navigation */}
-      <div className="sm:hidden px-4">
+      <div className="sm:hidden">
         <div
           className="transition-all duration-500 ease-in-out"
           key={currentIndex}

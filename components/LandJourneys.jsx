@@ -40,12 +40,15 @@ export default function LandJourneys() {
           image: journey.image,
           source: "land",
         },
-      })
+      }),
     );
   }
 
   return (
-    <section id="land-journeys" className="bg-[#f2f2f2] py-14 px-4 sm:py-20 sm:px-6">
+    <section
+      id="land-journeys"
+      className="bg-[#f2f2f2] py-14 px-4 sm:py-20 sm:px-6"
+    >
       <div className="mx-auto max-w-[85.2vw]">
         {/* Header */}
         <div className="flex flex-col items-center mb-10 sm:mb-16">
@@ -54,7 +57,7 @@ export default function LandJourneys() {
               <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
             </svg>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#2B3481] tracking-[0.2em] uppercase">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#2B3481] uppercase">
             Land Journeys
           </h2>
         </div>
@@ -74,24 +77,28 @@ export default function LandJourneys() {
                   WebkitMaskComposite: "source-in",
                 }}
               >
-                <Image
-                  src={"/imagestravel1.jpg"}
-                  alt="travel"
-                  width={340}
-                  height={200}
-                  className="w-full h-52 sm:h-64 object-cover rounded-lg"
-                />
-                <div className="px-6 py-2">
-                  <div
-                    className="w-full h-0.5 opacity-30"
-                    style={{
-                      backgroundImage:
-                        "radial-gradient(circle, #2B3481 1px, transparent 1px)",
-                      backgroundSize: "8px 1px",
-                    }}
+                <div className="px-3 py-3">
+                  <Image
+                    src={"/imagestravel1.jpg"}
+                    alt="travel"
+                    width={340}
+                    height={100}
+                    className="w-full h-45 object-cover rounded-lg"
                   />
                 </div>
-                <div className="px-6 sm:px-8 pb-8 pt-2 flex flex-col grow">
+                <div className="px-6 mt-4">
+                  {/* Wavy line divider */}
+                  <div className=" w-full">
+                    <Image
+                      src="/Lineborder.png"
+                      alt=""
+                      width={260}
+                      height={10}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+                <div className="px-6 sm:px-8 pb-5 pt-2 flex flex-col grow">
                   <h3 className="text-xl sm:text-2xl font-bold text-[#2B3481] mb-3">
                     {journey.title}
                   </h3>
@@ -104,28 +111,43 @@ export default function LandJourneys() {
                     <p>{journey.location}</p>
                   </div>
 
-                  <div className="mb-8">
+                  <div className="">
                     <span className="border border-[#2B3481] text-[#2B3481] text-[10px] font-bold px-2 py-1 rounded">
                       {journey.date}
                     </span>
                   </div>
 
-                  <div className="w-full h-px bg-slate-200 mb-6" />
+                  {/* Wavy line divider */}
+                  <div className="my-4 w-full">
+                    <Image
+                      src="/Lineborder.png"
+                      alt=""
+                      width={260}
+                      height={10}
+                      className="w-full"
+                    />
+                  </div>
 
                   <div className="flex justify-between items-center mt-auto">
                     <div>
-                      <p className="text-[10px] text-slate-400 uppercase">from</p>
+                      <p className="text-[10px] text-slate-400 uppercase">
+                        from
+                      </p>
                       <p className="text-lg font-bold text-[#2B3481]">
                         {journey.price}
-                        <span className="text-xs font-normal text-slate-400">*/person</span>
+                        <span className="text-xs font-normal text-slate-400">
+                          */person
+                        </span>
                       </p>
-                      <p className="text-[9px] text-slate-400 italic">double occupancy*</p>
+                      <p className="text-[9px] text-slate-400 italic">
+                        double occupancy*
+                      </p>
                     </div>
 
                     <Button
                       type="button"
                       onClick={() => openJourneyModal(journey)}
-                      className="bg-[#2B3481] text-white rounded-full px-5 sm:px-6 font-bold"
+                      className="rounded-full bg-[#2C3078] px-5 py-2.5 text-[13px] font-semibold text-white"
                       size="md"
                     >
                       Get Details
@@ -135,7 +157,10 @@ export default function LandJourneys() {
 
                 <div className="absolute bottom-0 left-0 w-full h-2 flex gap-1 justify-center overflow-hidden translate-y-1">
                   {[...Array(20)].map((_, i) => (
-                    <div key={i} className="w-3 h-3 bg-[#f2f2f2] rounded-full shrink-0" />
+                    <div
+                      key={i}
+                      className="w-3 h-3 bg-[#f2f2f2] rounded-full shrink-0"
+                    />
                   ))}
                 </div>
               </div>
