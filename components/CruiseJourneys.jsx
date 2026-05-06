@@ -134,7 +134,7 @@ export default function CruiseJourneys() {
   }
 
   return (
-    <section id="cruise-journeys" className="bg-[#f7f8fc] px-4 py-14 md:px-10">
+    <section id="cruise-journeys" className="bg-[#f7f8fc] px-4 py-14 md:px-10 bg-[url('/background.jpg')] bg-repeat bg-cover bg-top-left">
       <div className="mx-auto max-w-[85.2vw]">
         <h2 className="mb-8 text-center text-3xl font-extrabold tracking-wide text-[#1c2c5b]">
           CRUISE JOURNEYS
