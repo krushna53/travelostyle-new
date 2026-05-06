@@ -74,14 +74,14 @@ const FAQSection = () => {
                 className="w-full flex justify-between items-center text-left py-2 group"
               >
                 <span
-                  className={`font-medium transition-colors ${openId === faq.id ? "text-[#2D316B]" : "text-gray-700 group-hover:text-[#2D316B]"}`}
+                  className={`font-medium transition-colors text-[#2C3078] ${openId === faq.id ? "text-[#2D316B]" : "text-[#2D316B]"}`}
                 >
                   {faq.question}
                 </span>
                 {openId === faq.id ? (
-                  <Minus className="w-5 h-5 text-[#2D316B]" />
+                  <Minus className="w-5 h-5 text-[#2D316B] shrink-0" />
                 ) : (
-                  <Plus className="w-5 h-5 text-gray-400 group-hover:text-[#2D316B]" />
+                  <Plus className="w-5 h-5 text-[#2C3078] shrink-0" />
                 )}
               </button>
               <div
