@@ -123,7 +123,7 @@ export default function FooterSection() {
             className="h-auto w-[min(660px,88vw)]"
             priority
           />
-          <div className="flex flex-col justify-center items-center mt-5">
+          <div className="flex sm:hidden flex-col justify-center items-center mt-5">
             <h3 className="mb-2 text- font-semibold text-white">
               Connect With Us
             </h3>
