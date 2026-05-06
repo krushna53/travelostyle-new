@@ -1,3 +1,5 @@
+import DashedBorderFrame from "./DashedBorderFrame";
+
 const steps = [
   {
     number: "1",
@@ -63,13 +65,13 @@ export default function HowItWorks() {
           {/* Mobile Timeline */}
           <div className="sm:hidden relative px-6">
             {/* Vertical connecting line */}
-            <div className="absolute left-[37px] top-5 bottom-24 w-1 bg-gradient-to-b from-white/30 via-white/20 to-white/30" />
+            <div className="absolute left-9.25 top-5 bottom-24 w-1 bg-linear-to-b from-white/30 via-white/20 to-white/30" />
 
             <div className="space-y-8">
               {steps.map((step, index) => (
                 <div key={step.number} className="relative flex items-start gap-6 text-left">
                   {/* Star and number */}
-                  <div className="relative flex flex-col items-center flex-shrink-0">
+                  <div className="relative flex shrink-0 flex-col items-center">
                     <span className="text-4xl text-white mb-2">✦</span>
                   </div>
 
@@ -99,10 +101,15 @@ export default function HowItWorks() {
           {/* Desktop: Grid layout */}
           <div className="hidden sm:grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step) => (
-              <div
+              <DashedBorderFrame
                 key={step.number}
-                className="flex flex-col items-center gap-4 px-6 py-8 text-center"
-                style={{ border: "3px dashed #fafafa" }}
+                borderColor="#fafafa"
+                borderWidth={3}
+                horizontalDash={18}
+                verticalDash={20}
+                dashGap={14}
+                className="flex flex-col items-center gap-4 text-center"
+                innerClassName="px-6 py-8"
               >
                 <span
                   className="font-bold text-white"
@@ -122,7 +129,7 @@ export default function HowItWorks() {
                 >
                   {step.desc}
                 </p>
-              </div>
+              </DashedBorderFrame>
             ))}
           </div>
         </div>
