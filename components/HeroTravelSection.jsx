@@ -80,7 +80,7 @@ export default function HeroTravelSection() {
         </p>
         <div className="mt-4">
           <Link href="#cruise-journeys">
-            <Button className="rounded-full border-2 px-5 py-2 text-[#2C3078]">
+            <Button className="rounded-full border-2 px-3 py-2 text-[#2C3078] font-medium tracking-wider">
               View Journeys
             </Button>
           </Link>
@@ -109,8 +109,10 @@ export default function HeroTravelSection() {
       <FeaturesBar />
       <HowItWorks />
 
-      <CruiseJourneys />
-      <LandJourneys />
+      <div style={{ backgroundImage: "url('/background.jpg')", backgroundRepeat: 'repeat', backgroundSize: 'auto', backgroundPosition: '0 0' }}>
+        <CruiseJourneys />
+        <LandJourneys />
+      </div>
       <TravelForm />
       <WhereTravelStyle />
       <ValuesSection />

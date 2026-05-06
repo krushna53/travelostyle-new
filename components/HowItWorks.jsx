@@ -113,7 +113,7 @@ export default function HowItWorks() {
               >
                 <span
                   className="font-bold text-white"
-                  style={{ fontSize: "clamp(32px, 3vw, 48px)" }}
+                  style={{ fontSize: "clamp(32px, 3vw, 30px)" }}
                 >
                   {step.number}
                 </span>

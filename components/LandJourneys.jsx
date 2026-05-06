@@ -8,7 +8,7 @@ const journeys = [
     id: 1,
     title: "Jamaica",
     image:
-      "https://images.unsplash.com/photo-1570641963303-92ce4845ed4c?q=80&w=600",
+      "/jamaica.jpg",
     description:
       "Jamaica — the land of reggae, rum, and radiant beaches offers one of the Caribbean's most vibrant and welcoming experiences.",
     duration: "4 Days | 3 Nights",
@@ -20,7 +20,7 @@ const journeys = [
     id: 2,
     title: "Punta Cana",
     image:
-      "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=600",
+      "/punta.jpg",
     description:
       "Punta Cana — the jewel of the Dominican Republic — is home to some of the Caribbean's most breathtaking white-sand beaches.",
     duration: "4 Days | 3 Nights",
@@ -48,6 +48,7 @@ export default function LandJourneys() {
     <section
       id="land-journeys"
       className="bg-[#f2f2f2] py-14 px-4 sm:py-20 sm:px-6"
+      style={{ backgroundImage: "url('/background.jpg')", backgroundRepeat: 'repeat', backgroundSize: 'auto', backgroundPosition: '0 0' }}
     >
       <div className="mx-auto max-w-[85.2vw]">
         {/* Header */}
@@ -79,7 +80,7 @@ export default function LandJourneys() {
               >
                 <div className="px-3 py-3">
                   <Image
-                    src={"/imagestravel1.jpg"}
+                    src={journey.image}
                     alt="travel"
                     width={340}
                     height={100}
