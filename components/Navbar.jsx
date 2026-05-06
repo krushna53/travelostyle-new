@@ -18,22 +18,43 @@ const Navbar = () => {
       <div className="fixed bottom-3 left-1/2 z-50 hidden w-full max-w-[85.95vw] -translate-x-1/2 md:flex md:justify-center">
         <div className="flex h-[6vw] w-full items-center justify-between rounded-lg border-2 border-white/80 bg-[#2c3078]/55 px-14 text-white shadow-lg backdrop-blur-lg">
           <div className="flex gap-6 ">
-            <Link href="#about" className="text-[1.05vw] transition hover:opacity-80">
+            <Link
+              href="#about"
+              className="text-[1.05vw] transition hover:opacity-80"
+            >
               About
             </Link>
-            <Link href="#cruise-journeys" className="text-[1.05vw] transition hover:opacity-80">
+            <Link
+              href="#cruise-journeys"
+              className="text-[1.05vw] transition hover:opacity-80"
+            >
               Journeys
             </Link>
-            <Link href="#how-it-works" className="text-[1.05vw] transition hover:opacity-80">
+            <Link
+              href="#how-it-works"
+              className="text-[1.05vw] transition hover:opacity-80"
+            >
               How it works
             </Link>
           </div>
-          <Image src="/TravelOstyle.png" alt="Travel O Style" width={299} height={57} priority />
+          <Image
+            src="/TravelOstyle.png"
+            alt="Travel O Style"
+            width={299}
+            height={57}
+            priority
+          />
           <div className="flex items-center gap-6 text-sm">
-            <Link href="#faq" className="text-[1.05vw] transition hover:opacity-80">
+            <Link
+              href="#faq"
+              className="text-[1.05vw] transition hover:opacity-80"
+            >
               FAQ
             </Link>
-            <Link href="#inquiry-form" className="rounded-full bg-white px-4 py-1.5 text-[1.05vw] text-black transition hover:opacity-90">
+            <Link
+              href="#inquiry-form"
+              className="rounded-full bg-white px-4 py-1.5 text-[1.05vw] text-black transition hover:opacity-90"
+            >
               Plan Your Journey
             </Link>
           </div>
@@ -122,15 +143,14 @@ const Navbar = () => {
                 >
                   FAQs
                 </Link>
+                <Link
+                  href="#plan-your-journey"
+                  onClick={closeMenu}
+                  className="mx-auto mb-10 block w-fit rounded-full bg-white px-4 py-3 font-semibold text-[#2c3078] transition hover:opacity-90"
+                >
+                  Plan Your Journey
+                </Link>
               </nav>
-
-              {/* Plan Your Journey Button */}
-              <button
-                onClick={closeMenu}
-                className="w-full bg-white text-[#2c3078] font-semibold py-3 rounded-full mb-10 transition hover:opacity-90"
-              >
-                Plan Your Journey
-              </button>
 
               {/* Social Icons */}
               <div className="flex gap-4 mb-8">
