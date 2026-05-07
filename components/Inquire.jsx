@@ -145,6 +145,7 @@ const InquiryModal = ({ isOpen = true, onClose }) => {
             </label>
             <textarea
               rows={4}
+              placeholder="Tell us everything- your budget, your vision, your interests. The more the better. "
               className="w-full mt-2 border border-[#2B3481] rounded-md p-3 text-sm outline-none"
               placeholder="Do you have questions or considerations that you would like us to know?"
             />

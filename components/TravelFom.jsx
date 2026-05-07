@@ -258,6 +258,7 @@ export default function TravelForm() {
               value={formData.message}
               onChange={handleChange}
               rows={5}
+              placeholder="Tell us everything- your budget, your vision, your interests. The more the better."
               className="mt-2 w-full rounded-lg border border-[#2d3494] bg-white p-4 text-[13px] text-[#7b84c9] outline-none"
             />
           </div>

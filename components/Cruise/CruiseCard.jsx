@@ -64,10 +64,10 @@ export default function CruiseCard({ item, onGetDetails }) {
           </div>
 
           {/* Price + CTA */}
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row items-start md:items-center md:justify-between gap-4 md:gap-0">
             <div>
               <p className="text-[13px] text-[#2C3078] font-light">from</p>
-              <p className="text-[15px] font-bold text-[#2C3078]">
+              <p className="text-[15px] font-medium text-[#2C3078]">
                 {item.price}*
                 <span className="text-[12px] font-normal text-[#2C3078]">
                   /person
@@ -81,7 +81,7 @@ export default function CruiseCard({ item, onGetDetails }) {
             <button
               type="button"
               onClick={() => onGetDetails?.(item)}
-              className="rounded-full bg-[#2C3078] text-xl py-1 px-3 font-medium text-white"
+              className="rounded-full bg-[#2C3078] text-lg md:text-xl py-1 px-4 font-medium text-white"
             >
               Get Details
             </button>
