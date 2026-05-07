@@ -152,7 +152,7 @@ const InquiryModal = ({ isOpen = true, onClose }) => {
 
           {/* Footer */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-8 gap-6">
-            <Button className="bg-[#2B3481] text-white px-6 py-2 rounded-full">
+            <Button className="rounded-full bg-[#2C3078] text-xl py-1 px-3 font-medium text-white">
               Get Details
             </Button>
 

@@ -38,13 +38,13 @@ export default function CollaborateSection() {
             <div className="max-w-xs md:max-w-md">
               <h2
                 className="font-taprom leading-snug text-white md:text-[#2C3078]"
-                style={{ fontSize: "clamp(26px, 2.4vw, 40px)" }}
+                style={{ fontSize: "clamp(26px, 2.4vw, 50px)" }}
               >
                 Interested in collaborating <br className="hidden md:block" />
                 with TravelOStyle?
               </h2>
 
-              <p className="mt-4 text-[14px] leading-relaxed text-white/90 md:text-[#2C3078]/80 md:text-[1vw]">
+              <p className="mt-6 mb-12 text-lg font-light leading-relaxed text-white/90 md:text-[#2C3078]/80">
                 We&apos;re always looking to collaborate with ground operators,
                 accommodation partners, and experience providers across all
                 regions we operate in. If you work in a destination we should
@@ -53,9 +53,7 @@ export default function CollaborateSection() {
 
               <a
                 href="mailto:info@travelostyle.com"
-                className="mt-5 inline-block rounded-full px-6 py-2.5 text-sm font-semibold
-                           bg-white text-[#2a0c6f]
-                           md:bg-[#2C3078] md:text-white md:font-normal"
+                className="rounded-full bg-[#2C3078] text-xl py-2 px-3 font-medium text-white"
               >
                 Write To Us
               </a>

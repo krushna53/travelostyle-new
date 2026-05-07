@@ -333,7 +333,7 @@ export default function CruiseJourneys() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-fit rounded-full bg-[#4b1f95] px-5 py-2.5 text-[16px] font-semibold text-white shadow-none disabled:cursor-not-allowed disabled:opacity-70 sm:px-6 sm:text-[17px]"
+                    className="rounded-full bg-[#2C3078] text-xl py-1 px-3 font-medium text-white disabled:cursor-not-allowed disabled:bg-[#2C3078]/70"
                   >
                     <span className="sm:hidden">{isSubmitting ? "Sending..." : "Submit Enquiry"}</span>
                     <span className="hidden sm:inline">{isSubmitting ? "Sending..." : "Get Details"}</span>
