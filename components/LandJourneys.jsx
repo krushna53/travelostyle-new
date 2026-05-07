@@ -117,13 +117,13 @@ export default function LandJourneys() {
                     {journeys[currentIndex].description}
                   </p>
 
-                  <div className="space-y-1 text-xs font-bold text-[#2B3481] mb-4">
+                  <div className="space-y-1 text-xs text-[#2B3481] mb-4">
                     <p>{journeys[currentIndex].duration}</p>
                     <p>{journeys[currentIndex].location}</p>
                   </div>
 
                   <div className="">
-                    <span className="border border-[#2B3481] text-[#2B3481] text-[10px] font-bold px-2 py-1 rounded">
+                    <span className="border border-[#2B3481] text-[#2B3481] text-[10px] px-2 py-1 rounded">
                       {journeys[currentIndex].date}
                     </span>
                   </div>
@@ -240,13 +240,13 @@ export default function LandJourneys() {
                     {journey.description}
                   </p>
 
-                  <div className="space-y-1 text-xs font-bold text-[#2B3481] mb-4">
+                  <div className="space-y-1 text-xs text-[#2B3481] mb-4">
                     <p>{journey.duration}</p>
                     <p>{journey.location}</p>
                   </div>
 
                   <div className="">
-                    <span className="border border-[#2B3481] text-[#2B3481] text-[10px] font-bold px-2 py-1 rounded">
+                    <span className="border border-[#2B3481] text-[#2B3481] text-[10px] px-2 py-1 rounded">
                       {journey.date}
                     </span>
                   </div>
