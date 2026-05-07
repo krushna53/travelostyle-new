@@ -147,7 +147,7 @@ export default function LandJourneys() {
                     <Button
                       type="button"
                       onClick={() => openJourneyModal(journey)}
-                      className="rounded-full bg-[#2C3078] px-5 py-2.5 text-[13px] font-semibold text-white"
+                      className="rounded-full bg-[#2C3078] text-xl py-1 px-3 font-medium text-white"
                       size="md"
                     >
                       Get Details

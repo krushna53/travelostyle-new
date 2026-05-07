@@ -280,7 +280,7 @@ export default function TravelForm() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="bg-[#2c3078] text-white px-8 py-2 rounded-full disabled:opacity-60 disabled:cursor-not-allowed"
+              className="rounded-full bg-[#2C3078] text-lg py-1 px-3 font-medium text-white disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Sending..." : "Submit Inquiry"}
             </Button>{" "}

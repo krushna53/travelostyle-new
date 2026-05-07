@@ -60,7 +60,7 @@ const FAQSection = () => {
           <br />
           <a
             href="mailto:info@travelostyle.com"
-            className="inline-block rounded-full bg-[#2D316B] px-8 py-3 font-medium text-white transition-all hover:bg-opacity-90"
+            className="rounded-full bg-[#2C3078] text-xl py-2 px-3 font-medium text-white"
           >
             Ask Us Anything
           </a>

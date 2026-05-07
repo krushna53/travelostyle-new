@@ -39,8 +39,8 @@ export default function HeroTravelSection() {
 
               {/* star */}
               {(
-                <div className="absolute top-1/2 -right-6 md:-right-6 sm:-right-5 -translate-y-1/2 z-10">
-                  <Image src="/Vector.png" alt="star" width={40} height={40} />
+                <div className="absolute top-1/2 -right-6 md:-right-9 -translate-y-1/2 z-10">
+                  <Image src="/Vector.svg" alt="star" width={40} height={40} className="md:h-16 md:w-16"/>
                 </div>
               )}
             </div>
@@ -80,7 +80,7 @@ export default function HeroTravelSection() {
         </p>
         <div className="mt-4">
           <Link href="#cruise-journeys">
-            <Button className="rounded-full border-2 px-3 py-2 text-[#2C3078] font-medium tracking-wider">
+            <Button className="rounded-full border-2 px-3 py-1 text-[#2C3078] font-medium text-lg tracking-wider">
               View Journeys
             </Button>
           </Link>
@@ -96,9 +96,10 @@ export default function HeroTravelSection() {
                 <Image src={src} alt="travel" fill className="object-cover" />
               </div>
 
+              {/* star */}
               {(
-                <div className="absolute top-1/2 -right-6 md:-right-6 sm:-right-5 -translate-y-1/2 z-10">
-                  <Image src="/Vector.png" alt="star" width={40} height={40} />
+                <div className="absolute top-1/2 -right-6 md:-right-9 -translate-y-1/2 z-10">
+                  <Image src="/Vector.svg" alt="star" width={40} height={40} className="md:h-16 md:w-16"/>
                 </div>
               )}
             </div>

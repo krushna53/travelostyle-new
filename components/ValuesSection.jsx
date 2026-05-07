@@ -26,66 +26,67 @@ export default function ValuesSection() {
   ];
 
   return (
-    <section className="bg-[#2d3475] px-4 py-10 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
+    <section className="bg-[#2d3475] px-4 py-14 sm:px-6 lg:px-28">
       <DashedBorderFrame
         borderColor="rgba(255,255,255,0.85)"
         borderWidth={2}
         horizontalDash={18}
         verticalDash={20}
         dashGap={14}
-        className="mx-auto max-w-[85.2vw]"
-        innerClassName="flex flex-col lg:flex-row items-stretch justify-between px-5 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12"
+        className="mx-auto"
+        innerClassName="flex flex-col lg:flex-row items-center justify-between py-12"
       >
         {features.map((item, i) => (
           <div
             key={i}
-            className="relative flex w-full flex-col items-center text-center lg:flex-1"
+            className="relative flex flex-1 flex-col items-center text-center"
           >
-            {/* ICON (fixed height) */}
-            <div className="flex h-[120px] items-center justify-center">
-              <Image
-                src={item.icon}
-                alt={item.title}
-                width={120}
-                height={120}
-                className="h-24 w-24 object-contain"
-              />
-            </div>
+            {/* ICON */}
+            <Image
+              src={item.icon}
+              alt={item.title}
+              width={160}
+              height={160}
+              className="mb-6 h-32 w-32 object-contain"
+            />
 
-            {/* TITLE (fixed height) */}
-            <div className="flex h-[60px] items-center justify-center px-2">
-              <h3 className="text-lg font-semibold text-white leading-tight">
-                {item.title}
-              </h3>
-            </div>
+            {/* TITLE */}
+            <h3 className="text-white text-[17px] font-semibold leading-tight max-w-[220px]">
+              {item.title}
+            </h3>
 
-            {/* DESC (fixed height) */}
-            <div className="flex h-[110px] items-start justify-center px-2">
-              <p className="text-xs leading-5 text-white/80 lg:text-[0.8rem] lg:leading-6">
-                {item.desc}
-              </p>
-            </div>
+            {/* DESC */}
+            <p className="mt-4 max-w-[260px] text-[13px] leading-6 text-white/80">
+              {item.desc}
+            </p>
 
             {/* ⭐ SEPARATOR */}
             {i !== features.length - 1 && (
               <>
-                {/* Mobile */}
-                <div className="my-6 lg:hidden">
+                {/* MOBILE */}
+                <div className="my-8 lg:hidden">
                   <Image
                     src="/smallstar.png"
                     alt="separator"
-                    width={20}
-                    height={20}
+                    width={18}
+                    height={18}
                   />
                 </div>
 
-                {/* Desktop */}
-                <div className="pointer-events-none absolute right-0 top-1/2 hidden translate-x-1/2 -translate-y-1/2 lg:block">
+                {/* DESKTOP → aligned near title */}
+                <div className="pointer-events-none absolute hidden lg:block"
+                     style={{
+                       right: "-22px",
+                       top: "45%", // 👈 aligns near title (not center)
+                       transform: "translateY(-50%)"
+                     }}
+                >
                   <Image
-                    src="/smallstar.png"
+                    src="/Vector.svg"
                     alt="separator"
-                    width={20}
-                    height={20}
+                    width={18}
+                    height={18}
+                    className="object-contain h-5 w-5"
                   />
                 </div>
               </>

@@ -66,14 +66,14 @@ export default function CruiseCard({ item, onGetDetails }) {
           {/* Price + CTA */}
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[11px] text-gray-400">from</p>
+              <p className="text-[13px] text-[#2C3078] font-light">from</p>
               <p className="text-[15px] font-bold text-[#2C3078]">
                 {item.price}*
                 <span className="text-[12px] font-normal text-[#2C3078]">
                   /person
                 </span>
               </p>
-              <p className="text-[10px] italic text-gray-400">
+              <p className="text-[11px] italic text-[#2C3078] font-light">
                 double occupancy*
               </p>
             </div>
@@ -81,7 +81,7 @@ export default function CruiseCard({ item, onGetDetails }) {
             <button
               type="button"
               onClick={() => onGetDetails?.(item)}
-              className="rounded-full bg-[#2C3078] px-5 py-2.5 text-[13px] font-semibold text-white"
+              className="rounded-full bg-[#2C3078] text-xl py-1 px-3 font-medium text-white"
             >
               Get Details
             </button>
