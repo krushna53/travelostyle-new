@@ -2,13 +2,13 @@
 
 import { Button } from "@heroui/react";
 import Image from "next/image";
+import { useState } from "react";
 
 const journeys = [
   {
     id: 1,
     title: "Jamaica",
-    image:
-      "/jamaica.jpg",
+    image: "/jamaica.jpg",
     description:
       "Jamaica — the land of reggae, rum, and radiant beaches offers one of the Caribbean's most vibrant and welcoming experiences.",
     duration: "4 Days | 3 Nights",
@@ -19,8 +19,7 @@ const journeys = [
   {
     id: 2,
     title: "Punta Cana",
-    image:
-      "/punta.jpg",
+    image: "/punta.jpg",
     description:
       "Punta Cana — the jewel of the Dominican Republic — is home to some of the Caribbean's most breathtaking white-sand beaches.",
     duration: "4 Days | 3 Nights",
@@ -31,6 +30,16 @@ const journeys = [
 ];
 
 export default function LandJourneys() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + journeys.length) % journeys.length);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % journeys.length);
+  };
+
   function openJourneyModal(journey) {
     window.dispatchEvent(
       new CustomEvent("openInquiry", {
@@ -62,8 +71,133 @@ export default function LandJourneys() {
           </h2>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 w-full">
+        {/* Mobile: Single card with navigation */}
+        <div className="sm:hidden">
+          <div
+            className="transition-all duration-500 ease-in-out"
+            key={currentIndex}
+          >
+            <div className="relative group">
+              <div
+                className="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col relative"
+                style={{
+                  maskImage:
+                    "radial-gradient(circle at left 220px, transparent 15px, black 16px), radial-gradient(circle at right 220px, transparent 15px, black 16px)",
+                  WebkitMaskImage:
+                    "radial-gradient(circle at left 220px, transparent 15px, black 16px), radial-gradient(circle at right 220px, transparent 15px, black 16px)",
+                  maskComposite: "intersect",
+                  WebkitMaskComposite: "source-in",
+                }}
+              >
+                <div className="px-3 py-3">
+                  <Image
+                    src={journeys[currentIndex].image}
+                    alt="travel"
+                    width={340}
+                    height={100}
+                    className="w-full h-45 object-cover rounded-lg"
+                  />
+                </div>
+                <div className="px-6 mt-4">
+                  <div className=" w-full">
+                    <Image
+                      src="/Lineborder.png"
+                      alt=""
+                      width={260}
+                      height={10}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+                <div className="px-6 sm:px-8 pb-5 pt-2 flex flex-col grow">
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#2B3481] mb-3">
+                    {journeys[currentIndex].title}
+                  </h3>
+                  <p className="text-sm text-slate-500 leading-relaxed mb-6">
+                    {journeys[currentIndex].description}
+                  </p>
+
+                  <div className="space-y-1 text-xs font-bold text-[#2B3481] mb-4">
+                    <p>{journeys[currentIndex].duration}</p>
+                    <p>{journeys[currentIndex].location}</p>
+                  </div>
+
+                  <div className="">
+                    <span className="border border-[#2B3481] text-[#2B3481] text-[10px] font-bold px-2 py-1 rounded">
+                      {journeys[currentIndex].date}
+                    </span>
+                  </div>
+
+                  <div className="my-4 w-full">
+                    <Image
+                      src="/Lineborder.png"
+                      alt=""
+                      width={260}
+                      height={10}
+                      className="w-full"
+                    />
+                  </div>
+
+                  <div className="flex flex-col items-start justify-between gap-4">
+                    <div>
+                      <p className="text-[13px] text-[#2C3078] font-light">
+                        from
+                      </p>
+                      <p className="text-[15px] font-medium text-[#2C3078]">
+                        {journeys[currentIndex].price}
+                        <span className="text-[12px] font-normal text-[#2C3078]">
+                          /person
+                        </span>
+                      </p>
+                      <p className="text-[11px] italic text-[#2C3078] font-light">
+                        double occupancy*
+                      </p>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => openJourneyModal(journeys[currentIndex])}
+                      className="rounded-full bg-[#2C3078] text-lg md:text-xl py-1 px-4 font-medium text-white"
+                    >
+                      Get Details
+                    </button>
+                  </div>
+                </div>
+
+                <div className="absolute bottom-0 left-0 w-full h-2 flex gap-1 justify-center overflow-hidden translate-y-1">
+                  {[...Array(20)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="w-3 h-3 bg-[#f2f2f2] rounded-full shrink-0"
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 flex items-center justify-between gap-8">
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous land journey"
+              className="shrink-0 text-2xl text-[#3b1c8e] transition hover:opacity-70"
+            >
+              ←
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next land journey"
+              className="shrink-0 text-2xl text-[#3b1c8e] transition hover:opacity-70"
+            >
+              →
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop: Grid layout */}
+        <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 w-full">
           {journeys.map((journey, index) => (
             <div key={index} className="relative group">
               <div
@@ -130,16 +264,14 @@ export default function LandJourneys() {
 
                   <div className="flex justify-between items-center mt-auto">
                     <div>
-                      <p className="text-[10px] text-slate-400 uppercase">
-                        from
-                      </p>
-                      <p className="text-lg font-bold text-[#2B3481]">
+                      <p className="text-[10px] text-[#2B3481]">from</p>
+                      <p className="text-lg font-medium text-[#2B3481]">
                         {journey.price}
-                        <span className="text-xs font-normal text-slate-400">
+                        <span className="text-xs font-normal text-[#2B3481]">
                           */person
                         </span>
                       </p>
-                      <p className="text-[9px] text-slate-400 italic">
+                      <p className="text-[9px] text-[#2B3481] italic">
                         double occupancy*
                       </p>
                     </div>
@@ -147,7 +279,7 @@ export default function LandJourneys() {
                     <Button
                       type="button"
                       onClick={() => openJourneyModal(journey)}
-                      className="rounded-full bg-[#2C3078] text-xl py-1 px-3 font-medium text-white"
+                      className="rounded-full bg-[#2C3078] text-lg md:text-xl py-1 px-4 font-medium text-white"
                       size="md"
                     >
                       Get Details
