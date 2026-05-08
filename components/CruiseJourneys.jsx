@@ -140,15 +140,15 @@ export default function CruiseJourneys() {
           CRUISE JOURNEYS
         </h2>
 
-        <div className="mb-6 hidden flex-wrap justify-center gap-3 sm:flex">
+        <div className="mb-6 hidden flex-wrap justify-between sm:flex">
           {filters.map((item, index) => (
             <Button
               key={item}
               onClick={() => setActive(index)}
-              className={`cursor-pointer rounded-full border px-5 py-2 font-medium transition ${
+              className={`cursor-pointer rounded-full border px-3 py-2 tracking-wider transition ${
                 active === index
-                  ? "border-[#1c2c5b] bg-[#1c2c5b] text-white"
-                  : "border-gray-300 bg-white text-[#1c2c5b]"
+                  ? "border-[#1c2c5b] bg-[#1c2c5b] text-white font-medium"
+                  : "border-gray-300 bg-white text-[#1c2c5b] font-light"
               }`}
             >
               {item}
@@ -198,7 +198,7 @@ export default function CruiseJourneys() {
           <button
             type="button"
             aria-label="Close modal backdrop"
-            className="absolute inset-0 cursor-default"
+            className="absolute inset-0 cursor-pointer"
             onClick={closeModal}
           />
 
@@ -221,7 +221,7 @@ export default function CruiseJourneys() {
                 type="button"
                 onClick={closeModal}
                 aria-label="Close modal"
-                className="flex h-10 w-10 items-center justify-center text-[#3a219a] transition hover:opacity-70"
+                className="flex h-10 w-10 items-center justify-center text-[#3a219a] transition hover:opacity-70 cursor-pointer"
               >
                 <span className="relative block h-6 w-6">
                   <span className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 rotate-45 rounded bg-current" />
@@ -275,7 +275,7 @@ export default function CruiseJourneys() {
               </div>
 
               <form className="mt-5 sm:mt-8" onSubmit={handleModalSubmit}>
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-6">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-">
                   <Field name="firstName" label="First Name*" placeholder="Your First Name" />
                   <Field name="lastName" label="Last Name*" placeholder="Your Last Name" />
                   <Field name="title" label="Title*" placeholder="Select Your Title" select />
@@ -287,11 +287,11 @@ export default function CruiseJourneys() {
                 </div>
 
                 <div className="mt-6 sm:mt-7">
-                  <p className="mb-3 text-[15px] font-semibold text-[#3a219a] sm:text-[16px]">
+                  <p className="mb-3 text-[15px] text-[#3a219a] sm:text-[16px]">
                     No.of Guests*
                   </p>
 
-                  <div className="flex flex-wrap items-center gap-5 text-[14px] text-[#3a219a] sm:gap-6">
+                  <div className="flex flex-wrap items-center gap-5 text-[14px] text-[#3a219a] font-light sm:gap-6">
                     <Counter
                       label="Adults"
                       value={adults}
@@ -308,7 +308,7 @@ export default function CruiseJourneys() {
                 </div>
 
                 <div className="mt-6 sm:mt-7">
-                  <label className="mb-3 block text-[15px] font-semibold text-[#3a219a] sm:text-[16px]">
+                  <label className="mb-3 block text-[15px] text-[#3a219a] sm:text-[16px]">
                     Your Message*
                   </label>
                   <textarea
@@ -370,14 +370,14 @@ export default function CruiseJourneys() {
 function Field({ name, label, placeholder, select = false }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-[15px] font-semibold text-[#3a219a] sm:text-[16px]">
+      <span className="mb-1.5 block text-[15px] font- text-[#3a219a] sm:text-[16px]">
         {label}
       </span>
 
       <div className="relative">
         {select ? (
           <>
-            <select name={name} className="w-full appearance-none border-0 border-b-2 border-[#4b2aa3] bg-transparent pb-2 pr-7 text-[13px] text-[#a29acc] outline-none sm:text-[14px]">
+            <select name={name} className="w-full appearance-none border-0 border-b-2 border-[#4b2aa3] bg-transparent pr-7 text-[13px] text-[#a29acc] outline-none sm:text-[14px]">
               <option value="">{placeholder}</option>
               <option>Mr</option>
               <option>Ms</option>
@@ -393,7 +393,7 @@ function Field({ name, label, placeholder, select = false }) {
             name={name}
             type="text"
             placeholder={placeholder}
-            className="w-full border-0 border-b-2 border-[#4b2aa3] bg-transparent pb-2 text-[13px] text-[#a29acc] outline-none placeholder:text-[#a29acc] sm:text-[14px]"
+            className="w-full border-0 border-b-2 border-[#4b2aa3] bg-transparent text-[13px] text-[#a29acc] outline-none placeholder:text-[#a29acc] sm:text-[14px]"
           />
         )}
       </div>
@@ -410,7 +410,7 @@ function Counter({ label, value, onIncrement, onDecrement }) {
       <button
         type="button"
         onClick={onDecrement}
-        className="flex h-7 w-7 items-center justify-center rounded-[3px] bg-[#4b1f95] text-[18px] leading-none text-white"
+        className="flex cursor-pointer h-7 w-7 items-center justify-center rounded-[3px] bg-[#4b1f95] text-[18px] leading-none text-white"
       >
         -
       </button>
@@ -420,7 +420,7 @@ function Counter({ label, value, onIncrement, onDecrement }) {
       <button
         type="button"
         onClick={onIncrement}
-        className="flex h-7 w-7 items-center justify-center rounded-[3px] bg-[#4b1f95] text-[18px] leading-none text-white"
+        className="flex cursor-pointer h-7 w-7 items-center justify-center rounded-[3px] bg-[#4b1f95] text-[18px] leading-none text-white"
       >
         +
       </button>

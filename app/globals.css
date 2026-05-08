@@ -181,6 +181,10 @@ body {
   background: transparent;
 }
 
+button{
+  cursor: pointer;
+}
+
 
 @keyframes scroll-left {
   0% {
