@@ -182,15 +182,15 @@ export default function TravelForm() {
 
           <div className="grid grid-cols-1 gap-x-12 gap-y-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-y-10">
             {[
-              { label: "First Name", name: "firstName" },
-              { label: "Last Name", name: "lastName" },
-              { label: "Title", name: "title" },
-              { label: "Number/WhatsApp", name: "phone" },
-              { label: "Email ID", name: "email" },
-              { label: "Interested Destination", name: "destination" },
-              { label: "No. of Guests", name: "guests" },
-              { label: "Duration of Trip", name: "duration" },
-              { label: "Month of Travel", name: "month" },
+              { label: "First Name", name: "firstName", placeholder: "Your First Name" },
+              { label: "Last Name", name: "lastName", placeholder: "Your Last Name" },
+              { label: "Title", name: "title", placeholder: "Your Title" },
+              { label: "Number/WhatsApp", name: "phone", placeholder: "Your Phone Number" },
+              { label: "Email ID", name: "email", placeholder: "Your Email ID" },
+              { label: "Interested Destination", name: "destination", placeholder: "Interested Destination" },
+              { label: "No. of Guests", name: "guests", placeholder: "Number of Guests" },
+              { label: "Duration of Trip", name: "duration", placeholder: "Duration of Trip" },
+              { label: "Month of Travel", name: "month", placeholder: "Month of Travel" },
             ].map((field, i) => (
               <div key={i} className="flex flex-col gap-2">
                 <label className="text-[#2d3494] ">
@@ -202,7 +202,7 @@ export default function TravelForm() {
                       name={field.name}
                       value={formData[field.name]}
                       onChange={handleChange}
-                      className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pr-6 text-[14px] text-[#7b84c9] outline-none"
+                      className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pr-6 text-[14px] text-[#7b84c9] outline-none font-light"
                     >
                       <option value="">Select</option>
                       <option>Mr</option>
@@ -217,8 +217,8 @@ export default function TravelForm() {
                     name={field.name}
                     value={formData[field.name]}
                     onChange={handleChange}
-                    className="border-0 border-b-[1.6px] border-[#2d3494] bg-transparent text-[14px] text-[#7b84c9] outline-none focus:border-[#1e2a78]"
-                    placeholder="Enter here"
+                    className="border-0 border-b-[1.6px] border-[#2d3494] bg-transparent text-[14px] text-[#7b84c9] outline-none focus:border-[#1e2a78] font-light"
+                    placeholder={field.placeholder}
                   />
                 )}
               </div>
@@ -233,7 +233,7 @@ export default function TravelForm() {
                   name="flexibility"
                   value={formData.flexibility}
                   onChange={handleChange}
-                  className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pr-6 text-[14px] text-[#7b84c9] outline-none"
+                  className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pr-6 text-[14px] text-[#7b84c9] outline-none font-light"
                 >
                   <option value="">Select</option>
                   <option>Exact Match</option>
@@ -259,7 +259,7 @@ export default function TravelForm() {
               onChange={handleChange}
               rows={5}
               placeholder="Tell us everything- your budget, your vision, your interests. The more the better."
-              className="mt-2 w-full rounded-lg border border-[#2d3494] bg-white p-4 text-[13px] text-[#7b84c9] outline-none"
+              className="mt-2 w-full rounded-lg border border-[#2d3494] bg-white p-4 text-[13px] text-[#7b84c9] outline-none font-light"
             />
           </div>
 
