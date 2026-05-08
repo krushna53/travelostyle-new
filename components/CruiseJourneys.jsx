@@ -145,7 +145,7 @@ export default function CruiseJourneys() {
             <Button
               key={item}
               onClick={() => setActive(index)}
-              className={`cursor-pointer rounded-full border px-3 py-2 tracking-wider transition ${
+              className={`cursor-pointer rounded-full border px-3 py-2 my-2 tracking-wider transition ${
                 active === index
                   ? "border-[#1c2c5b] bg-[#1c2c5b] text-white font-medium"
                   : "border-gray-300 bg-white text-[#1c2c5b] font-light"
