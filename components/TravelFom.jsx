@@ -187,13 +187,13 @@ export default function TravelForm() {
               { label: "Title", name: "title", placeholder: "Your Title" },
               { label: "Number/WhatsApp", name: "phone", placeholder: "Your Phone Number" },
               { label: "Email ID", name: "email", placeholder: "Your Email ID" },
-              { label: "Interested Destination", name: "destination", placeholder: "Interested Destination" },
-              { label: "No. of Guests", name: "guests", placeholder: "Number of Guests" },
-              { label: "Duration of Trip", name: "duration", placeholder: "Duration of Trip" },
-              { label: "Month of Travel", name: "month", placeholder: "Month of Travel" },
+              { label: "Interested Destination", name: "destination", placeholder: "Where would you like to go?" },
+              { label: "No.of Guests", name: "guests", placeholder: "How many are coming along?" },
+              { label: "Duration of Trip", name: "duration", placeholder: "How many days do you want to travel?" },
+              { label: "Month of Travel", name: "month", placeholder: "Which Month do you want to go?" },
             ].map((field, i) => (
-              <div key={i} className="flex flex-col gap-2">
-                <label className="text-[#2d3494] ">
+              <div key={i} className="flex flex-col gap-1.5">
+                <label className="pl-2 font-normal text-[18px] leading-8 tracking-wider text-[#2C3078]">
                   {field.label}*
                 </label>
                 {field.name === "title" ? (
@@ -202,9 +202,9 @@ export default function TravelForm() {
                       name={field.name}
                       value={formData[field.name]}
                       onChange={handleChange}
-                      className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pr-6 text-[14px] text-[#7b84c9] outline-none font-light"
+                      className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pl-2 pb-1.5 pr-6 text-[14px] text-[#7b84c9] outline-none font-light"
                     >
-                      <option value="">Select</option>
+                      <option value="">Select Your Title</option>
                       <option>Mr</option>
                       <option>Ms</option>
                       <option>Mrs</option>
@@ -217,14 +217,14 @@ export default function TravelForm() {
                     name={field.name}
                     value={formData[field.name]}
                     onChange={handleChange}
-                    className="border-0 border-b-[1.6px] border-[#2d3494] bg-transparent text-[14px] text-[#7b84c9] outline-none focus:border-[#1e2a78] font-light"
+                    className="w-full border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pl-2 pb-1.5 text-[14px] text-[#7b84c9] outline-none focus:border-[#1e2a78] font-light"
                     placeholder={field.placeholder}
                   />
                 )}
               </div>
             ))}
-            <div className="flex flex-col gap-2 w-full">
-              <label className="text-[#2d3494]">
+            <div className="flex flex-col gap-1.5 w-full">
+              <label className="pl-2 font-normal text-[18px] leading-8 tracking-wider text-[#2C3078]">
                 Flexibility*
               </label>
 
@@ -233,10 +233,9 @@ export default function TravelForm() {
                   name="flexibility"
                   value={formData.flexibility}
                   onChange={handleChange}
-                  className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pr-6 text-[14px] text-[#7b84c9] outline-none font-light"
+                  className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pl-2 pb-1.5 pr-6 text-[14px] text-[#7b84c9] outline-none font-light"
                 >
-                  <option value="">Select</option>
-                  <option>Exact Match</option>
+                  <option value="">Exact Match</option>
                   <option>Flexible ±1 week</option>
                   <option>Flexible ±2 weeks</option>
                   <option>Very Flexible</option>
@@ -250,7 +249,7 @@ export default function TravelForm() {
           </div>
 
           <div className="mt-12">
-            <label className="text-[#2d3494]">
+            <label className="pl-2 text-[13px] text-[#2d3494]">
               Your Message*
             </label>
             <textarea
@@ -259,22 +258,34 @@ export default function TravelForm() {
               onChange={handleChange}
               rows={5}
               placeholder="Tell us everything- your budget, your vision, your interests. The more the better."
-              className="mt-2 w-full rounded-lg border border-[#2d3494] bg-white p-4 text-[13px] text-[#7b84c9] outline-none font-light"
+              className="mt-2 w-full rounded-lg border border-[#2d3494] bg-white p-4 pl-5 text-[13px] text-[#7b84c9] outline-none font-light"
             />
           </div>
 
           {/* FOOTER */}
           <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                name="agree"
-                checked={formData.agree}
-                onChange={handleChange}
-              />
-              <span className="text-sm font-light text-[#2C3078]">
-                I agree to be contacted by TravelOStyle regarding my inquiry
-              </span>
+            <div className="flex items-baseline gap-3">
+              <label
+                className="relative mt-0.5 flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-sm border-2 border-[#2C3078]"
+                style={{ backgroundColor: formData.agree ? "#2C3078" : "transparent" }}
+              >
+                <input
+                  type="checkbox"
+                  name="agree"
+                  id="agree"
+                  checked={formData.agree}
+                  onChange={handleChange}
+                  className="sr-only"
+                />
+                {formData.agree && (
+                  <svg width="10" height="8" viewBox="0 0 10 8" fill="none" className="pointer-events-none">
+                    <path d="M1 3.5l3 3L9 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </label>
+              <label htmlFor="agree" className="cursor-pointer text-sm font-light leading-5 text-[#2C3078]">
+                I agree to be contacted by TravelOStyle regarding my inquiry.
+              </label>
             </div>
           </div>
           <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
