@@ -88,7 +88,7 @@ export default function FAQSection() {
               <div key={faq.id} className="py-4">
                 <button
                   onClick={() => setOpenId(isOpen ? null : faq.id)}
-                  className="w-full flex justify-between items-center text-left"
+                  className="w-full flex justify-between items-center text-left cursor-pointer"
                 >
                   <span className="text-[#2C3078] font-normal text-sm sm:text-base pr-4">
                     {faq.question}

@@ -133,7 +133,7 @@ export default function TravelForm() {
               Build Your Own Journey
             </h1>
 
-            <div className="mt-3 flex flex-wrap items-center gap-3 text-[14px] text-[#33377c] sm:text-[1.05vw]">
+            <div className="mt-3 flex flex-wrap items-center gap-3 text-[14px] text-[#33377c] sm:text-[1.05vw] font-light">
               <span>Anywhere</span>
 
               <Image
@@ -173,7 +173,7 @@ export default function TravelForm() {
               <span>All Budgets</span>
             </div>
 
-            <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-[#33377c] sm:text-[1.05vw]">
+            <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-[#33377c] sm:text-[1.05vw] font-light">
               Tired of one-size-fits-all journeys? Tell us how you want to do
               it. Simply share your idea of travel below and let TravelOStyle
               figure out the rest. We ve got your back.
@@ -193,8 +193,8 @@ export default function TravelForm() {
               { label: "Month of Travel", name: "month" },
             ].map((field, i) => (
               <div key={i} className="flex flex-col gap-2">
-                <label className="text-[13px] font-semibold text-[#2d3494] sm:text-[13px]">
-                  {field.label}
+                <label className="text-[#2d3494] ">
+                  {field.label}*
                 </label>
                 {field.name === "title" ? (
                   <div className="relative">
@@ -202,7 +202,7 @@ export default function TravelForm() {
                       name={field.name}
                       value={formData[field.name]}
                       onChange={handleChange}
-                      className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pb-2 pr-6 text-[14px] text-[#7b84c9] outline-none sm:text-[0.9vw]"
+                      className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pr-6 text-[14px] text-[#7b84c9] outline-none"
                     >
                       <option value="">Select</option>
                       <option>Mr</option>
@@ -217,14 +217,14 @@ export default function TravelForm() {
                     name={field.name}
                     value={formData[field.name]}
                     onChange={handleChange}
-                    className="border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pb-2 text-[14px] text-[#7b84c9] outline-none focus:border-[#1e2a78] sm:text-[0.9vw]"
+                    className="border-0 border-b-[1.6px] border-[#2d3494] bg-transparent text-[14px] text-[#7b84c9] outline-none focus:border-[#1e2a78]"
                     placeholder="Enter here"
                   />
                 )}
               </div>
             ))}
             <div className="flex flex-col gap-2 w-full">
-              <label className="text-[13px] font-semibold text-[#2d3494] sm:text-[0.9vw]">
+              <label className="text-[#2d3494]">
                 Flexibility*
               </label>
 
@@ -233,7 +233,7 @@ export default function TravelForm() {
                   name="flexibility"
                   value={formData.flexibility}
                   onChange={handleChange}
-                  className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pb-2 pr-6 text-[14px] text-[#7b84c9] outline-none sm:text-[0.9vw]"
+                  className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pr-6 text-[14px] text-[#7b84c9] outline-none"
                 >
                   <option value="">Select</option>
                   <option>Exact Match</option>
@@ -250,8 +250,8 @@ export default function TravelForm() {
           </div>
 
           <div className="mt-12">
-            <label className="text-[13px] font-semibold text-[#2d3494] sm:text-[0.9vw]">
-              Your Message
+            <label className="text-[#2d3494]">
+              Your Message*
             </label>
             <textarea
               name="message"
@@ -272,7 +272,7 @@ export default function TravelForm() {
                 checked={formData.agree}
                 onChange={handleChange}
               />
-              <span className="text-[13px] text-gray-600 sm:text-[0.9vw]">
+              <span className="text-sm font-light text-[#2C3078]">
                 I agree to be contacted by TravelOStyle regarding my inquiry
               </span>
             </div>
@@ -285,7 +285,7 @@ export default function TravelForm() {
             >
               {isSubmitting ? "Sending..." : "Submit Inquiry"}
             </Button>{" "}
-            <span className="w-full text-[13px] text-gray-600 sm:w-[36vw] sm:text-[1.05vw]">
+            <span className="w-full text-[#2C3078] sm:w-[36vw] font-light">
               TravelOStyle typically responds within 48 hours. Your details are
               never shared with third parties.
             </span>{" "}

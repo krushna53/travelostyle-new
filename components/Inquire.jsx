@@ -18,7 +18,7 @@ const InquiryModal = ({ isOpen = true, onClose }) => {
             Inquire With Us
           </h2>
 
-          <button onClick={onClose}>
+          <button onClick={onClose} className="cursor-pointer">
             <Image src="/cross.svg" alt="close" width={16} height={16} />
           </button>
         </div>

@@ -117,13 +117,13 @@ export default function LandJourneys() {
                     {journeys[currentIndex].description}
                   </p>
 
-                  <div className="space-y-1 text-xs font-bold text-[#2B3481] mb-4">
+                  <div className="space-y-1 text-xs text-[#2B3481] mb-4">
                     <p>{journeys[currentIndex].duration}</p>
                     <p>{journeys[currentIndex].location}</p>
                   </div>
 
                   <div className="">
-                    <span className="border border-[#2B3481] text-[#2B3481] text-[10px] font-bold px-2 py-1 rounded">
+                    <span className="border border-[#2B3481] text-[#2B3481] text-[10px] px-2 py-1 rounded">
                       {journeys[currentIndex].date}
                     </span>
                   </div>
@@ -145,7 +145,7 @@ export default function LandJourneys() {
                       </p>
                       <p className="text-[15px] font-medium text-[#2C3078]">
                         {journeys[currentIndex].price}
-                        <span className="text-[12px] font-normal text-[#2C3078]">
+                        <span className="text-[12px] font-light text-[#2C3078]">
                           /person
                         </span>
                       </p>
@@ -157,7 +157,7 @@ export default function LandJourneys() {
                     <button
                       type="button"
                       onClick={() => openJourneyModal(journeys[currentIndex])}
-                      className="rounded-full bg-[#2C3078] text-lg md:text-xl py-1 px-4 font-medium text-white"
+                      className="cursor-pointer rounded-full bg-[#2C3078] text-lg md:text-xl py-1 px-4 font-medium text-white"
                     >
                       Get Details
                     </button>
@@ -181,7 +181,7 @@ export default function LandJourneys() {
               type="button"
               onClick={handlePrev}
               aria-label="Previous land journey"
-              className="shrink-0 text-2xl text-[#3b1c8e] transition hover:opacity-70"
+              className="shrink-0 text-2xl text-[#3b1c8e] transition hover:opacity-70 cursor-pointer"
             >
               ←
             </button>
@@ -189,7 +189,7 @@ export default function LandJourneys() {
               type="button"
               onClick={handleNext}
               aria-label="Next land journey"
-              className="shrink-0 text-2xl text-[#3b1c8e] transition hover:opacity-70"
+              className="shrink-0 text-2xl text-[#3b1c8e] transition hover:opacity-70 cursor-pointer"
             >
               →
             </button>
@@ -240,13 +240,13 @@ export default function LandJourneys() {
                     {journey.description}
                   </p>
 
-                  <div className="space-y-1 text-xs font-bold text-[#2B3481] mb-4">
+                  <div className="space-y-1 text-xs text-[#2B3481] mb-4">
                     <p>{journey.duration}</p>
                     <p>{journey.location}</p>
                   </div>
 
                   <div className="">
-                    <span className="border border-[#2B3481] text-[#2B3481] text-[10px] font-bold px-2 py-1 rounded">
+                    <span className="border border-[#2B3481] text-[#2B3481] text-[10px] px-2 py-1 rounded">
                       {journey.date}
                     </span>
                   </div>
@@ -267,7 +267,7 @@ export default function LandJourneys() {
                       <p className="text-[10px] text-[#2B3481]">from</p>
                       <p className="text-lg font-medium text-[#2B3481]">
                         {journey.price}
-                        <span className="text-xs font-normal text-[#2B3481]">
+                        <span className="text-xs font-light text-[#2B3481]">
                           */person
                         </span>
                       </p>

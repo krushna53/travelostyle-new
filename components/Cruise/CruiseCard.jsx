@@ -44,10 +44,10 @@ export default function CruiseCard({ item, onGetDetails }) {
             >
               {item.title}
             </h3>
-            <p className="mt-2 text-[13px] font-semibold text-[#2C3078]">
+            <p className="mt-2 text-[13px] text-[#2C3078]">
               {item.nights}
             </p>
-            <p className="text-[13px] font-semibold text-[#2C3078]">
+            <p className="text-[13px] text-[#2C3078]">
               {item.route}
             </p>
 
@@ -69,7 +69,7 @@ export default function CruiseCard({ item, onGetDetails }) {
               <p className="text-[13px] text-[#2C3078] font-light">from</p>
               <p className="text-[15px] font-medium text-[#2C3078]">
                 {item.price}*
-                <span className="text-[12px] font-normal text-[#2C3078]">
+                <span className="text-[12px] font-light text-[#2C3078]">
                   /person
                 </span>
               </p>
