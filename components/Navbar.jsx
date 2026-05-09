@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { FacebookIcon, InstagramIcon } from "./FooterSection";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -62,7 +63,7 @@ const Navbar = () => {
       </div>
 
       <div className="fixed bottom-3 left-1/2 z-50 flex w-[min(92vw,420px)] -translate-x-1/2 justify-center md:hidden">
-        <button
+        <div
           onClick={toggleMenu}
           className="cursor-pointerw-full flex flex-col items-center rounded-xl border border-white/70 bg-[#2c3078]/80 px-4 py-2 text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-lg transition hover:opacity-90"
         >
@@ -77,7 +78,7 @@ const Navbar = () => {
           <span className="mt-1 text-[13px] font-semibold uppercase underline tracking-[0.08em]">
             Menu
           </span>
-        </button>
+        </div>
       </div>
 
       {/* Mobile Menu Modal */}
@@ -102,7 +103,7 @@ const Navbar = () => {
                   alt="Travel O Style"
                   width={220}
                   height={42}
-                  className="h-auto w-40"
+                  className="h-auto w-4/5"
                 />
                 <button
                   onClick={closeMenu}
@@ -114,7 +115,7 @@ const Navbar = () => {
               </div>
 
               {/* Navigation Links */}
-              <nav className="space-y-4 mb-8">
+              <nav className="space-y-4 mb-8 flex flex-col items-start">
                 <Link
                   href="#about"
                   onClick={closeMenu}
@@ -146,36 +147,32 @@ const Navbar = () => {
                 <Link
                   href="#plan-your-journey"
                   onClick={closeMenu}
-                  className="mx-auto mb-10 block w-fit rounded-full bg-white px-4 py-3 font-semibold text-[#2c3078] transition hover:opacity-90"
+                  className="mb-10 block w-fit rounded-full bg-white px-3 py-1 font-medium text-[#2c3078] transition hover:opacity-90"
                 >
                   Plan Your Journey
                 </Link>
               </nav>
 
               {/* Social Icons */}
-              <div className="flex gap-4 mb-8">
+              <div className="flex items-center gap-4 mb-2">
                 <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 border-2 border-white rounded-full flex items-center justify-center transition hover:opacity-70"
+                  href="#"
                   aria-label="Facebook"
+                  className="text-white/90 transition hover:text-white"
                 >
-                  <span className="text-lg">f</span>
+                  <FacebookIcon />
                 </a>
                 <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 border-2 border-white rounded-full flex items-center justify-center transition hover:opacity-70"
+                  href="#"
                   aria-label="Instagram"
+                  className="text-white/90 transition hover:text-white"
                 >
-                  <span className="text-lg">📷</span>
+                  <InstagramIcon />
                 </a>
               </div>
 
               {/* Contact Info */}
-              <div className="border-t border-white/20 pt-6 space-y-2 text-sm">
+              <div className="space-y-2 text-sm">
                 <p className="font-medium">Rohan Shah: +1 773 983 8067</p>
                 <p className="font-medium">info@travelostyle.com</p>
                 <p className="text-white/60 text-xs mt-4">

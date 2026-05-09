@@ -2,12 +2,37 @@
 
 import { useState } from "react";
 import CruiseCard from "./CruiseCard";
+import Image from "next/image";
 
 const cruises = [
-  { title: "BAHAMAS", nights: "3 Nights", route: "Round Trip | Port Canaveral, FL", price: "$X", image: "/ShipPort.png" },
-  { title: "WESTERN CARIBBEAN", nights: "7 Nights", route: "Round Trip | Miami, FL", price: "$X", image: "/Island.png" },
-  { title: "EASTERN CARIBBEAN", nights: "7 Nights", route: "Round Trip | Port Canaveral, FL", price: "$X", image: "/eastern.png" },
-  { title: "MEDITERRANEAN", nights: "7 Nights", route: "Round Trip | Barcelona, Spain", price: "$X", image: "/Mediterranean.png" },
+  {
+    title: "BAHAMAS",
+    nights: "3 Nights",
+    route: "Round Trip | Port Canaveral, FL",
+    price: "$X",
+    image: "/ShipPort.png",
+  },
+  {
+    title: "WESTERN CARIBBEAN",
+    nights: "7 Nights",
+    route: "Round Trip | Miami, FL",
+    price: "$X",
+    image: "/Island.png",
+  },
+  {
+    title: "EASTERN CARIBBEAN",
+    nights: "7 Nights",
+    route: "Round Trip | Port Canaveral, FL",
+    price: "$X",
+    image: "/eastern.png",
+  },
+  {
+    title: "MEDITERRANEAN",
+    nights: "7 Nights",
+    route: "Round Trip | Barcelona, Spain",
+    price: "$X",
+    image: "/Mediterranean.png",
+  },
 ];
 
 export default function RoyalCaribbean({ onGetDetails }) {
@@ -29,7 +54,10 @@ export default function RoyalCaribbean({ onGetDetails }) {
           className="transition-all duration-500 ease-in-out"
           key={currentIndex}
         >
-          <CruiseCard item={cruises[currentIndex]} onGetDetails={onGetDetails} />
+          <CruiseCard
+            item={cruises[currentIndex]}
+            onGetDetails={onGetDetails}
+          />
         </div>
 
         {/* Navigation buttons below card */}
@@ -37,18 +65,30 @@ export default function RoyalCaribbean({ onGetDetails }) {
           <button
             type="button"
             onClick={handlePrev}
-            aria-label="Previous cruise"
-            className="shrink-0 text-2xl text-[#3b1c8e] hover:opacity-70 transition"
+            aria-label="Previous land journey"
+            className="shrink-0"
           >
-            ←
+            <Image
+              src="/Arrow_right.svg"
+              alt="Previous"
+              width={24}
+              height={24}
+              className="w-12 text-[#3b1c8e] transition hover:opacity-70 cursor-pointer rotate-180"
+            />
           </button>
           <button
             type="button"
             onClick={handleNext}
-            aria-label="Next cruise"
-            className="shrink-0 text-2xl text-[#3b1c8e] hover:opacity-70 transition"
+            aria-label="Next land journey"
+            className="shrink-0"
           >
-            →
+            <Image
+              src="/Arrow_right.svg"
+              alt="Next"
+              width={24}
+              height={24}
+              className="w-12 text-[#3b1c8e] transition hover:opacity-70 cursor-pointer"
+            />
           </button>
         </div>
       </div>

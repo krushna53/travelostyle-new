@@ -271,8 +271,9 @@ export default function TravelForm() {
                 name="agree"
                 checked={formData.agree}
                 onChange={handleChange}
+                className="h-6 w-6 md:h-8 md:w-8 border-2 border-[#4b2aa3] accent-[#4b2aa3]"
               />
-              <span className="text-sm font-light text-[#2C3078]">
+              <span className="font-light text-[#2C3078]">
                 I agree to be contacted by TravelOStyle regarding my inquiry
               </span>
             </div>

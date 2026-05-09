@@ -8,7 +8,7 @@ const quickLinks = [
 ];
 const usefulLinks = ["FAQs", "Write To Us", "Terms and Conditions", "Policies"];
 
-function FacebookIcon() {
+export function FacebookIcon() {
   return (
     <svg
       aria-hidden="true"
@@ -26,7 +26,7 @@ function FacebookIcon() {
   );
 }
 
-function InstagramIcon() {
+export function InstagramIcon() {
   return (
     <svg
       aria-hidden="true"
