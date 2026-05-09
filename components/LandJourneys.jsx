@@ -181,17 +181,17 @@ export default function LandJourneys() {
               type="button"
               onClick={handlePrev}
               aria-label="Previous land journey"
-              className="shrink-0 text-2xl text-[#3b1c8e] transition hover:opacity-70 cursor-pointer"
+              className="shrink-0"
             >
-              ←
+              <Image src="/Arrow_right.svg" alt="Previous" width={24} height={24} className="w-12 text-[#3b1c8e] transition hover:opacity-70 cursor-pointer rotate-180"/>
             </button>
             <button
               type="button"
               onClick={handleNext}
               aria-label="Next land journey"
-              className="shrink-0 text-2xl text-[#3b1c8e] transition hover:opacity-70 cursor-pointer"
+              className="shrink-0"
             >
-              →
+              <Image src="/Arrow_right.svg" alt="Next" width={24} height={24} className="w-12 text-[#3b1c8e] transition hover:opacity-70 cursor-pointer"/>
             </button>
           </div>
         </div>

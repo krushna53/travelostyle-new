@@ -323,7 +323,7 @@ export default function CruiseJourneys() {
                   <label className="flex items-start gap-3 text-[12px] leading-5 text-[#5c5a88] sm:max-w-77.5 sm:text-[13px]">
                     <input
                       type="checkbox"
-                      className="mt-0.5 h-5 w-5 rounded-sm border-2 border-[#4b2aa3] accent-[#4b2aa3]"
+                      className="mt-0.5 h-6 w-6 md:h-8 md:w-8 rounded-sm border-2 border-[#4b2aa3] accent-[#4b2aa3]"
                     />
                     <span>
                       I agree to be contacted by TravelOStyle regarding my inquiry.

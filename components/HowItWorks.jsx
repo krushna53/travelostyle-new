@@ -1,3 +1,4 @@
+import Image from "next/image";
 import DashedBorderFrame from "./DashedBorderFrame";
 
 const steps = [
@@ -65,14 +66,14 @@ export default function HowItWorks() {
           {/* Mobile Timeline */}
           <div className="sm:hidden relative px-6">
             {/* Vertical connecting line */}
-            <div className="absolute left-9.25 top-5 bottom-24 w-1 bg-linear-to-b from-white/30 via-white/20 to-white/30" />
+            <div className="absolute left-[35px] top-3 bottom-24 w-[2px] bg-[#FAFAFA]" />
 
             <div className="space-y-8">
               {steps.map((step, index) => (
                 <div key={step.number} className="relative flex items-start gap-6 text-left">
                   {/* Star and number */}
                   <div className="relative flex shrink-0 flex-col items-center">
-                    <span className="text-4xl text-white mb-2">✦</span>
+                    <Image className="h-6 w-6" src="/Vector.svg" alt="Star" width={100} height={100} />
                   </div>
 
                   {/* Text content */}

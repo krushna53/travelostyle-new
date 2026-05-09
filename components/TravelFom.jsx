@@ -264,8 +264,9 @@ export default function TravelForm() {
 
           {/* FOOTER */}
           <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-baseline gap-3">
+            <div className="flex items-start md:items-center gap-3">
               <label
+                htmlFor="agree"
                 className="relative mt-0.5 flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-sm border-2 border-[#2C3078]"
                 style={{ backgroundColor: formData.agree ? "#2C3078" : "transparent" }}
               >
