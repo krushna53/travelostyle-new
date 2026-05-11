@@ -72,7 +72,7 @@ export default function FAQSection() {
 
             <a
               href="mailto:info@travelostyle.com"
-              className="inline-block mt-6 rounded-full bg-[#2C3078] px-5 py-2 text-white text-sm font-medium"
+              className="inline-block mt-6 rounded-full bg-[#2C3078] px-5 py-2 text-white text-[18px] font-medium h-[39px] text-center"
             >
               Ask Us Anything
             </a>
@@ -129,7 +129,7 @@ export default function FAQSection() {
 
             <a
               href="mailto:info@travelostyle.com"
-              className="inline-block mt-4 rounded-full bg-[#2C3078] px-5 py-2 text-white text-sm font-medium"
+              className="inline-block mt-4 rounded-full bg-[#2C3078] px-5 py-2 text-white text-[18px] font-medium h-[39px] text-center"
             >
               Ask Us Anything
             </a>
