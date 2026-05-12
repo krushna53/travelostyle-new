@@ -37,12 +37,12 @@ const MODAL_SCRIPT_URL =
 function CruiseCard({ item }) {
   return (
     <div className="overflow-hidden flex flex-col md:aspect-[435/537] max-h-[537px] max-w-[435px]">
-      <Image
+      {/* <Image
         src="/Journey_card_bg.svg"
         alt={item.title}
         fill
         className="object-cover absolute z-50"
-      />
+      /> */}
       <div className="relative w-full h-full">
         <Image
           src={item.image}
