@@ -27,18 +27,124 @@ const journeys = [
     date: "May-Dec 2026",
     price: "$5000",
   },
+  {
+    id: 3,
+    title: "Punta Cana",
+    image: "/punta.jpg",
+    description:
+      "Punta Cana — the jewel of the Dominican Republic — is home to some of the Caribbean's most breathtaking white-sand beaches.",
+    duration: "4 Days | 3 Nights",
+    location: "Dominican Republic",
+    date: "May-Dec 2026",
+    price: "$5000",
+  },
 ];
+
+function JourneyCard({ journey, onOpen }) {
+  return (
+    <div
+      className="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col relative"
+      style={{
+        maskImage:
+          "radial-gradient(circle at left 220px, transparent 15px, black 16px), radial-gradient(circle at right 220px, transparent 15px, black 16px)",
+        WebkitMaskImage:
+          "radial-gradient(circle at left 220px, transparent 15px, black 16px), radial-gradient(circle at right 220px, transparent 15px, black 16px)",
+        maskComposite: "intersect",
+        WebkitMaskComposite: "source-in",
+      }}
+    >
+      <div className="px-4 pt-4 pb-0">
+        <Image
+          src={journey.image}
+          alt="travel"
+          width={340}
+          height={200}
+          className="w-full h-[180px] object-cover rounded-lg"
+        />
+      </div>
+      <div className="px-6 my-3 mt-5">
+        <Image src="/zig_zag_line.svg" alt="" width={260} height={10} className="w-full" />
+      </div>
+      <div className="px-6 pb-5 pt-2 flex flex-col grow">
+        <h3 className="text-xl sm:text-2xl font-semibold text-[#2B3481] mb-3">
+          {journey.title}
+        </h3>
+        <p className="text-sm text-[#2B3481] font-light leading-relaxed mb-6">
+          {journey.description}
+        </p>
+
+        <div className="text-sm text-[#2B3481] mb-4">
+          <p>{journey.duration}</p>
+          <p>{journey.location}</p>
+        </div>
+
+        <div>
+          <span className="border border-[#2B3481] text-[#2B3481] text-xs px-2 py-1 rounded">
+            {journey.date}
+          </span>
+        </div>
+
+        <div className="my-4 w-full">
+          <Image src="/zig_zag_line.svg" alt="" width={260} height={10} className="w-full" />
+        </div>
+
+        <div className="flex justify-between items-center mt-auto">
+          <div>
+            <p className="text-[10px] text-[#2B3481]">from</p>
+            <p className="text-lg font-medium text-[#2B3481]">
+              {journey.price}
+              <span className="text-xs font-light text-[#2B3481]">*/person</span>
+            </p>
+            <p className="text-[9px] text-[#2B3481] italic">double occupancy*</p>
+          </div>
+
+          <Button
+            type="button"
+            onClick={onOpen}
+            className="rounded-full bg-[#2C3078] text-xl pt-1 px-3 font-medium text-white disabled:cursor-not-allowed disabled:bg-[#2C3078]/70"
+            size="md"
+          >
+            Get Details
+          </Button>
+        </div>
+      </div>
+
+      {/* Dotted bottom edge */}
+      <div className="absolute bottom-0 left-0 w-full h-2 flex gap-1 justify-center overflow-hidden translate-y-1">
+        {[...Array(20)].map((_, i) => (
+          <div key={i} className="w-5 h-10 bg-[#f2f2f2] rounded-full shrink-0" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function NavButton({ direction, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={direction === "prev" ? "Previous land journey" : "Next land journey"}
+      className=""
+    >
+      <Image
+        src="/Arrow_right.svg"
+        className={`w-12 h-12 ${direction === "prev" ? "" : "rotate-180"}`}
+        alt={direction === "prev" ? "Previous" : "Next"}
+        width={16}
+        height={16}
+      />
+    </button>
+  );
+}
 
 export default function LandJourneys() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handlePrev = () => {
+  const handlePrev = () =>
     setCurrentIndex((prev) => (prev - 1 + journeys.length) % journeys.length);
-  };
-
-  const handleNext = () => {
+  const handleNext = () =>
     setCurrentIndex((prev) => (prev + 1) % journeys.length);
-  };
 
   function openJourneyModal(journey) {
     window.dispatchEvent(
@@ -53,6 +159,11 @@ export default function LandJourneys() {
     );
   }
 
+  // 3 visible cards starting from currentIndex, wrapping around
+  const visibleJourneys = [0, 1, 2].map(
+    (offset) => journeys[(currentIndex + offset) % journeys.length]
+  );
+
   return (
     <section
       id="land-journeys"
@@ -61,243 +172,47 @@ export default function LandJourneys() {
       <div className="mx-auto max-w-[85.2vw]">
         {/* Header */}
         <div className="flex flex-col items-center mb-10 sm:mb-16">
-          <div className="mb-4 text-[#2B3481]">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-            </svg>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#2B3481] uppercase">
+          <h2 className="text-2xl tracking-[5%] sm:text-3xl font-semibold text-[#2B3481] uppercase">
             Land Journeys
           </h2>
         </div>
 
-        {/* Mobile: Single card with navigation */}
+        {/* Mobile: single card with centered arrows below */}
         <div className="sm:hidden">
-          <div
-            className="transition-all duration-500 ease-in-out"
-            key={currentIndex}
-          >
-            <div className="relative group">
-              <div
-                className="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col relative"
-                style={{
-                  maskImage:
-                    "radial-gradient(circle at left 220px, transparent 15px, black 16px), radial-gradient(circle at right 220px, transparent 15px, black 16px)",
-                  WebkitMaskImage:
-                    "radial-gradient(circle at left 220px, transparent 15px, black 16px), radial-gradient(circle at right 220px, transparent 15px, black 16px)",
-                  maskComposite: "intersect",
-                  WebkitMaskComposite: "source-in",
-                }}
-              >
-                <div className="px-3 py-3">
-                  <Image
-                    src={journeys[currentIndex].image}
-                    alt="travel"
-                    width={340}
-                    height={100}
-                    className="w-full h-45 object-cover rounded-lg"
-                  />
-                </div>
-                <div className="px-6 mt-4">
-                  <div className=" w-full">
-                    <Image
-                      src="/Lineborder.png"
-                      alt=""
-                      width={260}
-                      height={10}
-                      className="w-full"
-                    />
-                  </div>
-                </div>
-                <div className="px-6 sm:px-8 pb-5 pt-2 flex flex-col grow">
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#2B3481] mb-3">
-                    {journeys[currentIndex].title}
-                  </h3>
-                  <p className="text-sm text-slate-500 leading-relaxed mb-6">
-                    {journeys[currentIndex].description}
-                  </p>
-
-                  <div className="space-y-1 text-xs text-[#2B3481] mb-4">
-                    <p>{journeys[currentIndex].duration}</p>
-                    <p>{journeys[currentIndex].location}</p>
-                  </div>
-
-                  <div className="">
-                    <span className="border border-[#2B3481] text-[#2B3481] text-[10px] px-2 py-1 rounded">
-                      {journeys[currentIndex].date}
-                    </span>
-                  </div>
-
-                  <div className="my-4 w-full">
-                    <Image
-                      src="/Lineborder.png"
-                      alt=""
-                      width={260}
-                      height={10}
-                      className="w-full"
-                    />
-                  </div>
-
-                  <div className="flex flex-col items-start justify-between gap-4">
-                    <div>
-                      <p className="text-[13px] text-[#2C3078] font-light">
-                        from
-                      </p>
-                      <p className="text-[15px] font-medium text-[#2C3078]">
-                        {journeys[currentIndex].price}
-                        <span className="text-[12px] font-light text-[#2C3078]">
-                          /person
-                        </span>
-                      </p>
-                      <p className="text-[11px] italic text-[#2C3078] font-light">
-                        double occupancy*
-                      </p>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => openJourneyModal(journeys[currentIndex])}
-                      className="cursor-pointer rounded-full bg-[#2C3078] text-lg md:text-xl py-1 px-4 font-medium text-white"
-                    >
-                      Get Details
-                    </button>
-                  </div>
-                </div>
-
-                <div className="absolute bottom-0 left-0 w-full h-2 flex gap-1 justify-center overflow-hidden translate-y-1">
-                  {[...Array(20)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-3 h-3 bg-[#f2f2f2] rounded-full shrink-0"
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
+          <div key={currentIndex} className="transition-all duration-500 ease-in-out">
+            <JourneyCard
+              journey={journeys[currentIndex]}
+              onOpen={() => openJourneyModal(journeys[currentIndex])}
+            />
           </div>
-
-          <div className="mt-6 flex items-center justify-between gap-8">
-            <button
-              type="button"
-              onClick={handlePrev}
-              aria-label="Previous land journey"
-              className="shrink-0"
-            >
-              <Image src="/Arrow_right.svg" alt="Previous" width={24} height={24} className="w-12 text-[#3b1c8e] transition hover:opacity-70 cursor-pointer rotate-180"/>
-            </button>
-            <button
-              type="button"
-              onClick={handleNext}
-              aria-label="Next land journey"
-              className="shrink-0"
-            >
-              <Image src="/Arrow_right.svg" alt="Next" width={24} height={24} className="w-12 text-[#3b1c8e] transition hover:opacity-70 cursor-pointer"/>
-            </button>
+          <div className="mt-6 flex items-center justify-center gap-6">
+            <NavButton direction="prev" onClick={handlePrev} />
+            <span className="text-xs text-[#2B3481]">
+              {currentIndex + 1} / {journeys.length}
+            </span>
+            <NavButton direction="next" onClick={handleNext} />
           </div>
         </div>
 
-        {/* Desktop: Grid layout */}
-        <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 w-full">
-          {journeys.map((journey, index) => (
-            <div key={index} className="relative group">
-              <div
-                className="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col relative"
-                style={{
-                  maskImage:
-                    "radial-gradient(circle at left 220px, transparent 15px, black 16px), radial-gradient(circle at right 220px, transparent 15px, black 16px)",
-                  WebkitMaskImage:
-                    "radial-gradient(circle at left 220px, transparent 15px, black 16px), radial-gradient(circle at right 220px, transparent 15px, black 16px)",
-                  maskComposite: "intersect",
-                  WebkitMaskComposite: "source-in",
-                }}
-              >
-                <div className="px-3 py-3">
-                  <Image
-                    src={journey.image}
-                    alt="travel"
-                    width={340}
-                    height={100}
-                    className="w-full h-45 object-cover rounded-lg"
-                  />
-                </div>
-                <div className="px-6 mt-4">
-                  {/* Wavy line divider */}
-                  <div className=" w-full">
-                    <Image
-                      src="/Lineborder.png"
-                      alt=""
-                      width={260}
-                      height={10}
-                      className="w-full"
-                    />
-                  </div>
-                </div>
-                <div className="px-6 sm:px-8 pb-5 pt-2 flex flex-col grow">
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#2B3481] mb-3">
-                    {journey.title}
-                  </h3>
-                  <p className="text-sm text-slate-500 leading-relaxed mb-6">
-                    {journey.description}
-                  </p>
+        {/* Desktop: arrows flanking the 3-column grid, vertically centered */}
+        <div className="hidden sm:grid grid-cols-[100px_1fr_100px] items-center gap-10">
+          <div className="flex justify-center">
+            <NavButton direction="prev" onClick={handlePrev} />
+          </div>
 
-                  <div className="space-y-1 text-xs text-[#2B3481] mb-4">
-                    <p>{journey.duration}</p>
-                    <p>{journey.location}</p>
-                  </div>
+          <div className="grid grid-cols-3 gap-18">
+            {visibleJourneys.map((journey, index) => (
+              <JourneyCard
+                key={`${currentIndex}-${index}`}
+                journey={journey}
+                onOpen={() => openJourneyModal(journey)}
+              />
+            ))}
+          </div>
 
-                  <div className="">
-                    <span className="border border-[#2B3481] text-[#2B3481] text-[10px] px-2 py-1 rounded">
-                      {journey.date}
-                    </span>
-                  </div>
-
-                  {/* Wavy line divider */}
-                  <div className="my-4 w-full">
-                    <Image
-                      src="/Lineborder.png"
-                      alt=""
-                      width={260}
-                      height={10}
-                      className="w-full"
-                    />
-                  </div>
-
-                  <div className="flex justify-between items-center mt-auto">
-                    <div>
-                      <p className="text-[10px] text-[#2B3481]">from</p>
-                      <p className="text-lg font-medium text-[#2B3481]">
-                        {journey.price}
-                        <span className="text-xs font-light text-[#2B3481]">
-                          */person
-                        </span>
-                      </p>
-                      <p className="text-[9px] text-[#2B3481] italic">
-                        double occupancy*
-                      </p>
-                    </div>
-
-                    <Button
-                      type="button"
-                      onClick={() => openJourneyModal(journey)}
-                      className="rounded-full bg-[#2C3078] text-lg md:text-xl py-1 px-4 font-medium text-white"
-                      size="md"
-                    >
-                      Get Details
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="absolute bottom-0 left-0 w-full h-2 flex gap-1 justify-center overflow-hidden translate-y-1">
-                  {[...Array(20)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-3 h-3 bg-[#f2f2f2] rounded-full shrink-0"
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
+          <div className="flex justify-center">
+            <NavButton direction="next" onClick={handleNext} />
+          </div>
         </div>
       </div>
     </section>

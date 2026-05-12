@@ -37,7 +37,7 @@ export default function CollaborateSection() {
           <div className="mx-auto w-full md:max-w-[85.2vw] px-6 md:px-12">
             <div className="max-w-xs md:max-w-md">
               <h2
-                className="font-taprom leading-snug text-white md:text-[#2C3078] text-[40px] md:text-[56px] md:text-nowrap"
+                className="font-taprom tracking-[5%] leading-snug text-white md:text-[#2C3078] text-[40px] md:text-[56px] md:text-nowrap"
               >
                 Interested in collaborating <br className="hidden md:block" />
                 with TravelOStyle?
