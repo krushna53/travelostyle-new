@@ -36,7 +36,7 @@ const MODAL_SCRIPT_URL =
 
 function CruiseCard({ item }) {
   return (
-    <div className="overflow-hidden flex flex-col aspect-[435/537] max-h-[537px] max-w-[435px]">
+    <div className="overflow-hidden flex flex-col md:aspect-[435/537] max-h-[537px] max-w-[435px]">
       <Image
         src="/Journey_card_bg.svg"
         alt={item.title}
@@ -53,10 +53,10 @@ function CruiseCard({ item }) {
         <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/20 to-black/10" />
         <div className="relative z-10 flex flex-col h-full pb-3">
           <div className="p-6 flex-1">
-            <h3 className="text-white font-semibold text-2xl leading-32px mb-3">
+            <h3 className="text-white font-semibold text-xl md:text-2xl leading-32px mb-3">
               {item.title}
             </h3>
-            <p className="text-white/90 text-lg leading-relaxed pt-5">
+            <p className="text-white/90 text-sm md:text-lg leading-relaxed md:pt-5">
               {item.description}
             </p>
           </div>
@@ -65,7 +65,7 @@ function CruiseCard({ item }) {
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white text-[#2B3481] font-medium rounded-full px-5 py-2.5 hover:bg-gray-100 transition-colors"
+              className="inline-flex items-center gap-2 bg-white text-[#2B3481] text-xs mt-20 md:text-lg md:mt-0 font-medium rounded-full px-5 py-2.5 hover:bg-gray-100 transition-colors"
             >
               {item.exploreLabel}
               <svg
@@ -99,7 +99,7 @@ function CruiseCard({ item }) {
               <line x1="12" y1="8" x2="12" y2="12" />
               <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
-            <span className="text- text-[#2B3481]">
+            <span className="text-xs md:text-base text-[#2B3481]">
               Opens on a TravelOStyle partner site
             </span>
           </div>
