@@ -10,7 +10,7 @@ const cruises = [
     description:
       "Royal Caribbean suits travellers who want a lot from a cruise — a wide range of destinations, activities, and price points, all in one place.",
     image: "/CruiseJourneys/Royal_Caribbean.jpg",
-    link: "https://www.royalcaribbean.com",
+    link: "https://royalcaribbean.mytravelsite.com/?agency=10440&_gl=1%2A15krevg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
     exploreLabel: "Explore Royal Caribbean Cruises",
   },
   {
@@ -18,7 +18,7 @@ const cruises = [
     description:
       "Princess ships are designed to hold your attention between ports as much as at them. Dining that goes beyond the expected, comfortable amenities, and a pace that lets you settle into the voyage.",
     image: "/CruiseJourneys/Princess_Cruise.jpg",
-    link: "https://www.princess.com",
+    link: "https://princesscruises.mytravelsite.com/?agency=10440&_gl=1%2A15krevg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
     exploreLabel: "Explore Princess Cruises",
   },
   {
@@ -26,8 +26,96 @@ const cruises = [
     description:
       "Oceania's routes are built around depth of destination — more time ashore, more cities, more of the world actually experienced.",
     image: "/CruiseJourneys/Oceania_Cruise.jpg",
-    link: "https://www.oceaniacruises.com",
+    link: "https://oceaniacruises.mytravelsite.com/?agency=10440&_gl=1%2A15krevg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
     exploreLabel: "Explore Oceania Cruises",
+  },
+  {
+    title: "Viking Cruises",
+    description:
+      "Viking is built for travellers who travel with intention. Smaller ships, no casinos, no children — just thoughtfully designed itineraries and knowledgeable guides.",
+    image: "/CruiseJourneys/viking_cruise.jpg",
+    link: "https://vikingcruises.mytravelsite.com/?agency=10440&_gl=1%2A15krevg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Viking Cruises",
+  },
+  {
+    title: "Virgin Voyages",
+    description:
+      "Adults only, by design. Virgin Voyages has built something genuinely different — ships with character, service that doesn't follow the usual script, and an atmosphere that feels more like a boutique hotel at sea.",
+    image: "/CruiseJourneys/virgin_voyages.jpg",
+    link: "https://virginvoyages.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2A15krevg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Virgin Voyages",
+  },
+  {
+    title: "Windstar Cruises",
+    description:
+      "Small ships open up a different world. Windstar docks where the larger lines simply can't — in the heart of the harbour, steps from the old town, close enough to walk.",
+    image: "/CruiseJourneys/windstar_voyages.jpg",
+    link: "https://windstarcruises.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2A15krevg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Windstar Cruises",
+  },
+  {
+    title: "Celebrity Cruises",
+    description:
+      "Celebrity sits at the more considered end of the mainstream. The ships are large enough to offer genuine variety, but designed and staffed in a way that doesn't feel busy.",
+    image: "/CruiseJourneys/celebrity_cruise.jpg",
+    link: "https://celebritycruises.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2Auxqryb%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Celebrity Cruises",
+  },
+  {
+    title: "Carnival Cruises",
+    description:
+      "Carnival does fun well and without apology. Every ship has its own character — different onboard experiences, different energy.",
+    image: "/CruiseJourneys/carnival_cruise.jpg",
+    link: "https://carnival.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2A81lwgq%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1MDYzJGozOSRsMCRoMA",
+    exploreLabel: "Explore Carnival Cruises",
+  },
+  {
+    title: "Holland America Cruises",
+    description:
+      "Holland America has been taking travellers to the less-travelled corners of the world for over 150 years. The ships are elegant without being stiff, the itineraries lean toward the cultural and the exploratory.",
+    image: "/CruiseJourneys/holland_america.jpg",
+    link: "https://hollandamericaline.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2Av27m9n%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Holland America Cruises",
+  },
+  {
+    title: "Avalon Waterways",
+    description:
+      "River cruising, reconsidered. Avalon has rethought the standard format — more glass, more openness to the landscape passing by, and itineraries built around genuine immersion in the regions they move through.",
+    image: "/CruiseJourneys/avalon_waterways.jpg",
+    link: "https://avalonwaterways.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2Av27m9n%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Avalon Waterways",
+  },
+  {
+    title: "AMA Waterways",
+    description:
+      "Small ships, locally sourced food, and a crew that takes the time to know the guests they're looking after. AmaWaterways runs river itineraries across Europe, Asia, and Africa with an attention to detail.",
+    image: "/CruiseJourneys/ama_waterways.jpg",
+    link: "https://amawaterways.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2Av27m9n%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore AMA Waterways",
+  },
+  {
+    title: "Hurtigruten",
+    description:
+      "Hurtigruten travels the Norwegian coastline through all seasons, stopping at communities that larger ships never reach. Part expedition, part tradition, entirely unlike anything else.",
+    image: "/CruiseJourneys/hurtigruten_voyages.jpg",
+    link: "https://hurtigruten.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2Av27m9n%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Hurtigruten Cruises",
+  },
+  {
+    title: "Uniworld Boutique River Cruises",
+    description:
+      "Arguably the most design-led river cruise line available. Each Uniworld ship is individually styled around the region it sails — no two are the same.",
+    image: "/CruiseJourneys/uniworld_boutique.jpg",
+    link: "https://uniworld.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2A8oeuhg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Uniworld Boutique River Cruises",
+  },
+  {
+    title: "Regent Seven Seas",
+    description:
+      "Flights, excursions, dining, drinks, gratuities — all covered. The ships are small by ocean cruise standards, the itineraries are global, and the overall standard is genuinely luxury.",
+    image: "/CruiseJourneys/regent_seven.jpg",
+    link: "https://regentsevenseas.mytravelsite.com/?agency=10440&_gl=1%2A8oeuhg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Regent Seven Seas",
   },
 ];
 
