@@ -121,72 +121,102 @@ const cruises = [
 
 function CruiseCard({ item }) {
   return (
-    <div className="overflow-hidden flex flex-col md:aspect-435/537 max-h-134.25 max-w-108.75">
-      {/* <Image
+    <div
+      className="relative"
+      style={{ aspectRatio: "506/606" }}
+    >
+      {/* SVG ticket-border card shape (#FAFAFA background + built-in shadow) */}
+      <img
         src="/Journey_card_bg.svg"
-        alt={item.title}
-        fill
-        className="object-cover absolute z-50"
-      /> */}
-      <div className="relative w-full h-full">
-        <Image
-          src={item.image}
-          alt={item.title}
-          fill
-          className="object-cover opacity-80"
-        />
-        <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/20 to-black/10" />
-        <div className="relative z-10 flex flex-col h-full pb-3">
-          <div className="p-6 flex-1">
-            <h3 className="text-white font-semibold text-xl md:text-2xl leading-32px mb-3">
+        alt=""
+        aria-hidden="true"
+        className="absolute pointer-events-none select-none"
+        style={{
+          width: "103.95%",
+          height: "103.63%",
+          left: "0",
+          top: 0,
+        }}
+      />
+
+      {/* Content inset: 35 px sides → 6.92%, 30 px top → 5.93% */}
+      <div
+        className="absolute inset-0 flex flex-col"
+        style={{ padding: "5.93% 6.92%" }}
+      >
+        {/* Image area */}
+        <div className="relative overflow-hidden rounded-sm flex-1">
+          <Image
+            src={item.image}
+            alt={item.title}
+            fill
+            className="object-cover"
+          />
+
+          {/* Dark-to-transparent gradient overlay */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(26,26,26,0.92) 0%, rgba(26,26,26,0.85) 40%, rgba(26,26,26,0.1) 62%, rgba(0,0,0,0) 75%)",
+            }}
+          />
+
+          {/* Title + description at top */}
+          <div className="absolute top-0 inset-x-0 z-10 p-6 pb-0">
+            <h3 className="text-white font-semibold text-xl md:text-2xl leading-tight mb-4">
               {item.title}
             </h3>
-            <p className="text-white/90 text-sm md:text-lg leading-relaxed md:pt-5">
+            <p className="text-white/90 text-sm md:text-lg leading-relaxed">
               {item.description}
             </p>
           </div>
-          <div className="px-5 pb-4">
-            <a
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white text-[#2B3481] text-xs mt-20 md:text-lg md:mt-0 font-medium rounded-full px-5 py-2.5 hover:bg-gray-100 transition-colors"
-            >
-              {item.exploreLabel}
+
+          {/* Explore button + partner notice stacked at bottom */}
+          <div className="absolute bottom-0 inset-x-0 z-10 mb-5">
+            <div className="px-5 pb-3">
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-white text-[#2B3481] text-xs md:text-sm font-medium rounded-full px-5 py-2.5 hover:bg-gray-100 transition-colors"
+              >
+                {item.exploreLabel}
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+            </div>
+            <div className="bg-[#F2E2DA] px-3 py-2.5 flex items-center gap-2">
               <svg
                 width="16"
                 height="16"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
+                stroke="#2B3481"
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className="shrink-0"
               >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
               </svg>
-            </a>
-          </div>
-          <div className="bg-[#F2E2DA] px-5 py-2.5 flex items-center gap-2">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#2B3481"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="shrink-0"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" y1="8" x2="12" y2="12" />
-              <line x1="12" y1="16" x2="12.01" y2="16" />
-            </svg>
-            <span className="text-xs md:text-base text-[#2B3481]">
-              Opens on a TravelOStyle partner site
-            </span>
+              <span className="text-xs md:text-base text-[#2B3481]">
+                Opens on a TravelOStyle partner site
+              </span>
+            </div>
           </div>
         </div>
       </div>
