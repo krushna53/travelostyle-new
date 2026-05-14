@@ -83,6 +83,10 @@ html {
   scroll-behavior: smooth;
 }
 
+* {
+  letter-spacing: 5%;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -206,11 +210,11 @@ button{
 }
 
 .animate-scroll-left {
-  animation: scroll-left 20s linear infinite;
+  animation: scroll-left 35s linear infinite;
 }
 
 .animate-scroll-right {
-  animation: scroll-right 20s linear infinite;
+  animation: scroll-right 35s linear infinite;
 }
 
 @keyframes menu-slide-up {

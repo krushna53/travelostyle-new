@@ -1,434 +1,323 @@
 "use client";
 
-import { Button } from "@heroui/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import CelebrityPrincessCruises from "./Cruise/CelebrityPrincessCruises";
-import DisneyCruiseLine from "./Cruise/DisneyCruiseLine";
-import EuropeanRiverCruise from "./Cruise/EuropeanRiverCruise";
-import HollandAmerica from "./Cruise/HollandAmerica";
-import Mediterranean from "./Cruise/Mediterranean";
-import RoyalCaribbean from "./Cruise/RoyalCaribbean";
+import { useState } from "react";
 
-const filters = [
-  "Royal Caribbean",
-  "Disney Cruise Line",
-  "Celebrity & Princess Cruises",
-  "Holland America & Virgin Voyages",
-  "European River Cruise",
-  "Mediterranean & Barges",
+const cruises = [
+  {
+    title: "Royal Caribbean Cruises",
+    description:
+      "Royal Caribbean suits travellers who want a lot from a cruise — a wide range of destinations, activities, and price points, all in one place.",
+    image: "/CruiseJourneys/Royal_Caribbean.jpg",
+    link: "https://royalcaribbean.mytravelsite.com/?agency=10440&_gl=1%2A15krevg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Royal Caribbean Cruises",
+  },
+  {
+    title: "Princess Cruises",
+    description:
+      "Princess ships are designed to hold your attention between ports as much as at them. Dining that goes beyond the expected, comfortable amenities, and a pace that lets you settle into the voyage.",
+    image: "/CruiseJourneys/Princess_Cruise.jpg",
+    link: "https://princesscruises.mytravelsite.com/?agency=10440&_gl=1%2A15krevg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Princess Cruises",
+  },
+  {
+    title: "Oceania Cruises",
+    description:
+      "Oceania's routes are built around depth of destination — more time ashore, more cities, more of the world actually experienced.",
+    image: "/CruiseJourneys/Oceania_Cruise.jpg",
+    link: "https://oceaniacruises.mytravelsite.com/?agency=10440&_gl=1%2A15krevg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Oceania Cruises",
+  },
+  {
+    title: "Viking Cruises",
+    description:
+      "Viking is built for travellers who travel with intention. Smaller ships, no casinos, no children — just thoughtfully designed itineraries and knowledgeable guides.",
+    image: "/CruiseJourneys/viking_cruise.jpg",
+    link: "https://vikingcruises.mytravelsite.com/?agency=10440&_gl=1%2A15krevg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Viking Cruises",
+  },
+  {
+    title: "Virgin Voyages",
+    description:
+      "Adults only, by design. Virgin Voyages has built something genuinely different — ships with character, service that doesn't follow the usual script, and an atmosphere that feels more like a boutique hotel at sea.",
+    image: "/CruiseJourneys/virgin_voyages.jpg",
+    link: "https://virginvoyages.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2A15krevg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Virgin Voyages",
+  },
+  {
+    title: "Windstar Cruises",
+    description:
+      "Small ships open up a different world. Windstar docks where the larger lines simply can't — in the heart of the harbour, steps from the old town, close enough to walk.",
+    image: "/CruiseJourneys/windstar_voyages.jpg",
+    link: "https://windstarcruises.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2A15krevg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Windstar Cruises",
+  },
+  {
+    title: "Celebrity Cruises",
+    description:
+      "Celebrity sits at the more considered end of the mainstream. The ships are large enough to offer genuine variety, but designed and staffed in a way that doesn't feel busy.",
+    image: "/CruiseJourneys/celebrity_cruise.jpg",
+    link: "https://celebritycruises.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2Auxqryb%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Celebrity Cruises",
+  },
+  {
+    title: "Carnival Cruises",
+    description:
+      "Carnival does fun well and without apology. Every ship has its own character — different onboard experiences, different energy.",
+    image: "/CruiseJourneys/carnival_cruise.jpg",
+    link: "https://carnival.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2A81lwgq%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1MDYzJGozOSRsMCRoMA",
+    exploreLabel: "Explore Carnival Cruises",
+  },
+  {
+    title: "Holland America Cruises",
+    description:
+      "Holland America has been taking travellers to the less-travelled corners of the world for over 150 years. The ships are elegant without being stiff, the itineraries lean toward the cultural and the exploratory.",
+    image: "/CruiseJourneys/holland_america.jpg",
+    link: "https://hollandamericaline.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2Av27m9n%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Holland America Cruises",
+  },
+  {
+    title: "Avalon Waterways",
+    description:
+      "River cruising, reconsidered. Avalon has rethought the standard format — more glass, more openness to the landscape passing by, and itineraries built around genuine immersion in the regions they move through.",
+    image: "/CruiseJourneys/avalon_waterways.jpg",
+    link: "https://avalonwaterways.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2Av27m9n%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Avalon Waterways",
+  },
+  {
+    title: "AMA Waterways",
+    description:
+      "Small ships, locally sourced food, and a crew that takes the time to know the guests they're looking after. AmaWaterways runs river itineraries across Europe, Asia, and Africa with an attention to detail.",
+    image: "/CruiseJourneys/ama_waterways.jpg",
+    link: "https://amawaterways.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2Av27m9n%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore AMA Waterways",
+  },
+  {
+    title: "Hurtigruten",
+    description:
+      "Hurtigruten travels the Norwegian coastline through all seasons, stopping at communities that larger ships never reach. Part expedition, part tradition, entirely unlike anything else.",
+    image: "/CruiseJourneys/hurtigruten_voyages.jpg",
+    link: "https://hurtigruten.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2Av27m9n%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Hurtigruten Cruises",
+  },
+  {
+    title: "Uniworld Boutique River Cruises",
+    description:
+      "Arguably the most design-led river cruise line available. Each Uniworld ship is individually styled around the region it sails — no two are the same.",
+    image: "/CruiseJourneys/uniworld_boutique.jpg",
+    link: "https://uniworld.mytravelsite.com/?agency=10440&advisor=69047&_gl=1%2A8oeuhg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Uniworld Boutique River Cruises",
+  },
+  {
+    title: "Regent Seven Seas",
+    description:
+      "Flights, excursions, dining, drinks, gratuities — all covered. The ships are small by ocean cruise standards, the itineraries are global, and the overall standard is genuinely luxury.",
+    image: "/CruiseJourneys/regent_seven.jpg",
+    link: "https://regentsevenseas.mytravelsite.com/?agency=10440&_gl=1%2A8oeuhg%2A_ga%2AMjA1ODY5NzUxMS4xNzY2MDg1NTIx%2A_ga_5YQ883061J%2AczE3NzgyNTUwNDIkbzI5JGcxJHQxNzc4MjU1NDE5JGo1OSRsMCRoMA",
+    exploreLabel: "Explore Regent Seven Seas",
+  },
 ];
 
-const MODAL_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbz-iRyvd470V8eXmni3neMj8kQGUDHFsVu8udr0DDo94rUDwCDb-R1MsQbXL9h_epm5Ng/exec";
-
-export default function CruiseJourneys() {
-  const [active, setActive] = useState(0);
-  const [selectedCruise, setSelectedCruise] = useState(null);
-  const [adults, setAdults] = useState(0);
-  const [children, setChildren] = useState(0);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState("");
-  const cruiseData = [
-    { name: "Royal Caribbean", component: <RoyalCaribbean onGetDetails={openModal} /> },
-    { name: "Disney Cruise Line", component: <DisneyCruiseLine onGetDetails={openModal} /> },
-    {
-      name: "Celebrity & Princess Cruises",
-      component: <CelebrityPrincessCruises onGetDetails={openModal} />,
-    },
-    { name: "Holland America & Virgin Voyages", component: <HollandAmerica onGetDetails={openModal} /> },
-    { name: "European River Cruise", component: <EuropeanRiverCruise onGetDetails={openModal} /> },
-    { name: "Mediterranean & Barges", component: <Mediterranean onGetDetails={openModal} /> },
-  ];
-
-  function openModal(cruise) {
-    setSelectedCruise(cruise);
-    setAdults(0);
-    setChildren(0);
-    setSubmitStatus("");
-    setIsSubmitting(false);
-  }
-
-  function closeModal() {
-    setSelectedCruise(null);
-    setSubmitStatus("");
-    setIsSubmitting(false);
-  }
-
-  function updateCount(setter, nextValue) {
-    setter(Math.max(0, nextValue));
-  }
-
-  useEffect(() => {
-    function handleOpenInquiry(event) {
-      openModal(event.detail ?? null);
-    }
-
-    window.addEventListener("openInquiry", handleOpenInquiry);
-
-    return () => {
-      window.removeEventListener("openInquiry", handleOpenInquiry);
-    };
-  }, []);
-
-  // Auto-clear submitStatus after a short delay so the toast disappears
-  useEffect(() => {
-    if (!submitStatus) return;
-    const id = setTimeout(() => setSubmitStatus(""), 5000);
-    return () => clearTimeout(id);
-  }, [submitStatus]);
-
-  async function handleModalSubmit(event) {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const payload = {
-      firstName: formData.get("firstName") || "",
-      lastName: formData.get("lastName") || "",
-      title: formData.get("title") || "",
-      phone: formData.get("phone") || "",
-      email: formData.get("email") || "",
-      adults,
-      children,
-      message: formData.get("message") || "",
-      tripName: selectedCruise?.title ?? "",
-      duration: selectedCruise?.nights ?? "",
-      image: selectedCruise?.image ?? "",
-      source: "modal",
-    };
-
-    setIsSubmitting(true);
-    setSubmitStatus("");
-
-    try {
-      await fetch(MODAL_SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8",
-        },
-        body: JSON.stringify(payload),
-      });
-      // With `no-cors` the response is opaque and status cannot be relied on.
-      // The Apps Script endpoint has already processed the request when reachable.
-    } catch (error) {
-      // Network or runtime error occurred. Log for diagnostics but proceed
-      // to close the modal so the user isn't shown a false negative when
-      // the backend actually stored the submission.
-      // Keep developer console info for debugging.
-      // eslint-disable-next-line no-console
-      console.error("Modal submit error:", error);
-    } finally {
-      // Reset form, clear counts, close modal and show success message.
-      try {
-        event.currentTarget.reset();
-      } catch (e) {
-        // ignore
-      }
-      setAdults(0);
-      setChildren(0);
-      setIsSubmitting(false);
-      closeModal();
-      setSubmitStatus("Thank you. Your modal inquiry has been sent.");
-    }
-  }
-
+function CruiseCard({ item }) {
   return (
-    <section id="cruise-journeys" className="bg-[#f7f8fc] px-4 py-14 md:px-10 bg-[url('/background.jpg')] bg-repeat bg-cover bg-top-left">
-      <div className="mx-auto max-w-[85.2vw]">
-        <h2 className="mb-8 text-center text-3xl font-extrabold tracking-wide text-[#1c2c5b]">
-          CRUISE JOURNEYS
-        </h2>
+    <div
+      className="relative"
+      style={{ aspectRatio: "506/606" }}
+    >
+      {/* SVG ticket-border card shape (#FAFAFA background + built-in shadow) */}
+      <img
+        src="/Journey_card_bg.svg"
+        alt=""
+        aria-hidden="true"
+        className="absolute pointer-events-none select-none"
+        style={{
+          width: "103.95%",
+          height: "103.63%",
+          left: "0",
+          top: 0,
+        }}
+      />
 
-        <div className="mb-6 hidden flex-wrap justify-between sm:flex">
-          {filters.map((item, index) => (
-            <Button
-              key={item}
-              onClick={() => setActive(index)}
-              className={`cursor-pointer rounded-full border px-3 py-2 my-2 tracking-wider transition ${
-                active === index
-                  ? "border-[#1c2c5b] bg-[#1c2c5b] text-white font-medium"
-                  : "border-gray-300 bg-white text-[#1c2c5b] font-light"
-              }`}
-            >
-              {item}
-            </Button>
-          ))}
-        </div>
-
-        <div className="mb-5 sm:hidden">
-          <label className="mb-3 block text-[16px] font-semibold text-[#1c2c5b]">
-            Select Cruise Type
-          </label>
-          <div className="relative">
-            <select
-              value={active}
-              onChange={(event) => setActive(Number(event.target.value))}
-              className="appearance-none w-full rounded-sm border border-[#6b5bc4] bg-white px-4 py-3 pr-10 text-[14px] font-medium text-[#1c2c5b] outline-none"
-            >
-              {filters.map((item, index) => (
-                <option key={item} value={index}>
-                  {item}
-                </option>
-              ))}
-            </select>
-            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[18px] text-[#3b1c8e]">
-              ▼
-            </span>
-          </div>
-        </div>
-
-        <div className="mb-10">
-          <div className="h-px bg-[#c7d2fe]" />
-        </div>
-
-        <div className="hidden sm:block transition-all duration-300">
-          {cruiseData[active].component}
-        </div>
-
-        <div className="sm:hidden">
-          <div className="transition-all duration-300">
-            {cruiseData[active].component}
-          </div>
-        </div>
-      </div>
-
-      {selectedCruise && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/35 px-0 py-0 sm:px-4 sm:py-6">
-          <button
-            type="button"
-            aria-label="Close modal backdrop"
-            className="absolute inset-0 cursor-pointer"
-            onClick={closeModal}
+      {/* Content inset: 35 px sides → 6.92%, 30 px top → 5.93% */}
+      <div
+        className="absolute inset-0 flex flex-col"
+        style={{ padding: "5.93% 6.92%" }}
+      >
+        {/* Image area */}
+        <div className="relative overflow-hidden rounded-sm flex-1">
+          <Image
+            src={item.image}
+            alt={item.title}
+            fill
+            className="object-cover"
           />
 
+          {/* Dark-to-transparent gradient overlay */}
           <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="cruise-inquiry-title"
-            className="relative z-10 flex h-dvh w-full flex-col overflow-hidden bg-white shadow-[0_18px_50px_rgba(0,0,0,0.25)] sm:h-auto sm:max-h-[92vh] sm:max-w-4xl sm:rounded-lg"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="flex items-start justify-between px-4 pb-0 pt-5 sm:px-7 sm:pt-6">
-              <h3
-                id="cruise-inquiry-title"
-                className="text-[29px] font-semibold tracking-tight text-[#3a219a] sm:text-[22px] md:text-[34px]"
-              >
-                Inquire With Us
-              </h3>
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(26,26,26,0.92) 0%, rgba(26,26,26,0.85) 40%, rgba(26,26,26,0.1) 62%, rgba(0,0,0,0) 75%)",
+            }}
+          />
 
-              <button
-                type="button"
-                onClick={closeModal}
-                aria-label="Close modal"
-                className="flex h-10 w-10 items-center justify-center text-[#3a219a] transition hover:opacity-70 cursor-pointer"
+          {/* Title + description at top */}
+          <div className="absolute top-0 inset-x-0 z-10 p-6 pb-0">
+            <h3 className="text-white font-semibold text-xl md:text-2xl leading-tight mb-4">
+              {item.title}
+            </h3>
+            <p className="text-white/90 text-sm md:text-lg leading-relaxed">
+              {item.description}
+            </p>
+          </div>
+
+          {/* Explore button + partner notice stacked at bottom */}
+          <div className="absolute bottom-0 inset-x-0 z-10 mb-5">
+            <div className="px-5 pb-3">
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-white text-[#2B3481] text-xs md:text-sm font-medium rounded-full px-5 py-2.5 hover:bg-gray-100 transition-colors"
               >
-                <span className="relative block h-6 w-6">
-                  <span className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 rotate-45 rounded bg-current" />
-                  <span className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 -rotate-45 rounded bg-current" />
-                </span>
-              </button>
+                {item.exploreLabel}
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
             </div>
-
-            <div className="overflow-y-auto px-4 pb-5 pt-4 sm:px-7 sm:pb-7 sm:pt-5">
-              <div className="rounded-[10px] bg-[#f1f1fb] p-3 sm:p-4">
-                <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-                  <div
-                    className="relative w-full overflow-hidden rounded-sm sm:shrink-0"
-                    style={{ width: 122, height: 88 }}
-                  >
-                    {selectedCruise?.image ? (
-                      <Image
-                        src={selectedCruise.image}
-                        alt={selectedCruise.title ?? "Cruise image"}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center bg-white text-[11px] font-semibold uppercase tracking-wide text-[#3a219a]">
-                        {selectedCruise?.title ?? "Cruise"}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex flex-1 flex-col justify-center gap-1.5 text-[#3a219a] sm:py-1">
-                    <p className="text-[13px] sm:text-[15px]">
-                      <span className="font-semibold">Trip Name:</span>{" "}
-                      <span className="font-normal text-[#4d4a7e]">
-                        {formatCruiseTitle(selectedCruise?.title ?? "")}
-                      </span>
-                    </p>
-                    <p className="text-[13px] sm:text-[15px]">
-                      <span className="font-semibold">Duration:</span>{" "}
-                      <span className="font-normal text-[#4d4a7e]">
-                        {selectedCruise?.nights}
-                      </span>
-                    </p>
-                    <p className="text-[13px] leading-snug sm:text-[15px]">
-                      <span className="font-semibold">Price:</span>{" "}
-                      <span className="font-normal text-[#4d4a7e]">
-                        From X/per person; double occupancy
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <form className="mt-5 sm:mt-8" onSubmit={handleModalSubmit}>
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-">
-                  <Field name="firstName" label="First Name*" placeholder="Your First Name" />
-                  <Field name="lastName" label="Last Name*" placeholder="Your Last Name" />
-                  <Field name="title" label="Title*" placeholder="Select Your Title" select />
-                  <Field name="phone" label="Number/ WhatsApp" placeholder="+1773 983 8067" />
-
-                  <div className="sm:col-span-2">
-                    <Field name="email" label="Email*" placeholder="Enter Your Email ID" />
-                  </div>
-                </div>
-
-                <div className="mt-6 sm:mt-7">
-                  <p className="mb-3 text-[15px] text-[#3a219a] sm:text-[16px]">
-                    No.of Guests*
-                  </p>
-
-                  <div className="flex flex-wrap items-center gap-5 text-[14px] text-[#3a219a] font-light sm:gap-6">
-                    <Counter
-                      label="Adults"
-                      value={adults}
-                      onDecrement={() => updateCount(setAdults, adults - 1)}
-                      onIncrement={() => updateCount(setAdults, adults + 1)}
-                    />
-                    <Counter
-                      label="Children"
-                      value={children}
-                      onDecrement={() => updateCount(setChildren, children - 1)}
-                      onIncrement={() => updateCount(setChildren, children + 1)}
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-6 sm:mt-7">
-                  <label className="mb-3 block text-[15px] text-[#3a219a] sm:text-[16px]">
-                    Your Message*
-                  </label>
-                  <textarea
-                    name="message"
-                    rows={5}
-                    placeholder="Do you have questions or considerations that you would like us to know?"
-                    className="min-h-33 w-full rounded-lg border-2 border-[#4b2aa3] bg-white px-3 py-3 text-[13px] leading-6 text-[#6d68a5] outline-none placeholder:text-[#b4afd8] sm:min-h-30.5 sm:px-4 sm:py-3.5"
-                  />
-                </div>
-
-                <div className="mt-6 flex flex-col gap-5 sm:mt-9 sm:flex-row sm:items-end sm:justify-between">
-                  <label className="flex items-start gap-3 text-[12px] leading-5 text-[#5c5a88] sm:max-w-77.5 sm:text-[13px]">
-                    <input
-                      type="checkbox"
-                      className="mt-0.5 h-6 w-6 md:h-8 md:w-8 rounded-sm border-2 border-[#4b2aa3] accent-[#4b2aa3]"
-                    />
-                    <span>
-                      I agree to be contacted by TravelOStyle regarding my inquiry.
-                    </span>
-                  </label>
-
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="rounded-full bg-[#2C3078] text-xl py-1 px-3 font-medium text-white disabled:cursor-not-allowed disabled:bg-[#2C3078]/70"
-                  >
-                    <span className="sm:hidden">{isSubmitting ? "Sending..." : "Submit Enquiry"}</span>
-                    <span className="hidden sm:inline">{isSubmitting ? "Sending..." : "Get Details"}</span>
-                  </Button>
-                </div>
-                {submitStatus ? (
-                  <p className="mt-4 text-[13px] font-medium text-[#3a219a]">
-                    {submitStatus}
-                  </p>
-                ) : null}
-              </form>
+            <div className="bg-[#F2E2DA] px-3 py-2.5 flex items-center gap-2">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#2B3481"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="shrink-0"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              <span className="text-xs md:text-base text-[#2B3481]">
+                Opens on a TravelOStyle partner site
+              </span>
             </div>
           </div>
         </div>
-      )}
-
-      {/* Submission toast */}
-      {submitStatus ? (
-        <div
-          role="status"
-          className={`fixed right-6 top-6 z-50 transform rounded-md px-4 py-2 text-sm font-medium shadow-lg transition-opacity duration-200 ${
-            submitStatus.toLowerCase().includes("unable")
-              ? "bg-red-600 text-white"
-              : "bg-green-600 text-white"
-          }`}
-        >
-          {submitStatus}
-        </div>
-      ) : null}
-    </section>
-  );
-}
-
-function Field({ name, label, placeholder, select = false }) {
-  return (
-    <label className="block">
-      <span className="mb-1.5 block text-[15px] font- text-[#3a219a] sm:text-[16px]">
-        {label}
-      </span>
-
-      <div className="relative">
-        {select ? (
-          <>
-            <select name={name} className="w-full appearance-none border-0 border-b-2 border-[#4b2aa3] bg-transparent pr-7 text-[13px] text-[#a29acc] outline-none sm:text-[14px]">
-              <option value="">{placeholder}</option>
-              <option>Mr</option>
-              <option>Ms</option>
-              <option>Mrs</option>
-              <option>Dr</option>
-            </select>
-            <span className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-[#4b2aa3]">
-              ▼
-            </span>
-          </>
-        ) : (
-          <input
-            name={name}
-            type="text"
-            placeholder={placeholder}
-            className="w-full border-0 border-b-2 border-[#4b2aa3] bg-transparent text-[13px] text-[#a29acc] outline-none placeholder:text-[#a29acc] sm:text-[14px]"
-          />
-        )}
       </div>
-    </label>
-  );
-}
-
-function Counter({ label, value, onIncrement, onDecrement }) {
-  return (
-    <div className="flex items-center gap-2 sm:gap-3">
-      <span className="min-w-13.5 text-[13px] sm:min-w-14.5 sm:text-[14px]">
-        {label}
-      </span>
-      <button
-        type="button"
-        onClick={onDecrement}
-        className="flex cursor-pointer h-7 w-7 items-center justify-center rounded-[3px] bg-[#4b1f95] text-[18px] leading-none text-white"
-      >
-        -
-      </button>
-      <span className="min-w-2.5 text-center text-[13px] sm:text-[14px]">
-        {value}
-      </span>
-      <button
-        type="button"
-        onClick={onIncrement}
-        className="flex cursor-pointer h-7 w-7 items-center justify-center rounded-[3px] bg-[#4b1f95] text-[18px] leading-none text-white"
-      >
-        +
-      </button>
     </div>
   );
 }
 
-function formatCruiseTitle(title) {
-  if (!title) return "";
-  return `${title.charAt(0)}${title.slice(1).toLowerCase()}`;
+function NavButton({ direction, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={
+        direction === "prev" ? "Previous land journey" : "Next land journey"
+      }
+      className=""
+    >
+      <Image
+        src="/Arrow_right.svg"
+        className={`w-12 h-12 ${direction === "prev" ? "" : "rotate-180"} hidden sm:block`}
+        alt={direction === "prev" ? "Previous" : "Next"}
+        width={16}
+        height={16}
+      />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
+        height="48"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={`lucide lucide-move-left-icon lucide-move-left ${direction === "prev" ? "" : "rotate-180"} block sm:hidden`}
+      >
+        <path d="M6 8L2 12L6 16" />
+        <path d="M2 12H22" />
+      </svg>
+    </button>
+  );
+}
+
+export default function CruiseJourneys() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrev = () =>
+    setCurrentIndex((prev) => (prev - 1 + cruises.length) % cruises.length);
+  const handleNext = () =>
+    setCurrentIndex((prev) => (prev + 1) % cruises.length);
+
+  const visibleCruises = [0, 1, 2].map(
+    (offset) => cruises[(currentIndex + offset) % cruises.length],
+  );
+
+  return (
+    <section
+      id="cruise-journeys"
+      className="bg-[#f7f8fc] px-4 py-14 md:px-10 bg-[url('/background.jpg')] bg-repeat bg-cover bg-top-left"
+    >
+      <div className="mx-auto max-w-[85.2vw]">
+        {/* Header */}
+        <div className="flex flex-col items-center mb-10 sm:mb-14">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-[5%] text-[#2C3078] uppercase">
+            Cruise Journeys
+          </h2>
+          <p className="mt-3 text-[#2C3078] text-sm sm:text-[21px] font-normal max-w-4xl text-center leading-relaxed">
+            Cruise departure dates, cabin availability, and pricing update
+            constantly. Browse sailings directly with our cruise partners.
+          </p>
+        </div>
+
+        {/* Mobile: single card + nav */}
+        <div className="sm:hidden">
+          <div
+            key={currentIndex}
+            className="transition-all duration-500 ease-in-out"
+          >
+            <CruiseCard item={cruises[currentIndex]} />
+          </div>
+          <div className="mt-6 flex items-center justify-between sm:justify-center gap-6">
+            <NavButton direction="prev" onClick={handlePrev} />
+            <NavButton direction="next" onClick={handleNext} />
+          </div>
+        </div>
+
+        {/* Desktop: 3-up carousel */}
+        <div className="hidden sm:grid grid-cols-[100px_1fr_100px] items-center gap-10">
+          <div className="flex justify-center">
+            <NavButton direction="prev" onClick={handlePrev} />
+          </div>
+          <div className="grid grid-cols-3 gap-10">
+            {visibleCruises.map((item, index) => (
+              <CruiseCard key={`${currentIndex}-${index}`} item={item} />
+            ))}
+          </div>
+          <div className="flex justify-center">
+            <NavButton direction="next" onClick={handleNext} />
+          </div>
+        </div>
+      </div>
+
+    </section>
+  );
 }

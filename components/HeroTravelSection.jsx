@@ -111,8 +111,8 @@ export default function HeroTravelSection() {
       <HowItWorks />
 
       <div className="bg-[url('/background.jpg')] bg-repeat bg-cover bg-top-left">
-        <CruiseJourneys />
         <LandJourneys />
+        <CruiseJourneys />
       </div>
       <TravelForm />
       <WhereTravelStyle />
