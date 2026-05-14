@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@heroui/react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -229,16 +228,33 @@ function NavButton({ direction, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      aria-label={direction === "prev" ? "Previous" : "Next"}
+      aria-label={
+        direction === "prev" ? "Previous land journey" : "Next land journey"
+      }
       className=""
     >
       <Image
         src="/Arrow_right.svg"
-        className={`w-12 h-12 ${direction === "prev" ? "" : "rotate-180"}`}
+        className={`w-12 h-12 ${direction === "prev" ? "" : "rotate-180"} hidden sm:block`}
         alt={direction === "prev" ? "Previous" : "Next"}
-        width={48}
-        height={48}
+        width={16}
+        height={16}
       />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
+        height="48"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={`lucide lucide-move-left-icon lucide-move-left ${direction === "prev" ? "" : "rotate-180"} block sm:hidden`}
+      >
+        <path d="M6 8L2 12L6 16" />
+        <path d="M2 12H22" />
+      </svg>
     </button>
   );
 }
@@ -280,11 +296,8 @@ export default function CruiseJourneys() {
           >
             <CruiseCard item={cruises[currentIndex]} />
           </div>
-          <div className="mt-6 flex items-center justify-center gap-6">
+          <div className="mt-6 flex items-center justify-between sm:justify-center gap-6">
             <NavButton direction="prev" onClick={handlePrev} />
-            <span className="text-xs text-[#2B3481]">
-              {currentIndex + 1} / {cruises.length}
-            </span>
             <NavButton direction="next" onClick={handleNext} />
           </div>
         </div>

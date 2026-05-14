@@ -52,7 +52,7 @@ export default function CollaborateSection() {
 
               <a
                 href="mailto:info@travelostyle.com"
-                className="rounded-full bg-[#2C3078] text-xl py-2 px-3 font-medium text-white"
+                className="rounded-full bg-[#2C3078] text-xl pt-[10px] pb-[7px] px-3 font-medium text-white"
               >
                 Write To Us
               </a>

@@ -8,7 +8,7 @@ const journeys = [
   {
     id: 1,
     title: "GLIMPSES OF SOUTH AFRICA",
-    image: "/jamaica.jpg",
+    image: "/LandJourney/1.jpg",
     description:
       "South Africa is a diverse and captivating destination that offers an extraordinary mix of wildlife,landscapes, culture, and adventure. From the iconic Table Mountain and vibrant waterfront of Cape Town to the thrilling Big Five safaris of Kruger National Park, the country delivers unforgettable experiences for every traveler. The scenic Garden Route showcases dramatic coastlines, forests, and charming towns, while cosmopolitan cities blend modern energy with rich history and heritage. With its world-class vineyards, beautiful beaches, cultural diversity, and warm hospitality, South Africa stands out as a destination that perfectly combines natural beauty, adventure, and cultural depth.",
     duration: "7 Days | 6 Nights",
@@ -19,18 +19,19 @@ const journeys = [
   {
     id: 2,
     title: "EXPLORE BOTSWANA",
-    image: "/punta.jpg",
+    image: "/LandJourney/2.jpg",
     description:
       "Botswana is one of Africa’s most exclusive and pristine luxury safari destinations, celebrated for its low-impact, high-value tourism model that ensures vast wilderness areas remain untouched and uncrowded. The jewel of the country is the Okavango Delta, a UNESCO-listed ecosystem where seasonal floodwaters create a lush oasis in the desert, offering extraordinary game viewing by mokoro (traditional canoe), boat, and open 4x4 vehicles. Remote concessions in regions like Moremi Game Reserve and Linyanti Wildlife Reserve host ultra-luxurious lodges with just a handful of suites, providing personalized service, gourmet cuisine, and uninterrupted views of wildlife including elephants, lions, leopards, and rare African wild dogs. The stark beauty of the Makgadikgadi Pans adds a contrasting experience with quad biking, sleep-outs under star-studded skies, and encounters with meerkats.",
     duration: "8 Days | 7 Nights",
-    location: "Sitatunga Private Island 2N, Duba Plains Camp 3N, Selinda Reserve 2N",
+    location:
+      "Sitatunga Private Island 2N, Duba Plains Camp 3N, Selinda Reserve 2N",
     date: "Jun-Dec 2026",
     price: "$5000",
   },
   {
     id: 3,
     title: "BOTSWANA SAFARI GEMS",
-    image: "/punta.jpg",
+    image: "/LandJourney/3.jpg",
     description:
       "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality",
     duration: "7 Days | 6 Nights",
@@ -41,7 +42,7 @@ const journeys = [
   {
     id: 4,
     title: "BOTSWANA SAFARI",
-    image: "/jamaica.jpg",
+    image: "/LandJourney/4.jpg",
     description:
       "Botswana is one of Africa’s most exclusive and pristine luxury safari destinations, celebrated for its low-impact, high-value tourism model that ensures vast wilderness areas remain untouched and uncrowded. The jewel of the country is the Okavango Delta, a UNESCO-listed ecosystem where seasonal floodwaters create a lush oasis in the desert, offering extraordinary game viewing by mokoro (traditional canoe), boat, and open 4x4 vehicles. Remote concessions in regions like Moremi Game Reserve and Linyanti Wildlife Reserve host ultra-luxurious lodges with just a handful of suites, providing personalized service, gourmet cuisine, and uninterrupted views of wildlife including elephants, lions, leopards, and rare African wild dogs. The stark beauty of the Makgadikgadi Pans adds a contrasting experience with quad biking, sleep-outs under star-studded skies, and encounters with meerkats.",
     duration: "9 Days | 8 Nights",
@@ -52,18 +53,19 @@ const journeys = [
   {
     id: 5,
     title: "BOTSWANA DISCOVERY",
-    image: "/punta.jpg",
+    image: "/LandJourney/5.jpg",
     description:
       "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality",
     duration: "7 Days | 6 Nights",
-    location: "Selinda Reserve 2N, Okavango Delta 2N, Sitatunga Private Island 2N",
+    location:
+      "Selinda Reserve 2N, Okavango Delta 2N, Sitatunga Private Island 2N",
     date: "Jun-Dec 2026",
     price: "$5000",
   },
   {
     id: 6,
     title: "JEWELS OF BOTSWANA",
-    image: "/punta.jpg",
+    image: "/LandJourney/6.jpg",
     description:
       "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality.",
     duration: "8 Days | 7 Nights",
@@ -74,7 +76,7 @@ const journeys = [
   {
     id: 7,
     title: "HIGHLIGHTS OF BOTSWANA",
-    image: "/jamaica.jpg",
+    image: "/LandJourney/7.jpg",
     description:
       "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality.",
     duration: "7 Days | 6 Nights",
@@ -85,7 +87,7 @@ const journeys = [
   {
     id: 8,
     title: "KENYA GATEWAY",
-    image: "/punta.jpg",
+    image: "/LandJourney/8.jpg",
     description:
       "Kenya is one of Africa’s most iconic travel destinations, renowned for its extraordinary wildlife, dramatic landscapes, and rich cultural heritage. From the vibrant capital of Nairobi to the world- famous Maasai Mara National Reserve, visitors can experience thrilling safaris with opportunities to witness the Great Migration and spot the “Big Five.” The country’s diverse scenery ranges from the snow-capped peaks of Mount Kenya to the serene shores of Diani Beach along the Indian Ocean. Kenya also offers rich cultural encounters with local communities and a strong sense of heritage. With its blend of adventure, natural beauty, and warm hospitality, Kenya provides an unforgettable African travel experience.",
     duration: "5 Days | 4 Nights",
@@ -96,22 +98,24 @@ const journeys = [
   {
     id: 9,
     title: "JEWELS OF KENYA",
-    image: "/punta.jpg",
+    image: "/LandJourney/9.jpg",
     description:
       "Kenya is one of Africa’s most iconic travel destinations, renowned for its extraordinary wildlife, dramatic landscapes, and rich cultural heritage. From the vibrant capital of Nairobi to the world- famous Maasai Mara National Reserve, visitors can experience thrilling safaris with opportunities to witness the Great Migration and spot the “Big Five.” The country’s diverse scenery ranges from the snow-capped peaks of Mount Kenya to the serene shores of Diani Beach along the Indian Ocean. Kenya also offers rich cultural encounters with local communities and a strong sense of heritage. With its blend of adventure, natural beauty, and warm hospitality, Kenya provides an unforgettable African travel experience.",
     duration: "7 Days | 6 Nights",
-    location: "Nairobi 1N, Aberdare 1N, Mt. Kenya 1N, Lake Naivasha 1N, Masai Mara 2N",
+    location:
+      "Nairobi 1N, Aberdare 1N, Mt. Kenya 1N, Lake Naivasha 1N, Masai Mara 2N",
     date: "Jun-Dec 2026",
     price: "$5000",
   },
   {
     id: 10,
     title: "CLASSIC KENYA",
-    image: "/punta.jpg",
+    image: "/LandJourney/10.jpg",
     description:
       "Kenya is one of Africa’s most iconic travel destinations, renowned for its extraordinary wildlife, dramatic landscapes, and rich cultural heritage. From the vibrant capital of Nairobi to the world- famous Maasai Mara National Reserve, visitors can experience thrilling safaris with opportunities to witness the Great Migration and spot the “Big Five.” The country’s diverse scenery ranges from the snow-capped peaks of Mount Kenya to the serene shores of Diani Beach along the Indian Ocean. Kenya also offers rich cultural encounters with local communities and a strong sense of heritage. With its blend of adventure, natural beauty, and warm hospitality, Kenya provides an unforgettable African travel experience.",
     duration: "8 Days | 7 Nights",
-    location: "Nairobi 1N, Samburu 2N, Olpejeta Conservancy 1N, Lake Naivasha 1N, Masai Mara 2N",
+    location:
+      "Nairobi 1N, Samburu 2N, Olpejeta Conservancy 1N, Lake Naivasha 1N, Masai Mara 2N",
     date: "Jun-Dec 2026",
     price: "$5000",
   },
@@ -144,7 +148,13 @@ function JourneyCard({ journey, onOpen }) {
         />
       </div>
       <div className="px-6 my-3 mt-5">
-        <Image src="/zig_zag_line.svg" alt="" width={260} height={10} className="w-full" />
+        <Image
+          src="/zig_zag_line.svg"
+          alt=""
+          width={260}
+          height={10}
+          className="w-full"
+        />
       </div>
       <div className="px-6 pb-5 pt-2 flex flex-col grow">
         <h3 className="text-xl sm:text-2xl font-semibold text-[#2B3481] mb-3 line-clamp-1">
@@ -166,7 +176,13 @@ function JourneyCard({ journey, onOpen }) {
         </div>
 
         <div className="my-4 w-full">
-          <Image src="/zig_zag_line.svg" alt="" width={260} height={10} className="w-full" />
+          <Image
+            src="/zig_zag_line.svg"
+            alt=""
+            width={260}
+            height={10}
+            className="w-full"
+          />
         </div>
 
         <div className="flex justify-between items-center mt-auto">
@@ -174,9 +190,13 @@ function JourneyCard({ journey, onOpen }) {
             <p className="text-[10px] text-[#2B3481]">from</p>
             <p className="text-lg font-medium text-[#2B3481]">
               {journey.price}
-              <span className="text-xs font-light text-[#2B3481]">*/person</span>
+              <span className="text-xs font-light text-[#2B3481]">
+                */person
+              </span>
             </p>
-            <p className="text-[9px] text-[#2B3481] italic">double occupancy*</p>
+            <p className="text-[9px] text-[#2B3481] italic">
+              double occupancy*
+            </p>
           </div>
 
           <Button
@@ -193,7 +213,10 @@ function JourneyCard({ journey, onOpen }) {
       {/* Dotted bottom edge */}
       <div className="absolute bottom-0 left-0 w-full h-2 flex gap-1 justify-center overflow-hidden translate-y-1">
         {[...Array(20)].map((_, i) => (
-          <div key={i} className="w-5 h-10 bg-[#f2f2f2] rounded-full shrink-0" />
+          <div
+            key={i}
+            className="w-5 h-10 bg-[#f2f2f2] rounded-full shrink-0"
+          />
         ))}
       </div>
     </div>
@@ -205,28 +228,34 @@ function NavButton({ direction, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      aria-label={direction === "prev" ? "Previous land journey" : "Next land journey"}
+      aria-label={
+        direction === "prev" ? "Previous land journey" : "Next land journey"
+      }
       className=""
     >
       <Image
         src="/Arrow_right.svg"
-        className={`w-12 h-12 ${direction === "prev" ? "" : "rotate-180"}`}
+        className={`w-12 h-12 ${direction === "prev" ? "" : "rotate-180"} hidden sm:block`}
         alt={direction === "prev" ? "Previous" : "Next"}
         width={16}
         height={16}
       />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
+        height="48"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={`lucide lucide-move-left-icon lucide-move-left ${direction === "prev" ? "" : "rotate-180"} block sm:hidden`}
+      >
+        <path d="M6 8L2 12L6 16" />
+        <path d="M2 12H22" />
+      </svg>
     </button>
-  );
-}
-
-function DetailItem({ label, value }) {
-  return (
-    <div className="rounded-lg bg-[#f2f2f2] px-3 py-2.5">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#2B3481]/65">
-        {label}
-      </p>
-      <p className="mt-1 text-sm leading-6 text-[#2B3481]">{value}</p>
-    </div>
   );
 }
 
@@ -303,7 +332,7 @@ function JourneyDetailsModal({
                 </p>
                 <p className="text-[13px] leading-snug sm:text-[15px]">
                   <span className="font-semibold">Duration:</span>{" "}
-                  <span className="font-normal text-[#4d4a7e]">
+                  <span className="npfont-normal text-[#4d4a7e]">
                     {journey.duration}
                   </span>
                 </p>
@@ -328,12 +357,33 @@ function JourneyDetailsModal({
 
           <form className="mt-5 sm:mt-8" onSubmit={onSubmit}>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-x-8">
-              <Field name="firstName" label="First Name*" placeholder="Your First Name" />
-              <Field name="lastName" label="Last Name*" placeholder="Your Last Name" />
-              <Field name="title" label="Title*" placeholder="Select Your Title" select />
-              <Field name="phone" label="Number/ WhatsApp" placeholder="+1773 983 8067" />
+              <Field
+                name="firstName"
+                label="First Name*"
+                placeholder="Your First Name"
+              />
+              <Field
+                name="lastName"
+                label="Last Name*"
+                placeholder="Your Last Name"
+              />
+              <Field
+                name="title"
+                label="Title*"
+                placeholder="Select Your Title"
+                select
+              />
+              <Field
+                name="phone"
+                label="Number/ WhatsApp"
+                placeholder="+1773 983 8067"
+              />
               <div className="sm:col-span-2">
-                <Field name="email" label="Email*" placeholder="Enter Your Email ID" />
+                <Field
+                  name="email"
+                  label="Email*"
+                  placeholder="Enter Your Email ID"
+                />
               </div>
             </div>
 
@@ -370,12 +420,17 @@ function JourneyDetailsModal({
             </div>
 
             <div className="mt-6 flex flex-col gap-5 sm:mt-9 sm:flex-row sm:items-end sm:justify-between">
-              <label className="flex items-start gap-3 text-[12px] leading-5 text-[#5c5a88] sm:text-[13px]" style={{ maxWidth: 310 }}>
+              <label
+                className="flex items-start gap-3 text-[12px] leading-5 text-[#5c5a88] sm:text-[13px]"
+                style={{ maxWidth: 310 }}
+              >
                 <input
                   type="checkbox"
                   className="mt-0.5 h-6 w-6 md:h-8 md:w-8 rounded-sm border-2 border-[#4b2aa3] accent-[#4b2aa3]"
                 />
-                <span>I agree to be contacted by TravelOStyle regarding my inquiry.</span>
+                <span>
+                  I agree to be contacted by TravelOStyle regarding my inquiry.
+                </span>
               </label>
               <Button
                 type="submit"
@@ -441,7 +496,9 @@ function Field({ name, label, placeholder, select = false }) {
 function Counter({ label, value, onIncrement, onDecrement }) {
   return (
     <div className="flex items-center gap-2 sm:gap-3">
-      <span className="text-[13px] sm:text-[14px]" style={{ minWidth: 54 }}>{label}</span>
+      <span className="text-[13px] sm:text-[14px]" style={{ minWidth: 54 }}>
+        {label}
+      </span>
       <button
         type="button"
         onClick={onDecrement}
@@ -449,7 +506,10 @@ function Counter({ label, value, onIncrement, onDecrement }) {
       >
         -
       </button>
-      <span className="text-center text-[13px] sm:text-[14px]" style={{ minWidth: 10 }}>
+      <span
+        className="text-center text-[13px] sm:text-[14px]"
+        style={{ minWidth: 10 }}
+      >
         {value}
       </span>
       <button
@@ -502,7 +562,9 @@ export default function LandJourneys() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     // Checkbox for "agree" (terms)
-    const agreeCheckbox = event.currentTarget.querySelector('input[type="checkbox"]');
+    const agreeCheckbox = event.currentTarget.querySelector(
+      'input[type="checkbox"]',
+    );
     const agree = agreeCheckbox ? agreeCheckbox.checked : false;
 
     // Compose guests string as "X Adults, Y Children"
@@ -517,7 +579,9 @@ export default function LandJourneys() {
       email: formData.get("email") || "",
       destination: journey?.title ?? "",
       guests,
-      duration: journey?.duration ? journey.duration.replace(/\s*\|.*/, "") : "", // e.g. "7 Days"
+      duration: journey?.duration
+        ? journey.duration.replace(/\s*\|.*/, "")
+        : "", // e.g. "7 Days"
       month: journey?.date ?? "",
       flexibility: "", // No field in UI, leave blank
       message: formData.get("message") || "",
@@ -549,7 +613,7 @@ export default function LandJourneys() {
 
   // 3 visible cards starting from currentIndex, wrapping around
   const visibleJourneys = [0, 1, 2].map(
-    (offset) => journeys[(currentIndex + offset) % journeys.length]
+    (offset) => journeys[(currentIndex + offset) % journeys.length],
   );
 
   return (
@@ -568,17 +632,18 @@ export default function LandJourneys() {
 
           {/* Mobile: single card with centered arrows below */}
           <div className="sm:hidden">
-            <div key={currentIndex} className="transition-all duration-500 ease-in-out">
+            <div
+              key={currentIndex}
+              className="transition-all duration-500 ease-in-out"
+            >
               <JourneyCard
                 journey={journeys[currentIndex]}
                 onOpen={() => openJourneyModal(journeys[currentIndex])}
               />
             </div>
-            <div className="mt-6 flex items-center justify-center gap-6">
+            <div className="mt-6 flex items-center justify-between sm:justify-center gap-6">
               <NavButton direction="prev" onClick={handlePrev} />
-              <span className="text-xs text-[#2B3481]">
-                {currentIndex + 1} / {journeys.length}
-              </span>
+
               <NavButton direction="next" onClick={handleNext} />
             </div>
           </div>
@@ -636,4 +701,3 @@ export default function LandJourneys() {
     </>
   );
 }
-
