@@ -5,119 +5,178 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const journeys = [
+  // PRIVATE JOURNEY / TAILORMADE INSPIRATIONS
   {
     id: 1,
-    title: "GLIMPSES OF SOUTH AFRICA",
+    title: "Highlights of Kenya",
+    description: "Kenya is one of Africa’s most iconic travel destinations, renowned for its extraordinary wildlife, dramatic landscapes, and rich cultural heritage. From the vibrant capital of Nairobi to the world- famous Maasai Mara National Reserve, visitors can experience thrilling safaris with opportunities to witness the Great Migration and spot the “Big Five.” The country’s diverse scenery ranges from the snow-capped peaks of Mount Kenya to the serene shores of Diani Beach along the Indian Ocean. Kenya also offers rich cultural encounters with local communities and a strong sense of heritage. With its blend of adventure, natural beauty, and warm hospitality, Kenya provides an unforgettable African travel experience.",
     image: "/LandJourney/1.jpg",
-    description:
-      "South Africa is a diverse and captivating destination that offers an extraordinary mix of wildlife,landscapes, culture, and adventure. From the iconic Table Mountain and vibrant waterfront of Cape Town to the thrilling Big Five safaris of Kruger National Park, the country delivers unforgettable experiences for every traveler. The scenic Garden Route showcases dramatic coastlines, forests, and charming towns, while cosmopolitan cities blend modern energy with rich history and heritage. With its world-class vineyards, beautiful beaches, cultural diversity, and warm hospitality, South Africa stands out as a destination that perfectly combines natural beauty, adventure, and cultural depth.",
-    duration: "7 Days | 6 Nights",
-    location: "Cape Town 3N, Oudtshoorn 1N, Knysna 2N",
+    duration: "6 Days | 5 Nights",
     date: "Jun-Dec 2026",
-    price: "$5000",
+    location: "Nairobi, Amboseli National Park, Lake Naivasha & Masai Mara Game Reserve",
+    price: "3249",
   },
   {
     id: 2,
-    title: "EXPLORE BOTSWANA",
+    title: "Classic Kenya",
+    description: "Kenya is one of Africa’s most iconic travel destinations, renowned for its extraordinary wildlife, dramatic landscapes, and rich cultural heritage. From the vibrant capital of Nairobi to the world- famous Maasai Mara National Reserve, visitors can experience thrilling safaris with opportunities to witness the Great Migration and spot the “Big Five.” The country’s diverse scenery ranges from the snow-capped peaks of Mount Kenya to the serene shores of Diani Beach along the Indian Ocean. Kenya also offers rich cultural encounters with local communities and a strong sense of heritage. With its blend of adventure, natural beauty, and warm hospitality, Kenya provides an unforgettable African travel experience.",
     image: "/LandJourney/2.jpg",
-    description:
-      "Botswana is one of Africa’s most exclusive and pristine luxury safari destinations, celebrated for its low-impact, high-value tourism model that ensures vast wilderness areas remain untouched and uncrowded. The jewel of the country is the Okavango Delta, a UNESCO-listed ecosystem where seasonal floodwaters create a lush oasis in the desert, offering extraordinary game viewing by mokoro (traditional canoe), boat, and open 4x4 vehicles. Remote concessions in regions like Moremi Game Reserve and Linyanti Wildlife Reserve host ultra-luxurious lodges with just a handful of suites, providing personalized service, gourmet cuisine, and uninterrupted views of wildlife including elephants, lions, leopards, and rare African wild dogs. The stark beauty of the Makgadikgadi Pans adds a contrasting experience with quad biking, sleep-outs under star-studded skies, and encounters with meerkats.",
     duration: "8 Days | 7 Nights",
-    location:
-      "Sitatunga Private Island 2N, Duba Plains Camp 3N, Selinda Reserve 2N",
     date: "Jun-Dec 2026",
-    price: "$5000",
+    location: "Nairobi, Samburu, Ol Pejeta Conservancy, Lake Naivasha, Masai Mara GR",
+    price: "3949",
   },
   {
     id: 3,
-    title: "BOTSWANA SAFARI GEMS",
+    title: "Jewels of Kenya",
+    description: "Kenya is one of Africa’s most iconic travel destinations, renowned for its extraordinary wildlife, dramatic landscapes, and rich cultural heritage. From the vibrant capital of Nairobi to the world- famous Maasai Mara National Reserve, visitors can experience thrilling safaris with opportunities to witness the Great Migration and spot the “Big Five.” The country’s diverse scenery ranges from the snow-capped peaks of Mount Kenya to the serene shores of Diani Beach along the Indian Ocean. Kenya also offers rich cultural encounters with local communities and a strong sense of heritage. With its blend of adventure, natural beauty, and warm hospitality, Kenya provides an unforgettable African travel experience.",
     image: "/LandJourney/3.jpg",
-    description:
-      "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality",
     duration: "7 Days | 6 Nights",
-    location: "Selinda Reserve 2N, Okavango Delta 2N, Selinda Reserve 2N",
     date: "Jun-Dec 2026",
-    price: "$5000",
+    location: "Nairobi, Aberdare NP, Mt. Kenya NP, Lake Naivasha, Masai Mara GR",
+    price: "3499",
   },
   {
     id: 4,
-    title: "BOTSWANA SAFARI",
+    title: "Highlights of Botswana",
+    description: "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality.",
     image: "/LandJourney/4.jpg",
-    description:
-      "Botswana is one of Africa’s most exclusive and pristine luxury safari destinations, celebrated for its low-impact, high-value tourism model that ensures vast wilderness areas remain untouched and uncrowded. The jewel of the country is the Okavango Delta, a UNESCO-listed ecosystem where seasonal floodwaters create a lush oasis in the desert, offering extraordinary game viewing by mokoro (traditional canoe), boat, and open 4x4 vehicles. Remote concessions in regions like Moremi Game Reserve and Linyanti Wildlife Reserve host ultra-luxurious lodges with just a handful of suites, providing personalized service, gourmet cuisine, and uninterrupted views of wildlife including elephants, lions, leopards, and rare African wild dogs. The stark beauty of the Makgadikgadi Pans adds a contrasting experience with quad biking, sleep-outs under star-studded skies, and encounters with meerkats.",
-    duration: "9 Days | 8 Nights",
-    location: "Okavango Delta 3N, Selinda Reserve 2N, Sapi Private Reserve 3N",
+    duration: "8 Days | 7 Nights",
     date: "Jun-Dec 2026",
-    price: "$5000",
+    location: "Johannesburg, Chobe NP, Okavango Delta",
+    price: "13949",
   },
   {
     id: 5,
-    title: "BOTSWANA DISCOVERY",
+    title: "Botswana Waterways",
+    description: "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality.",
     image: "/LandJourney/5.jpg",
-    description:
-      "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality",
-    duration: "7 Days | 6 Nights",
-    location:
-      "Selinda Reserve 2N, Okavango Delta 2N, Sitatunga Private Island 2N",
+    duration: "8 Days | 7 Nights",
     date: "Jun-Dec 2026",
-    price: "$5000",
+    location: "Johannesburg, Selinda Reserve, Okavango Delta, Sitatunga Private Island",
+    price: "13599",
   },
   {
     id: 6,
-    title: "JEWELS OF BOTSWANA",
+    title: "Botswana Safari",
+    description: "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality.",
     image: "/LandJourney/6.jpg",
-    description:
-      "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality.",
-    duration: "8 Days | 7 Nights",
-    location: "Chobe National Park 2N, Okavango 2N, Victoria Falls 3N",
+    duration: "10 Days | 9 Nights",
     date: "Jun-Dec 2026",
-    price: "$5000",
+    location: "Johannesburg, Okavango Delta, Selinda Reserve, Sapi Private Reserve",
+    price: "14299",
   },
   {
     id: 7,
-    title: "HIGHLIGHTS OF BOTSWANA",
+    title: "India Glimpses of South Africa",
+    description: "South Africa is a diverse and captivating destination that offers an extraordinary mix of wildlife,landscapes, culture, and adventure. From the iconic Table Mountain and vibrant waterfront of Cape Town to the thrilling Big Five safaris of Kruger National Park, the country delivers unforgettable experiences for every traveler. The scenic Garden Route showcases dramatic coastlines, forests, and charming towns, while cosmopolitan cities blend modern energy with rich history and heritage. With its world-class vineyards, beautiful beaches, cultural diversity, and warm hospitality, South Africa stands out as a destination that perfectly combines natural beauty, adventure, and cultural depth.",
     image: "/LandJourney/7.jpg",
-    description:
-      "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality.",
     duration: "7 Days | 6 Nights",
-    location: "Chobe National Park 3N, Okavango 3N",
     date: "Jun-Dec 2026",
-    price: "$5000",
+    location: "Cape Town, Oudtshoorn, Knysna",
+    price: "2649",
   },
   {
     id: 8,
-    title: "KENYA GATEWAY",
+    title: "India Golden Triangle (w/Jodhpur & Udaipur)",
+    description: "",
     image: "/LandJourney/8.jpg",
-    description:
-      "Kenya is one of Africa’s most iconic travel destinations, renowned for its extraordinary wildlife, dramatic landscapes, and rich cultural heritage. From the vibrant capital of Nairobi to the world- famous Maasai Mara National Reserve, visitors can experience thrilling safaris with opportunities to witness the Great Migration and spot the “Big Five.” The country’s diverse scenery ranges from the snow-capped peaks of Mount Kenya to the serene shores of Diani Beach along the Indian Ocean. Kenya also offers rich cultural encounters with local communities and a strong sense of heritage. With its blend of adventure, natural beauty, and warm hospitality, Kenya provides an unforgettable African travel experience.",
-    duration: "5 Days | 4 Nights",
-    location: "Nairobi 1N, Masai Mara 2N, Lake Naivasha / Lake Elementaita 1N",
+    duration: "9 Days | 8 Nights",
     date: "Jun-Dec 2026",
-    price: "$5000",
+    location: "Delhi, Agra, Jaipur, Jodhpur, Udaipur",
+    price: "959",
   },
   {
     id: 9,
-    title: "JEWELS OF KENYA",
+    title: "India Golden Triangle",
+    description: "",
     image: "/LandJourney/9.jpg",
-    description:
-      "Kenya is one of Africa’s most iconic travel destinations, renowned for its extraordinary wildlife, dramatic landscapes, and rich cultural heritage. From the vibrant capital of Nairobi to the world- famous Maasai Mara National Reserve, visitors can experience thrilling safaris with opportunities to witness the Great Migration and spot the “Big Five.” The country’s diverse scenery ranges from the snow-capped peaks of Mount Kenya to the serene shores of Diani Beach along the Indian Ocean. Kenya also offers rich cultural encounters with local communities and a strong sense of heritage. With its blend of adventure, natural beauty, and warm hospitality, Kenya provides an unforgettable African travel experience.",
-    duration: "7 Days | 6 Nights",
-    location:
-      "Nairobi 1N, Aberdare 1N, Mt. Kenya 1N, Lake Naivasha 1N, Masai Mara 2N",
+    duration: "6 Days | 5 Nights",
     date: "Jun-Dec 2026",
-    price: "$5000",
+    location: "Delhi, Agra, Jaipur",
+    price: "649",
   },
   {
     id: 10,
-    title: "CLASSIC KENYA",
+    title: "India Golden Triangle with Rajasthan",
+    description: "",
     image: "/LandJourney/10.jpg",
-    description:
-      "Kenya is one of Africa’s most iconic travel destinations, renowned for its extraordinary wildlife, dramatic landscapes, and rich cultural heritage. From the vibrant capital of Nairobi to the world- famous Maasai Mara National Reserve, visitors can experience thrilling safaris with opportunities to witness the Great Migration and spot the “Big Five.” The country’s diverse scenery ranges from the snow-capped peaks of Mount Kenya to the serene shores of Diani Beach along the Indian Ocean. Kenya also offers rich cultural encounters with local communities and a strong sense of heritage. With its blend of adventure, natural beauty, and warm hospitality, Kenya provides an unforgettable African travel experience.",
-    duration: "8 Days | 7 Nights",
-    location:
-      "Nairobi 1N, Samburu 2N, Olpejeta Conservancy 1N, Lake Naivasha 1N, Masai Mara 2N",
+    duration: "12 Days | 11 Nights",
     date: "Jun-Dec 2026",
-    price: "$5000",
+    location: "Delhi, Agra, Jaipur, Bikaner, Jaisalmer, Jodhpur, Udaipur",
+    price: "1399",
+  },
+  {
+    id: 11,
+    title: "India Punjab & Himachal",
+    description: "",
+    image: "/LandJourney/1.jpg",
+    duration: "11 Days | 10 Nights",
+    date: "Jun-Dec 2026",
+    location: "Amritsar, Chandigarh, Kasauli, Shimla",
+    price: "2449",
+  },
+  {
+    id: 12,
+    title: "India Kashmir",
+    description: "",
+    image: "/LandJourney/2.jpg",
+    duration: "8 Days | 7 Nights",
+    date: "Jun-Dec 2026",
+    location: "Srinagar, Gulmarg, Pahalgam, Sonmarg",
+    price: "2499",
+  },
+  {
+    id: 13,
+    title: "India Nainital & Jim Corbett",
+    description: "",
+    image: "/LandJourney/3.jpg",
+    duration: "5 Days | 4 Nights",
+    date: "Jun-Dec 2026",
+    location: "Patnagar, Nainital, Jim Corbett",
+    price: "1199",
+  },
+  {
+    id: 14,
+    title: "Highlights of Switzerland",
+    description: "",
+    image: "/LandJourney/4.jpg",
+    duration: "10 Days | 9 Nights",
+    date: "Jun-Dec 2026",
+    location: "Geneva, Engelberg, Lucerne, Interlaken, Jungfraujoch, Grindelwald, Gstaad, Bern, Liechtenstein",
+    price: "6499",
+  },
+  // GROUP JOURNEY
+  {
+    id: 15,
+    title: "Spirit of Vietnam & Cambodia",
+    description: "",
+    image: "/LandJourney/5.jpg",
+    duration: "13 Days | 12 Nights",
+    date: "Dep Date - 16 Nov",
+    location: "Hanoi, Ha Long Bay, Hue, Danang, Ho Chi Minh City, Siem Reap",
+    price: "2499"
+  },
+  // TAILORMADE JOURNEY – ITINERARY INSPIRATIONS
+  {
+    id: 16,
+    title: "Japan Alpine Route",
+    description: "",
+    image: "/LandJourney/6.jpg",
+    duration: "11 Days | 10 Nights",
+    date: "Jun-Dec 2026",
+    location: "Tokyo, Hakone, Toyama, Kanazawa, Kyoto, Hiroshima, Nara, Osaka",
+    price: "N/A",
+  },
+  {
+    id: 17,
+    title: "Crotia & Slovenia",
+    description: "",
+    image: "/LandJourney/7.jpg",
+    duration: "11 Days | 10 Nights",
+    date: "Jun-Dec 2026",
+    location: "Dubrovnik, Split, Hvar, Zagreb, Ljubljana",
+    price: "N/A",
   },
 ];
 
@@ -160,8 +219,15 @@ function JourneyCard({ journey, onOpen }) {
         <h3 className="text-xl sm:text-2xl font-semibold text-[#2B3481] mb-3 line-clamp-1">
           {journey.title}
         </h3>
-        <p className="text-sm text-[#2B3481] font-light leading-relaxed mb-6 line-clamp-4">
+        <p className="text-sm text-[#2B3481] font-light leading-relaxed mb-6 line-clamp-4 relative">
           {journey.description}
+          {/* Always reserve space for 4 lines even if description is empty */}
+          <span aria-hidden="true" className="invisible select-none pointer-events-none block">
+            <br />
+            <br />
+            <br />
+            <br />
+          </span>
         </p>
 
         <div className="text-sm text-[#2B3481] mb-4">
@@ -189,7 +255,7 @@ function JourneyCard({ journey, onOpen }) {
           <div>
             <p className="text-[10px] text-[#2B3481]">from</p>
             <p className="text-lg font-medium text-[#2B3481]">
-              {journey.price}
+              ${journey.price}
               <span className="text-xs font-light text-[#2B3481]">
                 */person
               </span>
