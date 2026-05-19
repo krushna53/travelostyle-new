@@ -276,7 +276,7 @@ export default function CruiseJourneys() {
       id="cruise-journeys"
       className="bg-[#f7f8fc] px-4 py-14 md:px-10 bg-[url('/background.jpg')] bg-repeat bg-cover bg-top-left"
     >
-      <div className="mx-auto max-w-[85.2vw]">
+      <div className="mx-auto">
         {/* Header */}
         <div className="flex flex-col items-center mb-10 sm:mb-14">
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-[5%] text-[#2C3078] uppercase">
@@ -303,11 +303,11 @@ export default function CruiseJourneys() {
         </div>
 
         {/* Desktop: 3-up carousel */}
-        <div className="hidden sm:grid grid-cols-[100px_1fr_100px] items-center gap-10">
+        <div className="hidden sm:grid grid-cols-[100px_1fr_100px] items-center">
           <div className="flex justify-center">
             <NavButton direction="prev" onClick={handlePrev} />
           </div>
-          <div className="grid grid-cols-3 gap-10">
+          <div className="grid grid-cols-3 gap-3">
             {visibleCruises.map((item, index) => (
               <CruiseCard key={`${currentIndex}-${index}`} item={item} />
             ))}

@@ -688,7 +688,7 @@ export default function LandJourneys() {
         id="land-journeys"
         className="bg-[#f2f2f2] py-14 px-4 sm:py-20 sm:px-6 bg-[url('/background.jpg')] bg-repeat bg-cover bg-top-left"
       >
-        <div className="mx-auto max-w-[85.2vw]">
+        <div className="mx-auto max-w-">
           {/* Header */}
           <div className="flex flex-col items-center mb-10 sm:mb-16">
             <h2 className="text-2xl tracking-[5%] sm:text-3xl font-semibold text-[#2B3481] uppercase">
@@ -715,7 +715,7 @@ export default function LandJourneys() {
           </div>
 
           {/* Desktop: arrows flanking the 3-column grid, vertically centered */}
-          <div className="hidden sm:grid grid-cols-[100px_1fr_100px] items-center gap-10">
+          <div className="hidden sm:grid grid-cols-[100px_1fr_100px] items-center">
             <div className="flex justify-center">
               <NavButton direction="prev" onClick={handlePrev} />
             </div>
