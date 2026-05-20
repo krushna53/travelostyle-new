@@ -122,7 +122,8 @@ function CruiseCard({ item }) {
   return (
     <div
       className="relative"
-      style={{ aspectRatio: "506/606" }}
+      // 1. INCREASED HEIGHT: Changed from "506/606" to "506/680" to match Figma proportions
+      style={{ aspectRatio: "506/680" }} 
     >
       {/* SVG ticket-border card shape (#FAFAFA background + built-in shadow) */}
       <img
@@ -132,16 +133,17 @@ function CruiseCard({ item }) {
         className="absolute pointer-events-none select-none"
         style={{
           width: "103.95%",
-          height: "103.63%",
+          height: "110.63%",
           left: "0",
-          top: 0,
+          top: "0",
         }}
       />
 
-      {/* Content inset: 35 px sides → 6.92%, 30 px top → 5.93% */}
+      {/* Content inset: 
+          2. INCREASED BOTTOM PADDING: Added 7.5% to the bottom so the inner container comfortably clears the stretched jagged edge. */}
       <div
         className="absolute inset-0 flex flex-col"
-        style={{ padding: "5.93% 6.92%" }}
+        style={{ padding: "5.93% 6.92% 7.5%" }}
       >
         {/* Image area */}
         <div className="relative overflow-hidden rounded-sm flex-1">
@@ -157,7 +159,7 @@ function CruiseCard({ item }) {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(26,26,26,0.92) 0%, rgba(26,26,26,0.85) 40%, rgba(26,26,26,0.1) 62%, rgba(0,0,0,0) 75%)",
+                "linear-gradient(180deg, rgba(26,26,26,0.92) 0%, rgba(26,26,26,0.85) 5%, rgba(26,26,26,0.1) 50%, rgba(0,0,0,0) 100%)",
             }}
           />
 
@@ -166,13 +168,15 @@ function CruiseCard({ item }) {
             <h3 className="text-white font-semibold text-xl md:text-2xl leading-tight mb-4">
               {item.title}
             </h3>
-            <p className="text-white/90 text-sm md:text-lg leading-relaxed">
+            {/* 3. FONT SIZE TWEAK: Changed md:text-lg to md:text-base to closer match Figma's cleaner text sizing */}
+            <p className="text-white/90 text-sm md:text-base leading-relaxed">
               {item.description}
             </p>
           </div>
 
           {/* Explore button + partner notice stacked at bottom */}
-          <div className="absolute bottom-0 inset-x-0 z-10 mb-5">
+          {/* 4. MARGIN TWEAK: Changed mb-5 to mb-6 for slightly more breathing room at the bottom */}
+          <div className="absolute bottom-0 inset-x-0 z-10 mb-6">
             <div className="px-5 pb-3">
               <a
                 href={item.link}
@@ -212,7 +216,7 @@ function CruiseCard({ item }) {
                 <line x1="12" y1="8" x2="12" y2="12" />
                 <line x1="12" y1="16" x2="12.01" y2="16" />
               </svg>
-              <span className="text-xs md:text-base text-[#2B3481]">
+              <span className="text-xs md:text-[15px] text-[#2B3481]">
                 Opens on a TravelOStyle partner site
               </span>
             </div>
