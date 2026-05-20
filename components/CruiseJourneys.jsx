@@ -133,8 +133,8 @@ function CruiseCard({ item }) {
         className="absolute pointer-events-none select-none"
         style={{
           width: "103.95%",
-          height: "110.63%",
-          left: "0",
+          height: "103.63%",
+          left: "-1.98%",
           top: "0",
         }}
       />
