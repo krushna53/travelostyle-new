@@ -596,7 +596,16 @@ export default function LandJourneys() {
   const [children, setChildren] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
+  const [cols, setCols] = useState(3);
+useEffect(() => {
+  const update = () => setCols(window.innerWidth <= 1750 ? 2 : 3);
 
+  update();
+
+  window.addEventListener("resize", update);
+
+  return () => window.removeEventListener("resize", update);
+}, []);
   const handlePrev = () =>
     setCurrentIndex((prev) => (prev - 1 + journeys.length) % journeys.length);
   const handleNext = () =>
@@ -678,9 +687,10 @@ export default function LandJourneys() {
   }
 
   // 3 visible cards starting from currentIndex, wrapping around
-  const visibleJourneys = [0, 1, 2].map(
-    (offset) => journeys[(currentIndex + offset) % journeys.length],
-  );
+  const visibleJourneys = Array.from(
+  { length: cols },
+  (_, offset) => journeys[(currentIndex + offset) % journeys.length]
+);
 
   return (
     <>
@@ -688,7 +698,7 @@ export default function LandJourneys() {
         id="land-journeys"
         className="bg-[#f2f2f2] py-14 px-4 sm:py-20 sm:px-6 bg-[url('/background.jpg')] bg-repeat bg-cover bg-top-left"
       >
-        <div className="mx-auto max-w-">
+        <div className="mx-auto max-w-[85.2vw]">
           {/* Header */}
           <div className="flex flex-col items-center mb-10 sm:mb-16">
             <h2 className="text-2xl tracking-[5%] sm:text-3xl font-semibold text-[#2B3481] uppercase">
@@ -720,7 +730,11 @@ export default function LandJourneys() {
               <NavButton direction="prev" onClick={handlePrev} />
             </div>
 
-            <div className="grid grid-cols-3 gap-18">
+            <div
+  className={`grid gap-10 ${
+    cols === 2 ? "grid-cols-2" : "grid-cols-3"
+  }`}
+>
               {visibleJourneys.map((journey, index) => (
                 <JourneyCard
                   key={`${currentIndex}-${index}`}
