@@ -93,29 +93,29 @@ export default function TravelForm() {
 
   return (
     <div id="inquiry-form" className="bg-[#ebebf2] px-4 py-12 sm:px-8 sm:py-16">
-      <div className="relative w-full max-w-[85.2vw] mx-auto">
+      <div className="relative w-full md:max-w-[85.2vw] mx-auto">
         <div
-          className="absolute top-0 left-0 h-1.5 w-full bg-repeat-x"
+          className="hidden md:block absolute top-0 left-0 h-1.5 w-full bg-repeat-x"
           style={{
             backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='6'><path d='M0 3 Q5 0 10 3 T20 3' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
           }}
         />
 
         <div
-          className="absolute bottom-0 left-0 h-1.5 w-full bg-repeat-x"
+          className="hidden md:block absolute bottom-0 left-0 h-1.5 w-full bg-repeat-x"
           style={{
             backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='6'><path d='M0 3 Q5 6 10 3 T20 3' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
           }}
         />
 
         <div
-          className="absolute top-0 left-0 h-full w-1.5 bg-repeat-y"
+          className="hidden md:block absolute top-0 left-0 h-full w-1.5 bg-repeat-y"
           style={{
             backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='20'><path d='M3 0 Q0 5 3 10 T3 20' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
           }}
         />
         <div
-          className="absolute top-0 right-0 h-full w-1.5 bg-repeat-y"
+          className="hidden md:block absolute top-0 right-0 h-full w-1.5 bg-repeat-y"
           style={{
             backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='20'><path d='M3 0 Q6 5 3 10 T3 20' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
           }}
@@ -123,7 +123,7 @@ export default function TravelForm() {
 
         <div className="absolute inset-0 rounded-xl pointer-events-none" />
 
-        <form onSubmit={handleSubmit} className="rounded-xl bg-[#ebebf2] px-4 py-4 sm:px-10">
+        <form onSubmit={handleSubmit} className="rounded-xl bg-[#ebebf2] px-2 py-4 md:px-10">
           <div className="mb-10">
             <span className="text-[22px] font-taprom text-[#2C3078] sm:text-[2.4vw]">
               tailor-made

@@ -31,7 +31,7 @@ export default function WhereTravelStyle() {
           </p>
         </div>
 
-        <div className="my-15 flex justify-center">
+        <div className="my-8 flex justify-center">
           <Image
             src="/Vector_blue.svg"
             alt="origin story"

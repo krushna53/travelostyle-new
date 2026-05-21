@@ -14,7 +14,7 @@ const journeys = [
       "Vietnam: Vietnam is a place where emerald landscapes, ancient traditions, and warm hospitality come together in perfect harmony. From the tranquil waters of Ha Long Bay to the lantern-lit streets of Hoi An and the vibrant energy of Hanoi and Ho Chi Minh City, every region offers its own rhythm and beauty. Rich history, flavorful cuisine, and breathtaking scenery make Vietnam a journey that feels both peaceful and deeply inspiring.  Cambodia: Cambodia is a land shaped by ancient glory and heartfelt warmth. The majestic temples of Angkor rise from the jungle like a living testament to the country's rich past, while its villages, rivers, and bustling markets reveal a culture full of resilience and grace. From sunrise at Angkor Wat to the gentle flow of the Mekong, Cambodia offers a journey filled with history, spirituality, and unforgettable moments.",
     image: "/LandJourney/Varanasi - Ganga Aarti - 1.jpg",
     duration: "12 Nights | 13 Days",
-    date: "Dep Date - 16 Nov (November 2026)",
+    date: "Nov 2026",
     location: "6 Destinations",
     price: "2499",
   },
