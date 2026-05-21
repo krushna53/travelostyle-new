@@ -5,178 +5,57 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const journeys = [
-  // PRIVATE JOURNEY / TAILORMADE INSPIRATIONS
   {
     id: 1,
-    title: "Highlights of Kenya",
-    description: "Kenya is one of Africa’s most iconic travel destinations, renowned for its extraordinary wildlife, dramatic landscapes, and rich cultural heritage. From the vibrant capital of Nairobi to the world- famous Maasai Mara National Reserve, visitors can experience thrilling safaris with opportunities to witness the Great Migration and spot the “Big Five.” The country’s diverse scenery ranges from the snow-capped peaks of Mount Kenya to the serene shores of Diani Beach along the Indian Ocean. Kenya also offers rich cultural encounters with local communities and a strong sense of heritage. With its blend of adventure, natural beauty, and warm hospitality, Kenya provides an unforgettable African travel experience.",
-    image: "/LandJourney/Kenya-AmboseliNP-1.jpg",
-    duration: "6 Days | 5 Nights",
-    date: "Jun-Dec 2026",
-    location: "Nairobi, Amboseli National Park, Lake Naivasha & Masai Mara Game Reserve",
-    price: "3249",
-  },
-  {
-    id: 2,
-    title: "Classic Kenya",
-    description: "Kenya is one of Africa’s most iconic travel destinations, renowned for its extraordinary wildlife, dramatic landscapes, and rich cultural heritage. From the vibrant capital of Nairobi to the world- famous Maasai Mara National Reserve, visitors can experience thrilling safaris with opportunities to witness the Great Migration and spot the “Big Five.” The country’s diverse scenery ranges from the snow-capped peaks of Mount Kenya to the serene shores of Diani Beach along the Indian Ocean. Kenya also offers rich cultural encounters with local communities and a strong sense of heritage. With its blend of adventure, natural beauty, and warm hospitality, Kenya provides an unforgettable African travel experience.",
-    image: "/LandJourney/Kenya-MaraRiverCrossingMigration-1.jpg",
-    duration: "8 Days | 7 Nights",
-    date: "Jun-Dec 2026",
-    location: "Nairobi, Samburu, Ol Pejeta Conservancy, Lake Naivasha, Masai Mara GR",
-    price: "3949",
-  },
-  {
-    id: 3,
-    title: "Jewels of Kenya",
-    description: "Kenya is one of Africa’s most iconic travel destinations, renowned for its extraordinary wildlife, dramatic landscapes, and rich cultural heritage. From the vibrant capital of Nairobi to the world- famous Maasai Mara National Reserve, visitors can experience thrilling safaris with opportunities to witness the Great Migration and spot the “Big Five.” The country’s diverse scenery ranges from the snow-capped peaks of Mount Kenya to the serene shores of Diani Beach along the Indian Ocean. Kenya also offers rich cultural encounters with local communities and a strong sense of heritage. With its blend of adventure, natural beauty, and warm hospitality, Kenya provides an unforgettable African travel experience.",
-    image: "/LandJourney/Kenya-MaraTribe-1.jpg",
-    duration: "7 Days | 6 Nights",
-    date: "Jun-Dec 2026",
-    location: "Nairobi, Aberdare NP, Mt. Kenya NP, Lake Naivasha, Masai Mara GR",
-    price: "3499",
-  },
-  {
-    id: 4,
-    title: "Highlights of Botswana",
-    description: "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality.",
-    image: "/LandJourney/Botswana-OkavangoRiver-1.jpg",
-    duration: "8 Days | 7 Nights",
-    date: "Jun-Dec 2026",
-    location: "Johannesburg, Chobe NP, Okavango Delta",
-    price: "13949",
-  },
-  {
-    id: 5,
-    title: "Botswana Waterways",
-    description: "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality.",
-    image: "/LandJourney/Botswana-MakgadikgadiPan-1.jpg",
-    duration: "8 Days | 7 Nights",
-    date: "Jun-Dec 2026",
-    location: "Johannesburg, Selinda Reserve, Okavango Delta, Sitatunga Private Island",
-    price: "13599",
-  },
-  {
-    id: 6,
-    title: "Botswana Safari",
-    description: "Botswana is one of Africa’s most exclusive and pristine safari destinations, celebrated for its vast wilderness, low-impact tourism model, and extraordinary wildlife encounters. Located in the heart of Southern Africa, the country is defined by dramatic landscapes ranging from the lush waterways of the Okavango Delta, one of the world’s largest inland deltas, to the elephant-rich floodplains of Chobe National Park and the surreal salt expanses of the Makgadikgadi Pans. Botswana is renowned for its commitment to conservation and sustainable luxury tourism, offering intimate safari experiences in remote reserves where travelers can enjoy private game drives, mokoro (dugout canoe) safaris, walking safaris, and helicopter flights over untouched wilderness. With exclusive lodges set in breathtaking natural settings and exceptional wildlife viewing—including elephants, lions, leopards, wild dogs, and hundreds of bird species—Botswana provides a refined, authentic safari experience that combines raw nature, privacy, and world-class hospitality.",
-    image: "/LandJourney/Serengeti-Migration-1.jpg",
-    duration: "10 Days | 9 Nights",
-    date: "Jun-Dec 2026",
-    location: "Johannesburg, Okavango Delta, Selinda Reserve, Sapi Private Reserve",
-    price: "14299",
-  },
-  {
-    id: 7,
-    title: "India Glimpses of South Africa",
-    description: "South Africa is a diverse and captivating destination that offers an extraordinary mix of wildlife,landscapes, culture, and adventure. From the iconic Table Mountain and vibrant waterfront of Cape Town to the thrilling Big Five safaris of Kruger National Park, the country delivers unforgettable experiences for every traveler. The scenic Garden Route showcases dramatic coastlines, forests, and charming towns, while cosmopolitan cities blend modern energy with rich history and heritage. With its world-class vineyards, beautiful beaches, cultural diversity, and warm hospitality, South Africa stands out as a destination that perfectly combines natural beauty, adventure, and cultural depth.",
-    image: "/LandJourney/Kenya-AmboseliNP-2.jpg",
-    duration: "7 Days | 6 Nights",
-    date: "Jun-Dec 2026",
-    location: "Cape Town, Oudtshoorn, Knysna",
-    price: "2649",
-  },
-  {
-    id: 8,
-    title: "India Golden Triangle (w/Jodhpur & Udaipur)",
-    description: "",
-    image: "/LandJourney/Jaipur.jpg",
-    duration: "9 Days | 8 Nights",
-    date: "Jun-Dec 2026",
-    location: "Delhi, Agra, Jaipur, Jodhpur, Udaipur",
-    price: "959",
-  },
-  {
-    id: 9,
-    title: "India Golden Triangle",
-    description: "",
-    image: "/LandJourney/Ranthambore-Tiger1.jpg",
-    duration: "6 Days | 5 Nights",
-    date: "Jun-Dec 2026",
-    location: "Delhi, Agra, Jaipur",
-    price: "649",
-  },
-  {
-    id: 10,
-    title: "India Golden Triangle with Rajasthan",
-    description: "",
-    image: "/LandJourney/Ranthambore-Tiger2.jpg",
-    duration: "12 Days | 11 Nights",
-    date: "Jun-Dec 2026",
-    location: "Delhi, Agra, Jaipur, Bikaner, Jaisalmer, Jodhpur, Udaipur",
-    price: "1399",
-  },
-  {
-    id: 11,
-    title: "India Punjab & Himachal",
-    description: "",
-    image: "/LandJourney/Shimla-1.jpg",
-    duration: "11 Days | 10 Nights",
-    date: "Jun-Dec 2026",
-    location: "Amritsar, Chandigarh, Kasauli, Shimla",
-    price: "2449",
-  },
-  {
-    id: 12,
-    title: "India Kashmir",
-    description: "",
-    image: "/LandJourney/Kashmir.jpg",
-    duration: "8 Days | 7 Nights",
-    date: "Jun-Dec 2026",
-    location: "Srinagar, Gulmarg, Pahalgam, Sonmarg",
+    title: "Spirit of Vietnam & Cambodia",
+    shortDescription:
+      "Vietnam: Vietnam is a place where emerald landscapes, ancient traditions, and warm hospitality come together in perfect harmony.",
+    description:
+      "Vietnam: Vietnam is a place where emerald landscapes, ancient traditions, and warm hospitality come together in perfect harmony. From the tranquil waters of Ha Long Bay to the lantern-lit streets of Hoi An and the vibrant energy of Hanoi and Ho Chi Minh City, every region offers its own rhythm and beauty. Rich history, flavorful cuisine, and breathtaking scenery make Vietnam a journey that feels both peaceful and deeply inspiring.  Cambodia: Cambodia is a land shaped by ancient glory and heartfelt warmth. The majestic temples of Angkor rise from the jungle like a living testament to the country's rich past, while its villages, rivers, and bustling markets reveal a culture full of resilience and grace. From sunrise at Angkor Wat to the gentle flow of the Mekong, Cambodia offers a journey filled with history, spirituality, and unforgettable moments.",
+    image: "/LandJourney/Varanasi - Ganga Aarti - 1.jpg",
+    duration: "12 Nights | 13 Days",
+    date: "Dep Date - 16 Nov (November 2026)",
+    location: "6 Destinations",
     price: "2499",
   },
   {
-    id: 13,
-    title: "India Nainital & Jim Corbett",
-    description: "",
-    image: "/LandJourney/NaintalJimCorbett-Gharial-1.jpg",
-    duration: "5 Days | 4 Nights",
-    date: "Jun-Dec 2026",
-    location: "Patnagar, Nainital, Jim Corbett",
-    price: "1199",
+    id: 2,
+    title: "American Icons - East to West Signature Journey",
+    shortDescription:
+      "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure.",
+    description:
+      "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you're exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
+    image: "/LandJourney/USA East & West Coast Image - 1.png",
+    duration: "12 Nights | 13 Days",
+    date: "Jun-Nov 2026",
+    location: "12 Destinations",
+    price: "4199",
   },
   {
-    id: 14,
-    title: "Highlights of Switzerland",
-    description: "",
-    image: "/LandJourney/Varanasi-GangaAarti-2.jpg",
-    duration: "10 Days | 9 Nights",
-    date: "Jun-Dec 2026",
-    location: "Geneva, Engelberg, Lucerne, Interlaken, Jungfraujoch, Grindelwald, Gstaad, Bern, Liechtenstein",
-    price: "6499",
-  },
-  // GROUP JOURNEY
-  {
-    id: 15,
-    title: "Spirit of Vietnam & Cambodia",
-    description: "",
-    image: "/LandJourney/Varanasi-GangaAarti-1.jpg",
-    duration: "13 Days | 12 Nights",
-    date: "Dep Date - 16 Nov",
-    location: "Hanoi, Ha Long Bay, Hue, Danang, Ho Chi Minh City, Siem Reap",
-    price: "2499"
-  },
-  // TAILORMADE JOURNEY – ITINERARY INSPIRATIONS
-  {
-    id: 16,
-    title: "Japan Alpine Route",
-    description: "",
-    image: "/LandJourney/Kenya-MasaiTribe-AIonlin.jpeg",
-    duration: "11 Days | 10 Nights",
-    date: "Jun-Dec 2026",
-    location: "Tokyo, Hakone, Toyama, Kanazawa, Kyoto, Hiroshima, Nara, Osaka",
-    price: "N/A",
+    id: 3,
+    title: "USA - West Coast Wonders",
+    shortDescription:
+      "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure.",
+    description:
+      "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you're exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
+    image: "/LandJourney/USA West Coast Image - 1.jpg",
+    duration: "6 Nights | 7 Days",
+    date: "Jun-Nov 2026",
+    location: "5 Destinations",
+    price: "2249",
   },
   {
-    id: 17,
-    title: "Crotia & Slovenia",
-    description: "",
-    image: "/LandJourney/Kenya-MaraTribe-2.jpg",
-    duration: "11 Days | 10 Nights",
-    date: "Jun-Dec 2026",
-    location: "Dubrovnik, Split, Hvar, Zagreb, Ljubljana",
-    price: "N/A",
+    id: 4,
+    title: "USA - East Coast Icons",
+    shortDescription:
+      "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure.",
+    description:
+      "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you're exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
+    image: "/LandJourney/USA East Coast Image - 1.png",
+    duration: "6 Nights | 7 Days",
+    date: "Jun-Nov 2026",
+    location: "5 Destinations",
+    price: "2299",
   },
 ];
 
@@ -220,14 +99,7 @@ function JourneyCard({ journey, onOpen }) {
           {journey.title}
         </h3>
         <p className="text-sm text-[#2B3481] font-light leading-relaxed mb-6 line-clamp-4 relative">
-          {journey.description}
-          {/* Always reserve space for 4 lines even if description is empty */}
-          <span aria-hidden="true" className="invisible select-none pointer-events-none block">
-            <br />
-            <br />
-            <br />
-            <br />
-          </span>
+          {journey.shortDescription}
         </p>
 
         <div className="text-sm text-[#2B3481] mb-4">
@@ -403,9 +275,15 @@ function JourneyDetailsModal({
                   </span>
                 </p>
                 <p className="text-[13px] leading-snug sm:text-[15px]">
+                  <span className="font-semibold">Location:</span>{" "}
+                  <span className="npfont-normal text-[#4d4a7e]">
+                    {journey.location}
+                  </span>
+                </p>
+                <p className="text-[13px] leading-snug sm:text-[15px]">
                   <span className="font-semibold">Price:</span>{" "}
                   <span className="font-normal text-[#4d4a7e]">
-                    {journey.price}
+                    ${journey.price}
                   </span>
                 </p>
               </div>
@@ -597,15 +475,15 @@ export default function LandJourneys() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
   const [cols, setCols] = useState(3);
-useEffect(() => {
-  const update = () => setCols(window.innerWidth <= 1750 ? 2 : 3);
+  useEffect(() => {
+    const update = () => setCols(window.innerWidth <= 1750 ? 2 : 3);
 
-  update();
+    update();
 
-  window.addEventListener("resize", update);
+    window.addEventListener("resize", update);
 
-  return () => window.removeEventListener("resize", update);
-}, []);
+    return () => window.removeEventListener("resize", update);
+  }, []);
   const handlePrev = () =>
     setCurrentIndex((prev) => (prev - 1 + journeys.length) % journeys.length);
   const handleNext = () =>
@@ -688,9 +566,9 @@ useEffect(() => {
 
   // 3 visible cards starting from currentIndex, wrapping around
   const visibleJourneys = Array.from(
-  { length: cols },
-  (_, offset) => journeys[(currentIndex + offset) % journeys.length]
-);
+    { length: cols },
+    (_, offset) => journeys[(currentIndex + offset) % journeys.length],
+  );
 
   return (
     <>
@@ -731,10 +609,10 @@ useEffect(() => {
             </div>
 
             <div
-  className={`grid gap-10 ${
-    cols === 2 ? "grid-cols-2" : "grid-cols-3"
-  }`}
->
+              className={`grid gap-10 ${
+                cols === 2 ? "grid-cols-2" : "grid-cols-3"
+              }`}
+            >
               {visibleJourneys.map((journey, index) => (
                 <JourneyCard
                   key={`${currentIndex}-${index}`}
