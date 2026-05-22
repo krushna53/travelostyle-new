@@ -17,6 +17,7 @@ const journeys = [
     date: "Nov 2026",
     location: "6 Destinations",
     price: "2499",
+    bookingsOpen: true,
   },
   {
     id: 2,
@@ -30,6 +31,7 @@ const journeys = [
     date: "Jun-Nov 2026",
     location: "12 Destinations",
     price: "4199",
+    bookingsOpen: true,
   },
   {
     id: 3,
@@ -75,6 +77,24 @@ function JourneyCard({ journey, onOpen }) {
         WebkitMaskComposite: "source-in",
       }}
     >
+      {journey.bookingsOpen && (
+        <div
+          className="w-full py-2 text-center text-[#2C3078]"
+          style={{
+            border: "2px solid #2C3078",
+            borderTopLeftRadius: "10px",
+            borderTopRightRadius: "10px",
+            background: "#EFF3CF",
+            fontFamily: "Nohemi, sans-serif",
+            fontWeight: 600,
+            fontSize: "16px",
+            lineHeight: "24px",
+            letterSpacing: "0.05em",
+          }}
+        >
+          Bookings Open
+        </div>
+      )}
       <div className="px-4 pt-4 pb-0">
         <Image
           src={journey.image}
@@ -95,7 +115,8 @@ function JourneyCard({ journey, onOpen }) {
         />
       </div>
       <div className="px-6 pb-5 pt-2 flex flex-col grow">
-        <h3 className="text-xl sm:text-2xl font-semibold text-[#2B3481] mb-3 line-clamp-1">
+        {/* line-clamp-1 */}
+        <h3 className="text-xl sm:text-2xl font-semibold text-[#2B3481] mb-3">
           {journey.title}
         </h3>
         <p className="text-sm text-[#2B3481] font-light leading-relaxed mb-6 line-clamp-4 relative">
