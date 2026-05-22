@@ -170,14 +170,14 @@ function JourneyCard({ journey, onOpen }) {
 
         <div className="flex justify-between items-center mt-auto">
           <div>
-            <p className="text-[10px] text-[#2B3481]">from</p>
+            <p className="text-[14px] font-light text-[#2B3481]">from</p>
             <p className="text-lg font-medium text-[#2B3481]">
               ${journey.price}*
               <span className="text-xs font-light text-[#2B3481]">
                 /person
               </span>
             </p>
-            <p className="text-[12px] text-[#2B3481]">
+            <p className="text-[12px] font-light text-[#2B3481]">
               double occupancy*
             </p>
           </div>
