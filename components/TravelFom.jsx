@@ -2,10 +2,34 @@
 
 import { Button } from "@heroui/react";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 
 const INQUIRY_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbwNOxfBmGHU1nb8Og4EDDhd1IuiXwq6s7PRxRSeVs2hos14vsBPzrnQbcTWo86xcMyRNw/exec";
+
+const REQUIRED_FIELDS = [
+  "firstName",
+  "lastName",
+  "phone",
+  "email",
+  "destination",
+  "guests",
+  "duration",
+  "month",
+  "message",
+];
+
+const FIELD_LABELS = {
+  firstName: "First Name",
+  lastName: "Last Name",
+  phone: "Number/WhatsApp",
+  email: "Email ID",
+  destination: "Interested Destination",
+  guests: "No. of Guests",
+  duration: "Duration of Trip",
+  month: "Month of Travel",
+  message: "Your Message",
+};
 
 export default function TravelForm() {
   const [formData, setFormData] = useState({
@@ -24,45 +48,66 @@ export default function TravelForm() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState("");
+  const [submitStatus, setSubmitStatus] = useState({ type: "", message: "" });
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [agreeError, setAgreeError] = useState("");
+
+  const fieldRefs = useRef({});
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
+    const newValue = type === "checkbox" ? checked : value;
+    setFormData((prev) => ({ ...prev, [name]: newValue }));
+    if (fieldErrors[name]) {
+      setFieldErrors((prev) => { const next = { ...prev }; delete next[name]; return next; });
+    }
+    if (name === "agree" && checked) setAgreeError("");
+  };
+
+  const validate = () => {
+    const errors = {};
+    for (const field of REQUIRED_FIELDS) {
+      if (!formData[field] || !String(formData[field]).trim()) {
+        errors[field] = `${FIELD_LABELS[field]} is required.`;
+      }
+    }
+    return errors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Basic client-side validation
-    if (!formData.firstName || !formData.email) {
-      setSubmitStatus("Please provide your name and email.");
-      return;
-    }
 
-    if (!formData.agree) {
-      setSubmitStatus("Please agree to be contacted.");
+    const errors = validate();
+    const hasFieldErrors = Object.keys(errors).length > 0;
+    const missingAgree = !formData.agree;
+
+    if (hasFieldErrors || missingAgree) {
+      setFieldErrors(errors);
+      if (missingAgree) setAgreeError("Please agree to be contacted.");
+
+      // Focus first error: field errors first, then agree checkbox
+      if (hasFieldErrors) {
+        const firstErrorField = REQUIRED_FIELDS.find((f) => errors[f]);
+        const el = fieldRefs.current[firstErrorField];
+        if (el) el.focus();
+      } else if (missingAgree) {
+        const agreeEl = fieldRefs.current["agree"];
+        if (agreeEl) agreeEl.focus();
+      }
       return;
     }
 
     setIsSubmitting(true);
-    setSubmitStatus("");
+    setSubmitStatus({ type: "", message: "" });
 
     fetch(INQUIRY_SCRIPT_URL, {
       method: "POST",
       mode: "no-cors",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8",
-      },
-      body: JSON.stringify({
-        ...formData,
-        source: "inquiry-form",
-      }),
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ ...formData, source: "inquiry-form" }),
     })
       .then(() => {
-        setSubmitStatus("Your inquiry has been sent successfully.");
+        setSubmitStatus({ type: "success", message: "Your inquiry has been sent successfully!" });
         setFormData({
           firstName: "",
           lastName: "",
@@ -77,19 +122,19 @@ export default function TravelForm() {
           message: "",
           agree: false,
         });
+        setFieldErrors({});
+        setAgreeError("");
       })
       .catch(() => {
-        setSubmitStatus("Unable to submit your inquiry right now. Please try again.");
+        setSubmitStatus({ type: "error", message: "Unable to submit your inquiry right now. Please try again." });
       })
       .finally(() => setIsSubmitting(false));
   };
 
-  // Auto-clear submitStatus after 5s
-  useEffect(() => {
-    if (!submitStatus) return;
-    const id = setTimeout(() => setSubmitStatus(""), 5000);
-    return () => clearTimeout(id);
-  }, [submitStatus]);
+  const inputClass = (name) =>
+    `w-full border-0 border-b-[1.6px] bg-transparent pl-2 pb-1.5 text-[14px] text-[#7b84c9] outline-none font-light ${
+      fieldErrors[name] ? "border-red-500" : "border-[#2d3494] focus:border-[#1e2a78]"
+    }`;
 
   return (
     <div id="inquiry-form" className="bg-[#ebebf2] px-4 py-12 sm:px-8 sm:py-16">
@@ -100,14 +145,12 @@ export default function TravelForm() {
             backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='6'><path d='M0 3 Q5 0 10 3 T20 3' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
           }}
         />
-
         <div
           className="hidden md:block absolute bottom-0 left-0 h-1.5 w-full bg-repeat-x"
           style={{
             backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='6'><path d='M0 3 Q5 6 10 3 T20 3' fill='none' stroke='%232B3481' stroke-width='1'/></svg>")`,
           }}
         />
-
         <div
           className="hidden md:block absolute top-0 left-0 h-full w-1.5 bg-repeat-y"
           style={{
@@ -128,51 +171,20 @@ export default function TravelForm() {
             <span className="text-[22px] font-taprom text-[#2C3078] sm:text-[2.4vw]">
               tailor-made
             </span>
-
             <h1 className="text-[30px] font-semibold text-indigo-900 sm:text-[3.2vw]">
               Build Your Own Journey
             </h1>
-
             <div className="mt-3 flex flex-wrap items-center gap-3 text-[14px] text-[#33377c] sm:text-[1.05vw] font-light">
               <span>Anywhere</span>
-
-              <Image
-                src="/Vectorblue.png"
-                alt="star separator"
-                width={15}
-                height={15}
-                className="object-contain"
-              />
+              <Image src="/Vectorblue.png" alt="star separator" width={15} height={15} className="object-contain" />
               <span>Any Duration</span>
-
-              <Image
-                src="/Vectorblue.png"
-                alt="star separator"
-                width={15}
-                height={15}
-                className="object-contain"
-              />
+              <Image src="/Vectorblue.png" alt="star separator" width={15} height={15} className="object-contain" />
               <span>Any Group Size</span>
-
-              <Image
-                src="/Vectorblue.png"
-                alt="star separator"
-                width={15}
-                height={15}
-                className="object-contain"
-              />
+              <Image src="/Vectorblue.png" alt="star separator" width={15} height={15} className="object-contain" />
               <span>Any Season</span>
-
-              <Image
-                src="/Vectorblue.png"
-                alt="star separator"
-                width={15}
-                height={15}
-                className="object-contain"
-              />
+              <Image src="/Vectorblue.png" alt="star separator" width={15} height={15} className="object-contain" />
               <span>All Budgets</span>
             </div>
-
             <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-[#33377c] sm:text-[1.05vw] font-light">
               Tired of one-size-fits-all journeys? Tell us how you want to do
               it. Simply share your idea of travel below and let TravelOStyle
@@ -202,6 +214,7 @@ export default function TravelForm() {
                       name={field.name}
                       value={formData[field.name]}
                       onChange={handleChange}
+                      ref={(el) => { fieldRefs.current[field.name] = el; }}
                       className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pl-2 pb-1.5 pr-6 text-[14px] text-[#7b84c9] outline-none font-light"
                     >
                       <option value="">Select Your Title</option>
@@ -217,17 +230,21 @@ export default function TravelForm() {
                     name={field.name}
                     value={formData[field.name]}
                     onChange={handleChange}
-                    className="w-full border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pl-2 pb-1.5 text-[14px] text-[#7b84c9] outline-none focus:border-[#1e2a78] font-light"
+                    ref={(el) => { fieldRefs.current[field.name] = el; }}
+                    className={inputClass(field.name)}
                     placeholder={field.placeholder}
                   />
                 )}
+                {fieldErrors[field.name] && (
+                  <span className="pl-2 text-[12px] text-red-500">{fieldErrors[field.name]}</span>
+                )}
               </div>
             ))}
+
             <div className="flex flex-col gap-1.5 w-full">
               <label className="pl-2 font-normal text-[18px] leading-8 tracking-wider text-[#2C3078]">
                 Flexibility*
               </label>
-
               <div className="relative">
                 <select
                   name="flexibility"
@@ -240,30 +257,31 @@ export default function TravelForm() {
                   <option>Flexible ±2 weeks</option>
                   <option>Very Flexible</option>
                 </select>
-
-                <span className="absolute right-1 top-1/2 -translate-y-1/2 text-[#2d3494] text-sm pointer-events-none">
-                  ▾
-                </span>
+                <span className="absolute right-1 top-1/2 -translate-y-1/2 text-[#2d3494] text-sm pointer-events-none">▾</span>
               </div>
             </div>
           </div>
 
           <div className="mt-12">
-            <label className="pl-2 text-[13px] text-[#2d3494]">
-              Your Message*
-            </label>
+            <label className="pl-2 text-[13px] text-[#2d3494]">Your Message*</label>
             <textarea
               name="message"
               value={formData.message}
               onChange={handleChange}
+              ref={(el) => { fieldRefs.current["message"] = el; }}
               rows={5}
               placeholder="Tell us everything- your budget, your vision, your interests. The more the better."
-              className="mt-2 w-full rounded-lg border border-[#2d3494] bg-white p-4 pl-5 text-[13px] text-[#7b84c9] outline-none font-light"
+              className={`mt-2 w-full rounded-lg border bg-white p-4 pl-5 text-[13px] text-[#7b84c9] outline-none font-light ${
+                fieldErrors.message ? "border-red-500" : "border-[#2d3494]"
+              }`}
             />
+            {fieldErrors.message && (
+              <span className="pl-2 text-[12px] text-red-500">{fieldErrors.message}</span>
+            )}
           </div>
 
-          {/* FOOTER */}
-          <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          {/* Checkbox */}
+          <div className="mt-10 flex flex-col gap-2">
             <div className="flex items-start md:items-center gap-3">
               <label
                 htmlFor="agree"
@@ -276,6 +294,7 @@ export default function TravelForm() {
                   id="agree"
                   checked={formData.agree}
                   onChange={handleChange}
+                  ref={(el) => { fieldRefs.current["agree"] = el; }}
                   className="sr-only"
                 />
                 {formData.agree && (
@@ -288,36 +307,38 @@ export default function TravelForm() {
                 I agree to be contacted by TravelOStyle regarding my inquiry.
               </label>
             </div>
+            {agreeError && (
+              <span className="pl-1 text-[12px] text-red-500">{agreeError}</span>
+            )}
           </div>
-          <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="rounded-full bg-[#2C3078] text-lg py-1 px-3 font-medium text-white disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {isSubmitting ? "Sending..." : "Submit Inquiry"}
-            </Button>{" "}
+
+          {/* Submit row */}
+          <div className="mt-10 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div className="flex flex-col gap-2">
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="rounded-full bg-[#2C3078] text-lg py-1 px-3 font-medium text-white disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? "Sending..." : "Submit Inquiry"}
+              </Button>
+              {submitStatus.message && (
+                <span
+                  className={`text-[13px] font-medium ${
+                    submitStatus.type === "error" ? "text-red-600" : "text-green-700"
+                  }`}
+                >
+                  {submitStatus.message}
+                </span>
+              )}
+            </div>
             <span className="w-full text-[#2C3078] sm:w-[36vw] font-light">
               TravelOStyle typically responds within 48 hours. Your details are
               never shared with third parties.
-            </span>{" "}
+            </span>
           </div>
         </form>
       </div>
-
-      {submitStatus ? (
-        <div
-          role="status"
-          className={`fixed right-6 top-6 z-50 transform rounded-md px-4 py-2 text-sm font-medium shadow-lg transition-opacity duration-200 ${
-            submitStatus.toLowerCase().includes("unable")
-              ? "bg-red-600 text-white"
-              : "bg-green-600 text-white"
-          }`}
-        >
-          {submitStatus}
-        </div>
-      ) : null}
-
     </div>
   );
 }

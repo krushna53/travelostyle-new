@@ -16,7 +16,7 @@ export default function FAQSection() {
     {
       id: 2,
       question: "Where is TravelOStyle based?",
-      answer: "We are based in [Location], but we operate globally.",
+      answer: "We are based in Hoffman Estates, IL, but we operate globally.",
     },
     {
       id: 3,

@@ -26,7 +26,7 @@ const Navbar = () => {
               About
             </Link>
             <Link
-              href="#cruise-journeys"
+              href="#land-journeys"
               className="text-[1.05vw] transition hover:opacity-80"
             >
               Journeys
