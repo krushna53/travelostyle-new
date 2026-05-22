@@ -18,6 +18,7 @@ const journeys = [
   location:
     "Hanoi, Ha Long Bay, Hue, Danang, Ho Chi Minh City, Siem Reap",
   price: "2499",
+  bookingsOpen:"true",
   },
   {
     id: 2,
