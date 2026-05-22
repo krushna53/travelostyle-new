@@ -102,13 +102,13 @@ function JourneyCard({ journey, onOpen }) {
           {journey.shortDescription}
         </p>
 
-        <div className="text-sm text-[#2B3481] mb-4">
+        <div className="text-sm font-medium text-[#2B3481] mb-4">
           <p>{journey.duration}</p>
           <p>{journey.location}</p>
         </div>
 
         <div>
-          <span className="border border-[#2B3481] text-[#2B3481] text-xs px-2 py-1 rounded">
+          <span className="border font-medium border-[#2B3481] text-[#2B3481] text-xs px-2 py-1 rounded">
             {journey.date}
           </span>
         </div>
@@ -127,12 +127,12 @@ function JourneyCard({ journey, onOpen }) {
           <div>
             <p className="text-[10px] text-[#2B3481]">from</p>
             <p className="text-lg font-medium text-[#2B3481]">
-              ${journey.price}
+              ${journey.price}*
               <span className="text-xs font-light text-[#2B3481]">
-                */person
+                /person
               </span>
             </p>
-            <p className="text-[9px] text-[#2B3481] italic">
+            <p className="text-[12px] text-[#2B3481]">
               double occupancy*
             </p>
           </div>
