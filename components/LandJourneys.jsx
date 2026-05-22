@@ -8,55 +8,88 @@ const journeys = [
   {
     id: 1,
     title: "Spirit of Vietnam & Cambodia",
-    shortDescription:
-      "Vietnam: Vietnam is a place where emerald landscapes, ancient traditions, and warm hospitality come together in perfect harmony.",
-    description:
-      "Vietnam: Vietnam is a place where emerald landscapes, ancient traditions, and warm hospitality come together in perfect harmony. From the tranquil waters of Ha Long Bay to the lantern-lit streets of Hoi An and the vibrant energy of Hanoi and Ho Chi Minh City, every region offers its own rhythm and beauty. Rich history, flavorful cuisine, and breathtaking scenery make Vietnam a journey that feels both peaceful and deeply inspiring.  Cambodia: Cambodia is a land shaped by ancient glory and heartfelt warmth. The majestic temples of Angkor rise from the jungle like a living testament to the country's rich past, while its villages, rivers, and bustling markets reveal a culture full of resilience and grace. From sunrise at Angkor Wat to the gentle flow of the Mekong, Cambodia offers a journey filled with history, spirituality, and unforgettable moments.",
-    image: "/LandJourney/Varanasi - Ganga Aarti - 1.jpg",
-    duration: "12 Nights | 13 Days",
-    date: "Nov 2026",
-    location: "6 Destinations",
-    price: "2499",
+  shortDescription:
+    "Vietnam and Cambodia offer a journey through emerald landscapes, ancient temples, vibrant cities, and deeply rooted traditions.",
+  description:
+    "Vietnam is a place where emerald landscapes, ancient traditions, and warm hospitality come together in perfect harmony. From the tranquil waters of Ha Long Bay to the lantern-lit streets of Hoi An and the vibrant energy of Hanoi and Ho Chi Minh City, every region offers its own rhythm and beauty. Rich history, flavorful cuisine, and breathtaking scenery make Vietnam a journey that feels both peaceful and deeply inspiring.\n\nCambodia is a land shaped by ancient glory and heartfelt warmth. The majestic temples of Angkor rise from the jungle like a living testament to the country’s rich past, while its villages, rivers, and bustling markets reveal a culture full of resilience and grace. From sunrise at Angkor Wat to the gentle flow of the Mekong, Cambodia offers a journey filled with history, spirituality, and unforgettable moments.",
+  image: "/LandJourney/Cambodia-Image.png",
+  duration: "12 Nights | 13 Days",
+  date: "16 Nov 2026",
+  location:
+    "Hanoi, Ha Long Bay, Hue, Danang, Ho Chi Minh City, Siem Reap",
+  price: "2499",
   },
   {
     id: 2,
-    title: "American Icons - East to West Signature Journey",
-    shortDescription:
-      "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure.",
-    description:
-      "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you're exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
-    image: "/LandJourney/USA East & West Coast Image - 1.png",
-    duration: "12 Nights | 13 Days",
-    date: "Jun-Nov 2026",
-    location: "12 Destinations",
-    price: "4199",
+     title: "American Icons - East to West Signature Journey",
+  shortDescription:
+    "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure.",
+  description:
+    "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you’re exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
+  image: "/LandJourney/USA-East-West-Coast-Itinerary.png",
+  duration: "12 Nights | 13 Days",
+  date:
+    "June: 4, 11, 18, 25 | July: 2, 9, 16, 23, 30 | August: 6, 13, 20, 27 | September: 3, 10, 17, 24 | October: 1, 8, 15, 22, 29 | November: 5",
+  location:
+    "New York, Philadelphia, Washington D.C., Harrisburg, Corning, Niagara Falls, Las Vegas, Los Angeles, Fresno, Monterey Bay, 17-Mile Drive, San Francisco",
+  price: "4199",
   },
   {
     id: 3,
     title: "USA - West Coast Wonders",
-    shortDescription:
-      "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure.",
-    description:
-      "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you're exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
-    image: "/LandJourney/USA West Coast Image - 1.jpg",
-    duration: "6 Nights | 7 Days",
-    date: "Jun-Nov 2026",
-    location: "5 Destinations",
-    price: "2249",
+  shortDescription:
+    "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure.",
+  description:
+    "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you’re exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
+  image: "/LandJourney/USA West Coast Image - 1.jpg",
+  duration: "6 Nights | 7 Days",
+  date:
+    "June: 3, 10, 17, 24 | July: 1, 8, 15, 22, 29 | August: 5, 12, 19, 26 | September: 2, 9, 16, 23 | October: 7, 14, 21, 28 | November: 4, 11",
+  location:
+    "Las Vegas, Los Angeles, Fresno, Monterey Bay, 17-Mile Drive, San Francisco",
+  price: "2249",
   },
   {
     id: 4,
     title: "USA - East Coast Icons",
-    shortDescription:
-      "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure.",
-    description:
-      "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you're exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
-    image: "/LandJourney/USA East Coast Image - 1.png",
-    duration: "6 Nights | 7 Days",
-    date: "Jun-Nov 2026",
-    location: "5 Destinations",
-    price: "2299",
+  shortDescription:
+    "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure.",
+  description:
+    "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you’re exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
+  image: "/LandJourney/USA East Coast Image - 1.png",
+  duration: "6 Nights | 7 Days",
+  date:
+    "June: 4, 11, 18, 25 | July: 2, 9, 16, 23, 30 | August: 6, 13, 20, 27 | September: 3, 10, 17, 24 | October: 1, 8, 15, 22, 29 | November: 5",
+  location:
+    "New York, Philadelphia, Washington D.C., Harrisburg, Niagara Falls",
+  price: "2299",
   },
+  {
+  id: 5,
+  title: "Botswana Waterways",
+  shortDescription:
+    "Botswana is one of Africa’s most pristine wilderness destinations — defined by the shimmering Okavango Delta, vast salt pans, and wildlife-rich reserves.",
+  description:
+    "Botswana is one of Africa’s most pristine wilderness destinations — defined by the shimmering Okavango Delta, vast salt pans, and wildlife-rich reserves. Here, nature unfolds in its purest form, from silent mokoro rides through crystal channels to intimate encounters in remote private concessions. Botswana offers exclusivity, tranquility, and raw natural beauty, creating a safari experience that feels both luxurious and deeply connected to the wild.",
+  image: "/LandJourney/Botswana-MakgadikgadiPan-1.jpg",
+  duration: "7 Nights | 8 Days",
+  date: "2026",
+  location: "Johannesburg, Selinda Reserve, Okavango Delta, Sitatunga Private Island",
+  price: "13599",
+},
+{
+  id: 6,
+  title: "India Golden Triangle",
+  shortDescription:
+    "India is a land of breathtaking contrasts — ancient temples and modern skylines, golden deserts and lush backwaters, vibrant festivals and peaceful spiritual retreats.",
+  description:
+    "India is a land of breathtaking contrasts — ancient temples and modern skylines, golden deserts and lush backwaters, vibrant festivals and peaceful spiritual retreats. Every region offers its own rhythm, flavor, and story, creating a tapestry of experiences unlike anywhere else. From majestic palaces to sacred rivers, bustling markets to serene landscapes, India invites you to explore a world rich in history, warmth, and wonder.",
+  image: "/LandJourney/Ranthambore-Tiger1.jpg",
+  duration: "5 Nights | 6 Days",
+  date: "2026",
+  location: "Delhi, Agra, Jaipur",
+  price: "649",
+},
 ];
 
 const MODAL_SCRIPT_URL =
