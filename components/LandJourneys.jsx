@@ -94,7 +94,7 @@ const journeys = [
 ];
 
 const MODAL_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbz-iRyvd470V8eXmni3neMj8kQGUDHFsVu8udr0DDo94rUDwCDb-R1MsQbXL9h_epm5Ng/exec";
+  "https://script.google.com/macros/s/AKfycbzkGZYpr2BscUEVvuAaY36j_g2F_z6YLzYxoXAuqkzW5LAGhubLNRpcSJOHbim8OwgpeQ/exec";
 
 function JourneyCard({ journey, onOpen }) {
   return (
@@ -261,6 +261,10 @@ function JourneyDetailsModal({
   setChildren,
   updateCount,
   onSubmit,
+  fieldErrors = {},
+  agreeError = "",
+  clearFieldError,
+  clearAgreeError,
 }) {
   if (!journey) return null;
 
@@ -358,28 +362,38 @@ function JourneyDetailsModal({
                 name="firstName"
                 label="First Name*"
                 placeholder="Your First Name"
+                error={fieldErrors.firstName}
+                onClearError={() => clearFieldError("firstName")}
               />
               <Field
                 name="lastName"
                 label="Last Name*"
                 placeholder="Your Last Name"
+                error={fieldErrors.lastName}
+                onClearError={() => clearFieldError("lastName")}
               />
               <Field
                 name="title"
                 label="Title*"
                 placeholder="Select Your Title"
                 select
+                error={fieldErrors.title}
+                onClearError={() => clearFieldError("title")}
               />
               <Field
                 name="phone"
                 label="Number/ WhatsApp"
                 placeholder="+1773 983 8067"
+                error={fieldErrors.phone}
+                onClearError={() => clearFieldError("phone")}
               />
               <div className="sm:col-span-2">
                 <Field
                   name="email"
                   label="Email*"
                   placeholder="Enter Your Email ID"
+                  error={fieldErrors.email}
+                  onClearError={() => clearFieldError("email")}
                 />
               </div>
             </div>
@@ -412,35 +426,48 @@ function JourneyDetailsModal({
                 name="message"
                 rows={5}
                 placeholder="Do you have questions or considerations that you would like us to know?"
-                className="w-full rounded-lg border-2 border-[#4b2aa3] bg-white px-3 py-3 text-[13px] leading-6 text-[#6d68a5] outline-none placeholder:text-[#b4afd8] sm:px-4 sm:py-3.5"
+                onChange={() => clearFieldError("message")}
+                className={`w-full rounded-lg border-2 bg-white px-3 py-3 text-[13px] leading-6 text-[#6d68a5] outline-none placeholder:text-[#b4afd8] sm:px-4 sm:py-3.5 ${
+                  fieldErrors.message ? "border-red-500" : "border-[#4b2aa3]"
+                }`}
               />
+              {fieldErrors.message && (
+                <span className="mt-1 block text-[12px] text-red-500">{fieldErrors.message}</span>
+              )}
             </div>
 
-            <div className="mt-6 flex flex-col gap-5 sm:mt-9 sm:flex-row sm:items-end sm:justify-between">
-              <label
-                className="flex items-start gap-3 text-[12px] leading-5 text-[#5c5a88] sm:text-[13px]"
-                style={{ maxWidth: 310 }}
-              >
-                <input
-                  type="checkbox"
-                  className="mt-0.5 h-6 w-6 md:h-8 md:w-8 rounded-sm border-2 border-[#4b2aa3] accent-[#4b2aa3]"
-                />
-                <span>
-                  I agree to be contacted by TravelOStyle regarding my inquiry.
-                </span>
-              </label>
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="rounded-full bg-[#2C3078] text-xl py-1 px-3 font-medium text-white disabled:cursor-not-allowed disabled:bg-[#2C3078]/70"
-              >
-                <span className="sm:hidden">
-                  {isSubmitting ? "Sending..." : "Submit Enquiry"}
-                </span>
-                <span className="hidden sm:inline">
-                  {isSubmitting ? "Sending..." : "Get Details"}
-                </span>
-              </Button>
+            <div className="mt-6 flex flex-col gap-2 sm:mt-9">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+                <label
+                  className="flex items-start gap-3 text-[12px] leading-5 text-[#5c5a88] sm:text-[13px]"
+                  style={{ maxWidth: 310 }}
+                >
+                  <input
+                    type="checkbox"
+                    name="agree"
+                    onChange={clearAgreeError}
+                    className="mt-0.5 h-6 w-6 md:h-8 md:w-8 rounded-sm border-2 border-[#4b2aa3] accent-[#4b2aa3]"
+                  />
+                  <span>
+                    I agree to be contacted by TravelOStyle regarding my inquiry.
+                  </span>
+                </label>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="rounded-full bg-[#2C3078] text-xl py-1 px-3 font-medium text-white disabled:cursor-not-allowed disabled:bg-[#2C3078]/70"
+                >
+                  <span className="sm:hidden">
+                    {isSubmitting ? "Sending..." : "Submit Enquiry"}
+                  </span>
+                  <span className="hidden sm:inline">
+                    {isSubmitting ? "Sending..." : "Get Details"}
+                  </span>
+                </Button>
+              </div>
+              {agreeError && (
+                <span className="text-[12px] text-red-500">{agreeError}</span>
+              )}
             </div>
             {submitStatus && (
               <p className="mt-4 text-[13px] font-medium text-[#3a219a]">
@@ -454,9 +481,10 @@ function JourneyDetailsModal({
   );
 }
 
-function Field({ name, label, placeholder, select = false }) {
+function Field({ name, label, placeholder, select = false, error, onClearError }) {
+  const borderClass = error ? "border-red-500" : "border-[#4b2aa3]";
   return (
-    <label className="block">
+    <div className="block">
       <span className="mb-1.5 block text-[15px] text-[#3a219a] sm:text-[16px]">
         {label}
       </span>
@@ -465,7 +493,8 @@ function Field({ name, label, placeholder, select = false }) {
           <>
             <select
               name={name}
-              className="w-full appearance-none border-0 border-b-2 border-[#4b2aa3] bg-transparent pr-7 text-[13px] text-[#a29acc] outline-none sm:text-[14px]"
+              onChange={onClearError}
+              className={`w-full appearance-none border-0 border-b-2 ${borderClass} bg-transparent pr-7 text-[13px] text-[#a29acc] outline-none sm:text-[14px]`}
             >
               <option value="">{placeholder}</option>
               <option>Mr</option>
@@ -482,11 +511,13 @@ function Field({ name, label, placeholder, select = false }) {
             name={name}
             type="text"
             placeholder={placeholder}
-            className="w-full border-0 border-b-2 border-[#4b2aa3] bg-transparent text-[13px] text-[#a29acc] outline-none placeholder:text-[#a29acc] sm:text-[14px]"
+            onChange={onClearError}
+            className={`w-full border-0 border-b-2 ${borderClass} bg-transparent text-[13px] text-[#a29acc] outline-none placeholder:text-[#a29acc] sm:text-[14px]`}
           />
         )}
       </div>
-    </label>
+      {error && <span className="mt-1 block text-[12px] text-red-500">{error}</span>}
+    </div>
   );
 }
 
@@ -527,6 +558,8 @@ export default function LandJourneys() {
   const [children, setChildren] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
+  const [modalFieldErrors, setModalFieldErrors] = useState({});
+  const [modalAgreeError, setModalAgreeError] = useState("");
   const [cols, setCols] = useState(3);
   useEffect(() => {
     const update = () => setCols(window.innerWidth <= 1750 ? 2 : 3);
@@ -552,6 +585,8 @@ export default function LandJourneys() {
     setIsSubmitting(false);
     setAdults(0);
     setChildren(0);
+    setModalFieldErrors({});
+    setModalAgreeError("");
   }
 
   function updateCount(setter, nextValue) {
@@ -567,11 +602,29 @@ export default function LandJourneys() {
   async function handleModalSubmit(event, journey) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    // Checkbox for "agree" (terms)
-    const agreeCheckbox = event.currentTarget.querySelector(
-      'input[type="checkbox"]',
-    );
+    const agreeCheckbox = event.currentTarget.querySelector('input[name="agree"]');
     const agree = agreeCheckbox ? agreeCheckbox.checked : false;
+
+    // Validate required fields
+    const errors = {};
+    if (!formData.get("firstName")?.trim()) errors.firstName = "First name is required.";
+    if (!formData.get("lastName")?.trim()) errors.lastName = "Last name is required.";
+    if (!formData.get("title")) errors.title = "Title is required.";
+    if (!formData.get("email")?.trim()) errors.email = "Email is required.";
+    if (!formData.get("message")?.trim()) errors.message = "Message is required.";
+
+    const hasErrors = Object.keys(errors).length > 0;
+    if (hasErrors || !agree) {
+      setModalFieldErrors(errors);
+      if (!agree) setModalAgreeError("Please agree to be contacted.");
+      const firstField = ["firstName", "lastName", "title", "phone", "email", "message"].find((f) => errors[f]);
+      if (firstField) {
+        event.currentTarget.querySelector(`[name="${firstField}"]`)?.focus();
+      } else if (!agree) {
+        agreeCheckbox?.focus();
+      }
+      return;
+    }
 
     // Compose guests string as "X Adults, Y Children"
     const guests = `${adults || 0} Adults${children > 0 ? ", " + children + " Children" : ""}`;
@@ -583,16 +636,14 @@ export default function LandJourneys() {
       title: formData.get("title") || "",
       phone: formData.get("phone") || "",
       email: formData.get("email") || "",
-      destination: journey?.title ?? "",
+      journeyName: journey?.title ?? "",
+      journeyDuration: journey?.duration ?? "",
+      journeyLocation: journey?.location ?? "",
+      journeyPrice: journey?.price ? `$${journey.price}` : "",
       guests,
-      duration: journey?.duration
-        ? journey.duration.replace(/\s*\|.*/, "")
-        : "", // e.g. "7 Days"
-      month: journey?.date ?? "",
-      flexibility: "", // No field in UI, leave blank
       message: formData.get("message") || "",
       agree,
-      source: "modal",
+      source: "land-journey-modal",
     };
     setIsSubmitting(true);
     setSubmitStatus("");
@@ -694,6 +745,10 @@ export default function LandJourneys() {
           setChildren={setChildren}
           updateCount={updateCount}
           onSubmit={(event) => handleModalSubmit(event, selectedJourney)}
+          fieldErrors={modalFieldErrors}
+          agreeError={modalAgreeError}
+          clearFieldError={(name) => setModalFieldErrors((prev) => { const next = { ...prev }; delete next[name]; return next; })}
+          clearAgreeError={() => setModalAgreeError("")}
         />
       ) : null}
 
