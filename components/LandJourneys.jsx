@@ -14,9 +14,8 @@ const journeys = [
     "Vietnam is a place where emerald landscapes, ancient traditions, and warm hospitality come together in perfect harmony. From the tranquil waters of Ha Long Bay to the lantern-lit streets of Hoi An and the vibrant energy of Hanoi and Ho Chi Minh City, every region offers its own rhythm and beauty. Rich history, flavorful cuisine, and breathtaking scenery make Vietnam a journey that feels both peaceful and deeply inspiring.\n\nCambodia is a land shaped by ancient glory and heartfelt warmth. The majestic temples of Angkor rise from the jungle like a living testament to the country’s rich past, while its villages, rivers, and bustling markets reveal a culture full of resilience and grace. From sunrise at Angkor Wat to the gentle flow of the Mekong, Cambodia offers a journey filled with history, spirituality, and unforgettable moments.",
   image: "/LandJourney/Cambodia-Image.png",
   duration: "12 Nights | 13 Days",
-  date: "16 Nov 2026",
-  location:
-    "Hanoi, Ha Long Bay, Hue, Danang, Ho Chi Minh City, Siem Reap",
+  date: "Nov 2026",
+  location: "6 Destinations",
   price: "2499",
   bookingsOpen:"true",
   },
@@ -29,10 +28,8 @@ const journeys = [
     "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you’re exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
   image: "/LandJourney/USA-East-West-Coast-Itinerary.png",
   duration: "12 Nights | 13 Days",
-  date:
-    "June: 4, 11, 18, 25 | July: 2, 9, 16, 23, 30 | August: 6, 13, 20, 27 | September: 3, 10, 17, 24 | October: 1, 8, 15, 22, 29 | November: 5",
-  location:
-    "New York, Philadelphia, Washington D.C., Harrisburg, Corning, Niagara Falls, Las Vegas, Los Angeles, Fresno, Monterey Bay, 17-Mile Drive, San Francisco",
+  date: "Jun-Nov 2026",
+  location: "12 Destinations",
   price: "4199",
   },
   {
@@ -43,11 +40,9 @@ const journeys = [
   description:
     "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you’re exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
   image: "/LandJourney/USA West Coast Image - 1.jpg",
-  duration: "6 Nights | 7 Days",
-  date:
-    "June: 3, 10, 17, 24 | July: 1, 8, 15, 22, 29 | August: 5, 12, 19, 26 | September: 2, 9, 16, 23 | October: 7, 14, 21, 28 | November: 4, 11",
-  location:
-    "Las Vegas, Los Angeles, Fresno, Monterey Bay, 17-Mile Drive, San Francisco",
+duration: "6 Nights | 7 Days",
+    date: "Jun-Nov 2026",
+    location: "5 Destinations",
   price: "2249",
   },
   {
@@ -59,10 +54,8 @@ const journeys = [
     "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you’re exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
   image: "/LandJourney/USA East Coast Image - 1.png",
   duration: "6 Nights | 7 Days",
-  date:
-    "June: 4, 11, 18, 25 | July: 2, 9, 16, 23, 30 | August: 6, 13, 20, 27 | September: 3, 10, 17, 24 | October: 1, 8, 15, 22, 29 | November: 5",
-  location:
-    "New York, Philadelphia, Washington D.C., Harrisburg, Niagara Falls",
+    date: "Jun-Nov 2026",
+    location: "5 Destinations",
   price: "2299",
   },
   {
@@ -75,7 +68,7 @@ const journeys = [
   image: "/LandJourney/Botswana-MakgadikgadiPan-1.jpg",
   duration: "7 Nights | 8 Days",
   date: "2026",
-  location: "Johannesburg, Selinda Reserve, Okavango Delta, Sitatunga Private Island",
+  location: "4 Destinations",
   price: "13599",
 },
 {
@@ -88,13 +81,12 @@ const journeys = [
   image: "/LandJourney/Ranthambore-Tiger1.jpg",
   duration: "5 Nights | 6 Days",
   date: "2026",
-  location: "Delhi, Agra, Jaipur",
+  location: "3 Destinations",
   price: "649",
 },
 ];
 
-const MODAL_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzkGZYpr2BscUEVvuAaY36j_g2F_z6YLzYxoXAuqkzW5LAGhubLNRpcSJOHbim8OwgpeQ/exec";
+const MODAL_SCRIPT_URL = process.env.NEXT_PUBLIC_SCRIPT_URL;
 
 function JourneyCard({ journey, onOpen }) {
   return (
@@ -109,25 +101,25 @@ function JourneyCard({ journey, onOpen }) {
         WebkitMaskComposite: "source-in",
       }}
     >
-      {journey.bookingsOpen && (
-        <div
-          className="w-full py-2 text-center text-[#2C3078]"
-          style={{
-            border: "2px solid #2C3078",
-            borderTopLeftRadius: "10px",
-            borderTopRightRadius: "10px",
-            background: "#EFF3CF",
-            fontFamily: "Nohemi, sans-serif",
-            fontWeight: 600,
-            fontSize: "16px",
-            lineHeight: "24px",
-            letterSpacing: "0.05em",
-          }}
-        >
-          Bookings Open
-        </div>
-      )}
-      <div className="px-4 pt-4 pb-0">
+      <div className="px-4 pt-4 pb-0 relative">
+        {journey.bookingsOpen && (
+          <div
+            className="absolute top-0 left-0 right-0 z-10 py-2 text-center text-[#2C3078]"
+            style={{
+              border: "2px solid #2C3078",
+              borderTopLeftRadius: "12px",
+              borderTopRightRadius: "12px",
+              background: "#EFF3CF",
+              fontFamily: "Nohemi, sans-serif",
+              fontWeight: 600,
+              fontSize: "16px",
+              lineHeight: "24px",
+              letterSpacing: "0.05em",
+            }}
+          >
+            Bookings Open
+          </div>
+        )}
         <Image
           src={journey.image}
           alt="travel"

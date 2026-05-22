@@ -4,8 +4,7 @@ import { Button } from "@heroui/react";
 import Image from "next/image";
 import { useState, useRef } from "react";
 
-const INQUIRY_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzkGZYpr2BscUEVvuAaY36j_g2F_z6YLzYxoXAuqkzW5LAGhubLNRpcSJOHbim8OwgpeQ/exec";
+const INQUIRY_SCRIPT_URL = process.env.NEXT_PUBLIC_SCRIPT_URL;
 
 const REQUIRED_FIELDS = [
   "firstName",
