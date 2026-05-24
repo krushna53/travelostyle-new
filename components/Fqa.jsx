@@ -95,9 +95,9 @@ export default function FAQSection() {
                   </span>
 
                   {isOpen ? (
-                    <Minus className="w-5 h-5 text-[#2C3078]" />
+                    <Minus className="w-5 h-5 shrink-0 text-[#2C3078]" />
                   ) : (
-                    <Plus className="w-5 h-5 text-[#2C3078]" />
+                    <Plus className="w-5 h-5 shrink-0 text-[#2C3078]" />
                   )}
                 </button>
 

@@ -65,21 +65,21 @@ export default function HowItWorks() {
         <div className="mt-10">
           {/* Mobile Timeline */}
           <div className="sm:hidden relative px-6">
-            {/* Vertical connecting line */}
-            <div className="absolute left-[35px] top-3 bottom-24 w-[2px] bg-[#FAFAFA]" />
-
-            <div className="space-y-8">
+            <div className="flex flex-col">
               {steps.map((step, index) => (
-                <div key={step.number} className="relative flex items-start gap-6 text-left">
-                  {/* Star and number */}
-                  <div className="relative flex shrink-0 flex-col items-center">
-                    <Image className="h-6 w-6" src="/Vector.svg" alt="Star" width={100} height={100} />
+                <div key={step.number} className="flex gap-6 text-left">
+                  {/* Star + connecting line below (not for last step) */}
+                  <div className="flex shrink-0 flex-col items-center">
+                    <Image className="h-6 w-6 shrink-0" src="/Vector.svg" alt="Star" width={100} height={100} />
+                    {index < steps.length - 1 && (
+                      <div className="mt-1 w-px flex-1 min-h-[16px] bg-[#FAFAFA]" />
+                    )}
                   </div>
 
                   {/* Text content */}
-                  <div className="flex-1 pt-1">
+                  <div className={`flex-1 pt-0 ${index < steps.length - 1 ? "pb-8" : ""}`}>
                     <span
-                      className="font-bold text-white text-center"
+                      className="font-bold text-white"
                       style={{ fontSize: "24px" }}
                     >
                       {step.number}
