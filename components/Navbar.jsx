@@ -16,7 +16,7 @@ const Navbar = () => {
   };
   return (
     <>
-      <div className="fixed bottom-3 left-1/2 z-50 hidden w-full max-w-[85.95vw] -translate-x-1/2 md:flex md:justify-center">
+      <div className="fixed bottom-3 left-1/2 z-50 hidden w-full max-w-[85.95vw] -translate-x-1/2 lg:flex lg:justify-center">
         <div className="flex h-[6vw] w-full items-center justify-between rounded-lg border-2 border-white/80 bg-[#2c3078]/55 px-14 text-white shadow-lg backdrop-blur-lg">
           <div className="flex gap-6 ">
             <Link
@@ -62,10 +62,10 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="fixed bottom-0 md:bottom-3 z-50 flex w-full px-0 md:px-3 justify-center md:hidden">
+      <div className="fixed bottom-0 lg:bottom-3 z-50 flex w-full px-0 lg:px-3 justify-center lg:hidden">
         <div
           onClick={toggleMenu}
-          className="cursor-pointerw-full flex flex-col w-full items-center rounded-none md:rounded-xl border-2 md:border border-[#FAFAFA] md:border-white/70 bg-[#2c3078]/80 px-4 py-2 text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-lg transition opacity-90 md:opacity-100 hover:opacity-90"
+          className="cursor-pointer flex flex-col w-full items-center rounded-none lg:rounded-xl border-2 lg:border border-[#FAFAFA] lg:border-white/70 bg-[#2c3078]/80 px-4 py-2 text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-lg transition opacity-90 lg:opacity-100 hover:opacity-90"
         >
           <Image
             src="/logo.svg"
@@ -86,12 +86,12 @@ const Navbar = () => {
         <>
           {/* Backdrop */}
           <div
-            className="fixed inset-0 z-40 bg-black/40 md:hidden animate-backdrop"
+            className="fixed inset-0 z-40 bg-black/40 lg:hidden animate-backdrop"
             onClick={closeMenu}
           />
 
           {/* Menu Panel */}
-          <div className="fixed inset-0 z-50 flex items-end md:hidden">
+          <div className="fixed inset-0 z-50 flex items-end lg:hidden">
             <div
               className="w-full bg-[#2c3078] text-white px-6 py-8 shadow-2xl animate-menu-slide"
               onClick={(e) => e.stopPropagation()}

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const cruises = [
   {
@@ -265,14 +265,22 @@ function NavButton({ direction, onClick }) {
 
 export default function CruiseJourneys() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [cols, setCols] = useState(2);
+
+  useEffect(() => {
+    const update = () => setCols(window.innerWidth >= 1280 ? 3 : 2);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const handlePrev = () =>
     setCurrentIndex((prev) => (prev - 1 + cruises.length) % cruises.length);
   const handleNext = () =>
     setCurrentIndex((prev) => (prev + 1) % cruises.length);
 
-  const visibleCruises = [0, 1, 2].map(
-    (offset) => cruises[(currentIndex + offset) % cruises.length],
+  const visibleCruises = Array.from({ length: cols }, (_, offset) =>
+    cruises[(currentIndex + offset) % cruises.length],
   );
 
   return (
@@ -292,26 +300,26 @@ export default function CruiseJourneys() {
           </p>
         </div>
 
-        {/* Mobile: single card + nav */}
-        <div className="sm:hidden">
+        {/* Mobile + small tablet (below 1024px): single card + nav */}
+        <div className="lg:hidden">
           <div
             key={currentIndex}
             className="transition-all duration-500 ease-in-out"
           >
             <CruiseCard item={cruises[currentIndex]} />
           </div>
-          <div className="mt-6 flex items-center justify-between sm:justify-center gap-6">
+          <div className="mt-6 flex items-center justify-between gap-6">
             <NavButton direction="prev" onClick={handlePrev} />
             <NavButton direction="next" onClick={handleNext} />
           </div>
         </div>
 
-        {/* Desktop: 3-up carousel */}
-        <div className="hidden sm:grid grid-cols-[100px_1fr_100px] items-center">
+        {/* Desktop 1024px+: 2-col at lg, 3-col at xl */}
+        <div className="hidden lg:grid grid-cols-[80px_1fr_80px] items-center">
           <div className="flex justify-center">
             <NavButton direction="prev" onClick={handlePrev} />
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
             {visibleCruises.map((item, index) => (
               <CruiseCard key={`${currentIndex}-${index}`} item={item} />
             ))}
