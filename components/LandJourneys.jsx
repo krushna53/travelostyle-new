@@ -663,7 +663,7 @@ export default function LandJourneys() {
         throw new Error(emailResult.error || "Email sending failed");
       }
     
-      event.currentTarget.reset();
+      event.currentTarget?.reset();
       setAdults(0);
       setChildren(0);
       setSubmitStatus("Thank you. Your inquiry has been sent.");
