@@ -72,70 +72,102 @@ export default function TravelForm() {
     }
     return errors;
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const errors = validate();
     const hasFieldErrors = Object.keys(errors).length > 0;
     const missingAgree = !formData.agree;
-
+  
     if (hasFieldErrors || missingAgree) {
       setFieldErrors(errors);
-      if (missingAgree) setAgreeError("Please agree to be contacted.");
-
-      // Focus first error: field errors first, then agree checkbox
+  
+      if (missingAgree) {
+        setAgreeError("Please agree to be contacted.");
+      }
+  
+      // Focus first error
       if (hasFieldErrors) {
         const firstErrorField = REQUIRED_FIELDS.find((f) => errors[f]);
         const el = fieldRefs.current[firstErrorField];
+  
         if (el) el.focus();
       } else if (missingAgree) {
         const agreeEl = fieldRefs.current["agree"];
+  
         if (agreeEl) agreeEl.focus();
       }
+  
       return;
     }
-
+  
     setIsSubmitting(true);
     setSubmitStatus({ type: "", message: "" });
-
-    fetch(INQUIRY_SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ ...formData, source: "inquiry-form" }),
-    })
-      .then(() => {
-        setSubmitStatus({ type: "success", message: "Your inquiry has been sent successfully!" });
-        setFormData({
-          firstName: "",
-          lastName: "",
-          title: "",
-          phone: "",
-          email: "",
-          destination: "",
-          guests: "",
-          duration: "",
-          month: "",
-          flexibility: "",
-          message: "",
-          agree: false,
-        });
-        setFieldErrors({});
-        setAgreeError("");
-      })
-      .catch(() => {
-        setSubmitStatus({ type: "error", message: "Unable to submit your inquiry right now. Please try again." });
-      })
-      .finally(() => setIsSubmitting(false));
-
+  
+    try {
+      // Google Sheet / webhook request
+      await fetch(INQUIRY_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify({
+          ...formData,
+          source: "inquiry-form",
+        }),
+      });
+  
+      // Email API request
       const emailResponse = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...formData, source: "inquiry-form" }),
+        body: JSON.stringify({
+          ...formData,
+          source: "inquiry-form",
+        }),
       });
+  
+      if (!emailResponse.ok) {
+        throw new Error("Email sending failed");
+      }
+  
+      setSubmitStatus({
+        type: "success",
+        message: "Your inquiry has been sent successfully!",
+      });
+  
+      setFormData({
+        firstName: "",
+        lastName: "",
+        title: "",
+        phone: "",
+        email: "",
+        destination: "",
+        guests: "",
+        duration: "",
+        month: "",
+        flexibility: "",
+        message: "",
+        agree: false,
+      });
+  
+      setFieldErrors({});
+      setAgreeError("");
+  
+    } catch (error) {
+      console.error(error);
+  
+      setSubmitStatus({
+        type: "error",
+        message: "Unable to submit your inquiry right now. Please try again.",
+      });
+  
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputClass = (name) =>
