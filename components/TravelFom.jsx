@@ -128,6 +128,14 @@ export default function TravelForm() {
         setSubmitStatus({ type: "error", message: "Unable to submit your inquiry right now. Please try again." });
       })
       .finally(() => setIsSubmitting(false));
+
+      const emailResponse = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...formData, source: "inquiry-form" }),
+      });
   };
 
   const inputClass = (name) =>

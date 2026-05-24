@@ -640,23 +640,39 @@ export default function LandJourneys() {
     setIsSubmitting(true);
     setSubmitStatus("");
     try {
+      // Existing Google Script / Sheet submission
       await fetch(MODAL_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(payload),
       });
-    } catch (error) {
-      console.error("Modal submit error:", error);
-    } finally {
-      try {
-        event.currentTarget.reset();
-      } catch (e) {}
+    
+      // New SMTP email submission
+      const emailResponse = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+    
+      const emailResult = await emailResponse.json();
+    
+      if (!emailResponse.ok || !emailResult.success) {
+        throw new Error(emailResult.error || "Email sending failed");
+      }
+    
+      event.currentTarget.reset();
       setAdults(0);
       setChildren(0);
-      setIsSubmitting(false);
       setSubmitStatus("Thank you. Your inquiry has been sent.");
       closeJourneyModal();
+    } catch (error) {
+      console.error("Modal submit error:", error);
+      setSubmitStatus("Unable to send inquiry. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
