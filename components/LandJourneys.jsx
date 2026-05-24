@@ -9,7 +9,7 @@ const journeys = [
     id: 1,
     title: "Spirit of Vietnam & Cambodia",
   shortDescription:
-    "Vietnam — where emerald mountains, floating markets, and warm traditions shape a journey full of soul. Cambodia — where ancient temples, gentle traditions, and golden horizons reveal a kingdom of wonder.",
+    "where emerald mountains, floating markets, and warm traditions shape a journey full of soul.",
   description:
     "Vietnam is a place where emerald landscapes, ancient traditions, and warm hospitality come together in perfect harmony. From the tranquil waters of Ha Long Bay to the lantern-lit streets of Hoi An and the vibrant energy of Hanoi and Ho Chi Minh City, every region offers its own rhythm and beauty. Rich history, flavorful cuisine, and breathtaking scenery make Vietnam a journey that feels both peaceful and deeply inspiring.\n\nCambodia is a land shaped by ancient glory and heartfelt warmth. The majestic temples of Angkor rise from the jungle like a living testament to the country’s rich past, while its villages, rivers, and bustling markets reveal a culture full of resilience and grace. From sunrise at Angkor Wat to the gentle flow of the Mekong, Cambodia offers a journey filled with history, spirituality, and unforgettable moments.",
   image: "/LandJourney/Cambodia-Image.png",
@@ -23,7 +23,7 @@ const journeys = [
     id: 2,
      title: "American Icons - East to West Signature Journey",
   shortDescription:
-    "USA — a mosaic of landscapes, lifestyles, and stories waiting to be explored.",
+    "a mosaic of landscapes, lifestyles, and stories waiting to be explored.",
   description:
     "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you’re exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
   image: "/LandJourney/USA-East-West-Coast-Itinerary.png",
@@ -36,7 +36,7 @@ const journeys = [
     id: 3,
     title: "USA - West Coast Wonders",
   shortDescription:
-    "USA — a mosaic of landscapes, lifestyles, and stories waiting to be explored.",
+    "a mosaic of landscapes, lifestyles, and stories waiting to be explored.",
   description:
     "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you’re exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
   image: "/LandJourney/USA West Coast Image - 1.jpg",
@@ -49,7 +49,7 @@ duration: "6 Nights | 7 Days",
     id: 4,
     title: "USA - East Coast Icons",
   shortDescription:
-    "USA — a mosaic of landscapes, lifestyles, and stories waiting to be explored.",
+    "a mosaic of landscapes, lifestyles, and stories waiting to be explored.",
   description:
     "The United States is a tapestry of vibrant cities, breathtaking landscapes, and iconic landmarks that define adventure. From glittering skylines and world-famous attractions to serene national parks and charming small towns, every region offers its own rhythm and personality. Whether you’re exploring historic East Coast capitals, the cinematic beauty of the West Coast, or the natural wonders in between, the USA delivers a journey filled with energy, culture, and unforgettable experiences.",
   image: "/LandJourney/USA East Coast Image - 1.png",
@@ -62,7 +62,7 @@ duration: "6 Nights | 7 Days",
   id: 5,
   title: "Botswana Waterways",
   shortDescription:
-    "Botswana — pure, raw, and deeply soulful — Africa’s wilderness at its most authentic.",
+    "pure, raw, and deeply soulful — Africa’s wilderness at its most authentic.",
   description:
     "Botswana is one of Africa’s most pristine wilderness destinations — defined by the shimmering Okavango Delta, vast salt pans, and wildlife-rich reserves. Here, nature unfolds in its purest form, from silent mokoro rides through crystal channels to intimate encounters in remote private concessions. Botswana offers exclusivity, tranquility, and raw natural beauty, creating a safari experience that feels both luxurious and deeply connected to the wild.",
   image: "/LandJourney/Botswana-Okavango-River.jpg",
@@ -75,7 +75,7 @@ duration: "6 Nights | 7 Days",
   id: 6,
   title: "India Golden Triangle",
   shortDescription:
-    "India — a land of festivals, flavors, and spiritual journeys that stay with you forever.",
+    "a land of festivals, flavors, and spiritual journeys that stay with you forever.",
   description:
     "India is a land of breathtaking contrasts — ancient temples and modern skylines, golden deserts and lush backwaters, vibrant festivals and peaceful spiritual retreats. Every region offers its own rhythm, flavor, and story, creating a tapestry of experiences unlike anywhere else. From majestic palaces to sacred rivers, bustling markets to serene landscapes, India invites you to explore a world rich in history, warmth, and wonder.",
   image: "/LandJourney/IndiaGoldenTriangle-Image.jpg",
