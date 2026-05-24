@@ -17,13 +17,14 @@ export async function POST(req) {
     await transporter.sendMail({
       from: process.env.SMTP_EMAIL,
       to: process.env.EMAIL_TO,
-      subject: "New ${body.source} Inquiry/Build your journey request Form",
+      subject: "New  Inquiry/Build your journey request Form",
       html: `
         <h2>Contact Form</h2>
         <p><b>Name:</b> ${body.firstName} ${body.lastName}</p><p><b>Phone:</b> ${body.phone}</p>
         <p> <b>Journey :</b> ${body.journeyName}</p>
         <p><b>Email:</b> ${body.email}</p>
         <p><b>Message:</b> ${body.message}</p>
+        <p><b>Source:</b>${body.source}</p>
       `,
     });
 
