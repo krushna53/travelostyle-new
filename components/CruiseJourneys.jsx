@@ -134,7 +134,7 @@ function CruiseCard({ item }) {
         style={{
           width: "103.95%",
           height: "103.63%",
-          left: "-1.98%",
+          left: "0",
           top: "0",
         }}
       />
