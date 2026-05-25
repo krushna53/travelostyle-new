@@ -34,7 +34,7 @@ export default function HeroTravelSection() {
           {duplicated.map((src, index) => (
             <div key={index} className="relative shrink-0 w-[48vw] sm:w-[24vw]">
               <div className="relative h-[52vw] sm:h-[16.41vw] rounded-lg overflow-hidden">
-                <Image src={src} alt="travel" fill className="object-cover" />
+                <Image src={src} alt="travel" fill sizes="(max-width: 768px) 48vw, 24vw" loading="eager" className="object-cover" />
               </div>
 
               {/* star */}
@@ -79,7 +79,7 @@ export default function HeroTravelSection() {
           exceptional trip.
         </p>
         <div className="mt-4">
-          <Link href="#cruise-journeys">
+          <Link href="#land-journeys">
             <Button className="rounded-full border-2 px-3 py-1 text-[#2C3078] font-medium text-lg tracking-wider">
               View Journeys
             </Button>
@@ -93,7 +93,7 @@ export default function HeroTravelSection() {
           {duplicated.map((src, index) => (
             <div key={index} className="relative shrink-0 w-[48vw] sm:w-[24vw]">
               <div className="relative h-[52vw] sm:h-[16.41vw] rounded-lg overflow-hidden">
-                <Image src={src} alt="travel" fill className="object-cover" />
+                <Image src={src} alt="travel" fill sizes="(max-width: 768px) 48vw, 24vw" loading="eager" className="object-cover" />
               </div>
 
               {/* star */}

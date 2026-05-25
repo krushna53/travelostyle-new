@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const cruises = [
   {
@@ -122,7 +122,8 @@ function CruiseCard({ item }) {
   return (
     <div
       className="relative"
-      style={{ aspectRatio: "506/606" }}
+      // 1. INCREASED HEIGHT: Changed from "506/606" to "506/680" to match Figma proportions
+      style={{ aspectRatio: "506/680" }} 
     >
       {/* SVG ticket-border card shape (#FAFAFA background + built-in shadow) */}
       <img
@@ -134,14 +135,15 @@ function CruiseCard({ item }) {
           width: "103.95%",
           height: "103.63%",
           left: "0",
-          top: 0,
+          top: "0",
         }}
       />
 
-      {/* Content inset: 35 px sides → 6.92%, 30 px top → 5.93% */}
+      {/* Content inset: 
+          2. INCREASED BOTTOM PADDING: Added 7.5% to the bottom so the inner container comfortably clears the stretched jagged edge. */}
       <div
         className="absolute inset-0 flex flex-col"
-        style={{ padding: "5.93% 6.92%" }}
+        style={{ padding: "5.93% 6.92% 7.5%" }}
       >
         {/* Image area */}
         <div className="relative overflow-hidden rounded-sm flex-1">
@@ -149,6 +151,7 @@ function CruiseCard({ item }) {
             src={item.image}
             alt={item.title}
             fill
+            sizes="(max-width: 1024px) 100vw, 33vw"
             className="object-cover"
           />
 
@@ -157,7 +160,7 @@ function CruiseCard({ item }) {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(26,26,26,0.92) 0%, rgba(26,26,26,0.85) 40%, rgba(26,26,26,0.1) 62%, rgba(0,0,0,0) 75%)",
+                "linear-gradient(180deg, rgba(26,26,26,0.92) 0%, rgba(26,26,26,0.85) 5%, rgba(26,26,26,0.1) 50%, rgba(0,0,0,0) 100%)",
             }}
           />
 
@@ -166,13 +169,15 @@ function CruiseCard({ item }) {
             <h3 className="text-white font-semibold text-xl md:text-2xl leading-tight mb-4">
               {item.title}
             </h3>
-            <p className="text-white/90 text-sm md:text-lg leading-relaxed">
+            {/* 3. FONT SIZE TWEAK: Changed md:text-lg to md:text-base to closer match Figma's cleaner text sizing */}
+            <p className="text-white/90 text-sm md:text-base leading-relaxed">
               {item.description}
             </p>
           </div>
 
           {/* Explore button + partner notice stacked at bottom */}
-          <div className="absolute bottom-0 inset-x-0 z-10 mb-5">
+          {/* 4. MARGIN TWEAK: Changed mb-5 to mb-6 for slightly more breathing room at the bottom */}
+          <div className="absolute bottom-0 inset-x-0 z-10 mb-6">
             <div className="px-5 pb-3">
               <a
                 href={item.link}
@@ -212,7 +217,7 @@ function CruiseCard({ item }) {
                 <line x1="12" y1="8" x2="12" y2="12" />
                 <line x1="12" y1="16" x2="12.01" y2="16" />
               </svg>
-              <span className="text-xs md:text-base text-[#2B3481]">
+              <span className="text-xs md:text-[15px] text-[#2B3481]">
                 Opens on a TravelOStyle partner site
               </span>
             </div>
@@ -261,14 +266,22 @@ function NavButton({ direction, onClick }) {
 
 export default function CruiseJourneys() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [cols, setCols] = useState(2);
+
+  useEffect(() => {
+    const update = () => setCols(window.innerWidth >= 1280 ? 3 : 2);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const handlePrev = () =>
     setCurrentIndex((prev) => (prev - 1 + cruises.length) % cruises.length);
   const handleNext = () =>
     setCurrentIndex((prev) => (prev + 1) % cruises.length);
 
-  const visibleCruises = [0, 1, 2].map(
-    (offset) => cruises[(currentIndex + offset) % cruises.length],
+  const visibleCruises = Array.from({ length: cols }, (_, offset) =>
+    cruises[(currentIndex + offset) % cruises.length],
   );
 
   return (
@@ -276,7 +289,7 @@ export default function CruiseJourneys() {
       id="cruise-journeys"
       className="bg-[#f7f8fc] px-4 py-14 md:px-10 bg-[url('/background.jpg')] bg-repeat bg-cover bg-top-left"
     >
-      <div className="mx-auto max-w-[85.2vw]">
+      <div className="mx-auto">
         {/* Header */}
         <div className="flex flex-col items-center mb-10 sm:mb-14">
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-[5%] text-[#2C3078] uppercase">
@@ -288,26 +301,26 @@ export default function CruiseJourneys() {
           </p>
         </div>
 
-        {/* Mobile: single card + nav */}
-        <div className="sm:hidden">
+        {/* Mobile + small tablet (below 1024px): single card + nav */}
+        <div className="lg:hidden">
           <div
             key={currentIndex}
             className="transition-all duration-500 ease-in-out"
           >
             <CruiseCard item={cruises[currentIndex]} />
           </div>
-          <div className="mt-6 flex items-center justify-between sm:justify-center gap-6">
+          <div className="mt-6 flex items-center justify-between gap-6">
             <NavButton direction="prev" onClick={handlePrev} />
             <NavButton direction="next" onClick={handleNext} />
           </div>
         </div>
 
-        {/* Desktop: 3-up carousel */}
-        <div className="hidden sm:grid grid-cols-[100px_1fr_100px] items-center gap-10">
+        {/* Desktop 1024px+: 2-col at lg, 3-col at xl */}
+        <div className="hidden lg:grid grid-cols-[80px_1fr_80px] items-center">
           <div className="flex justify-center">
             <NavButton direction="prev" onClick={handlePrev} />
           </div>
-          <div className="grid grid-cols-3 gap-10">
+          <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
             {visibleCruises.map((item, index) => (
               <CruiseCard key={`${currentIndex}-${index}`} item={item} />
             ))}
