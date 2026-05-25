@@ -199,9 +199,9 @@ export async function POST(req) {
                 <tr>
                     <td style="background:#f9fafb;padding:20px;text-align:center;border-top:1px solid #e5e7eb;">
                     <p style="margin:0;font-size:13px;color:#6b7280;">
-                        Inquiry Source:
+                        Source:
                         <strong style="color:#111827;">
-                        ${body.source || "website"}
+                        ${body.source === "land-journey-modal" ? "Inquire With Us" : "Build Your Own Journey"}
                         </strong>
                     </p>
                     </td>
