@@ -307,6 +307,7 @@ function JourneyDetailsModal({
                   src={journey.image}
                   alt={journey.title}
                   fill
+                  sizes="120px"
                   className="object-cover"
                 />
               </div>
@@ -462,7 +463,11 @@ function JourneyDetailsModal({
               )}
             </div>
             {submitStatus && (
-              <p className="mt-4 text-[13px] font-medium text-[#3a219a]">
+              <p className={`mt-4 text-[13px] font-medium ${
+                submitStatus.toLowerCase().includes("unable")
+                  ? "text-red-600"
+                  : "text-green-700"
+              }`}>
                 {submitStatus}
               </p>
             )}
@@ -552,6 +557,7 @@ export default function LandJourneys() {
   const [submitStatus, setSubmitStatus] = useState("");
   const [modalFieldErrors, setModalFieldErrors] = useState({});
   const [modalAgreeError, setModalAgreeError] = useState("");
+  const [toastMessage, setToastMessage] = useState("");
   const [cols, setCols] = useState(3);
   useEffect(() => {
     const update = () => setCols(window.innerWidth <= 1750 ? 2 : 3);
@@ -586,10 +592,10 @@ export default function LandJourneys() {
   }
 
   useEffect(() => {
-    if (!submitStatus) return;
-    const id = setTimeout(() => setSubmitStatus(""), 5000);
+    if (!toastMessage) return;
+    const id = setTimeout(() => setToastMessage(""), 5000);
     return () => clearTimeout(id);
-  }, [submitStatus]);
+  }, [toastMessage]);
 
   async function handleModalSubmit(event, journey) {
     event.preventDefault();
@@ -663,10 +669,7 @@ export default function LandJourneys() {
         throw new Error(emailResult.error || "Email sending failed");
       }
     
-      event.currentTarget?.reset();
-      setAdults(0);
-      setChildren(0);
-      setSubmitStatus("Thank you. Your inquiry has been sent.");
+      setToastMessage("Thank you! Your inquiry has been sent. We'll be in touch shortly.");
       closeJourneyModal();
     } catch (error) {
       console.error("Modal submit error:", error);
@@ -760,16 +763,12 @@ export default function LandJourneys() {
         />
       ) : null}
 
-      {submitStatus ? (
+      {toastMessage ? (
         <div
           role="status"
-          className={`fixed right-6 top-6 z-50 rounded-md px-4 py-2 text-sm font-medium shadow-lg ${
-            submitStatus.toLowerCase().includes("unable")
-              ? "bg-red-600 text-white"
-              : "bg-green-600 text-white"
-          }`}
+          className="fixed right-6 top-6 z-[60] rounded-md px-4 py-2 text-sm font-medium shadow-lg bg-green-600 text-white"
         >
-          {submitStatus}
+          {toastMessage}
         </div>
       ) : null}
     </>
