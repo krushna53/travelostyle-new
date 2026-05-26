@@ -104,19 +104,24 @@ function JourneyCard({ journey, onOpen }) {
       <div className="px-4 pt-4 pb-0 relative">
         {journey.bookingsOpen && (
           <div
-            className="absolute top-0 left-0 right-0 z-10 py-2 text-center text-[#2C3078]"
+            className="absolute top-5 left-5 z-10 flex items-center gap-2 rounded-full px-3.5 py-1.5 text-white"
             style={{
-              border: "2px solid #2C3078",
-              borderTopLeftRadius: "12px",
-              borderTopRightRadius: "12px",
-              background: "#EFF3CF",
+              background: "linear-gradient(135deg, rgba(44,48,120,0.88), rgba(74,82,201,0.82))",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              border: "1px solid rgba(255,255,255,0.25)",
+              boxShadow: "0 4px 18px rgba(44,48,120,0.45)",
               fontFamily: "Nohemi, sans-serif",
               fontWeight: 600,
-              fontSize: "16px",
-              lineHeight: "24px",
-              letterSpacing: "0.05em",
+              fontSize: "12px",
+              letterSpacing: "0.08em",
+              alignItems:"baseline"
             }}
           >
+            <span
+              className="h-2 w-2 shrink-0 rounded-full bg-green-400 animate-pulse"
+              style={{ boxShadow: "0 0 6px 2px rgba(74,222,128,0.7)" }}
+            />
             Bookings Open
           </div>
         )}
@@ -211,33 +216,15 @@ function NavButton({ direction, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      aria-label={
-        direction === "prev" ? "Previous land journey" : "Next land journey"
-      }
-      className=""
+      aria-label={direction === "prev" ? "Previous land journey" : "Next land journey"}
     >
       <Image
         src="/Arrow_right.svg"
-        className={`w-12 h-12 ${direction === "prev" ? "" : "rotate-180"} hidden sm:block`}
+        className={`w-10 h-10 sm:w-12 sm:h-12 ${direction === "prev" ? "" : "rotate-180"}`}
         alt={direction === "prev" ? "Previous" : "Next"}
-        width={16}
-        height={16}
+        width={48}
+        height={48}
       />
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="48"
-        height="48"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={`lucide lucide-move-left-icon lucide-move-left ${direction === "prev" ? "" : "rotate-180"} block sm:hidden`}
-      >
-        <path d="M6 8L2 12L6 16" />
-        <path d="M2 12H22" />
-      </svg>
     </button>
   );
 }
@@ -699,20 +686,18 @@ export default function LandJourneys() {
             </h2>
           </div>
 
-          {/* Mobile + Tablet: single card with arrows below */}
-          <div className="lg:hidden">
-            <div
-              key={currentIndex}
-              className="transition-all duration-500 ease-in-out"
-            >
+          {/* Mobile + Tablet: card with arrows at notch height */}
+          <div className="lg:hidden relative mx-auto max-w-[78.2vw]">
+            <div key={currentIndex} className="transition-all duration-500 ease-in-out">
               <JourneyCard
                 journey={journeys[currentIndex]}
                 onOpen={() => openJourneyModal(journeys[currentIndex])}
               />
             </div>
-            <div className="mt-6 flex items-center justify-between gap-6">
+            <div className="absolute -left-10 top-[220px] -translate-y-1/2 z-10">
               <NavButton direction="prev" onClick={handlePrev} />
-
+            </div>
+            <div className="absolute -right-10 top-[220px] -translate-y-1/2 z-10">
               <NavButton direction="next" onClick={handleNext} />
             </div>
           </div>
