@@ -9,12 +9,10 @@ const INQUIRY_SCRIPT_URL = process.env.NEXT_PUBLIC_SCRIPT_URL;
 const REQUIRED_FIELDS = [
   "firstName",
   "lastName",
-  "phone",
   "email",
   "destination",
-  "guests",
-  "duration",
   "month",
+  "flexibility",
   "message",
 ];
 
@@ -22,11 +20,11 @@ const FIELD_LABELS = {
   firstName: "First Name",
   lastName: "Last Name",
   phone: "Number/WhatsApp",
-  email: "Email ID",
+  email: "Email",
   destination: "Interested Destination",
-  guests: "No. of Guests",
-  duration: "Duration of Trip",
+  duration: "Duration",
   month: "Month of Travel",
+  flexibility: "Flexibility",
   message: "Your Message",
 };
 
@@ -34,17 +32,18 @@ export default function TravelForm() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    title: "",
     phone: "",
     email: "",
     destination: "",
-    guests: "",
     duration: "",
     month: "",
     flexibility: "",
     message: "",
     agree: false,
   });
+
+  const [adults, setAdults] = useState(0);
+  const [children, setChildren] = useState(0);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({ type: "", message: "" });
@@ -106,6 +105,8 @@ export default function TravelForm() {
   
     try {
       // Google Sheet / webhook request
+      const guests = `${adults} Adult${adults !== 1 ? "s" : ""}${children > 0 ? ", " + children + " Child" + (children !== 1 ? "ren" : "") : ""}`;
+
       await fetch(INQUIRY_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
@@ -114,10 +115,11 @@ export default function TravelForm() {
         },
         body: JSON.stringify({
           ...formData,
+          guests,
           source: "inquiry-form",
         }),
       });
-  
+
       // Email API request
       const emailResponse = await fetch("/api/contact", {
         method: "POST",
@@ -126,6 +128,7 @@ export default function TravelForm() {
         },
         body: JSON.stringify({
           ...formData,
+          guests,
           source: "inquiry-form",
         }),
       });
@@ -142,17 +145,17 @@ export default function TravelForm() {
       setFormData({
         firstName: "",
         lastName: "",
-        title: "",
         phone: "",
         email: "",
         destination: "",
-        guests: "",
         duration: "",
         month: "",
         flexibility: "",
         message: "",
         agree: false,
       });
+      setAdults(0);
+      setChildren(0);
   
       setFieldErrors({});
       setAgreeError("");
@@ -233,47 +236,26 @@ export default function TravelForm() {
 
           <div className="grid grid-cols-1 gap-x-12 gap-y-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-y-10">
             {[
-              { label: "First Name", name: "firstName", placeholder: "Your First Name" },
-              { label: "Last Name", name: "lastName", placeholder: "Your Last Name" },
-              { label: "Title", name: "title", placeholder: "Your Title" },
-              { label: "Number/WhatsApp", name: "phone", placeholder: "Your Phone Number" },
-              { label: "Email ID", name: "email", placeholder: "Your Email ID" },
-              { label: "Interested Destination", name: "destination", placeholder: "Where would you like to go?" },
-              { label: "No.of Guests", name: "guests", placeholder: "How many are coming along?" },
-              { label: "Duration of Trip", name: "duration", placeholder: "How many days do you want to travel?" },
-              { label: "Month of Travel", name: "month", placeholder: "Which Month do you want to go?" },
+              { label: "First Name", name: "firstName", placeholder: "Your First Name", required: true },
+              { label: "Last Name", name: "lastName", placeholder: "Your Last Name", required: true },
+              { label: "Number/WhatsApp", name: "phone", placeholder: "Your Phone Number", required: false },
+              { label: "Email", name: "email", placeholder: "Your Email", required: true },
+              { label: "Interested Destination", name: "destination", placeholder: "Where would you like to go?", required: true },
+              { label: "Duration", name: "duration", placeholder: "How many days?", required: false },
+              { label: "Month of Travel", name: "month", placeholder: "Which month?", required: true },
             ].map((field, i) => (
               <div key={i} className="flex flex-col gap-1.5">
                 <label className="pl-2 font-normal text-[18px] leading-8 tracking-wider text-[#2C3078]">
-                  {field.label}*
+                  {field.label}{field.required ? "*" : ""}
                 </label>
-                {field.name === "title" ? (
-                  <div className="relative">
-                    <select
-                      name={field.name}
-                      value={formData[field.name]}
-                      onChange={handleChange}
-                      ref={(el) => { fieldRefs.current[field.name] = el; }}
-                      className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pl-2 pb-1.5 pr-6 text-[14px] text-[#7b84c9] outline-none font-light"
-                    >
-                      <option value="">Select Your Title</option>
-                      <option>Mr</option>
-                      <option>Ms</option>
-                      <option>Mrs</option>
-                      <option>Dr</option>
-                    </select>
-                    <span className="absolute right-1 top-1/2 -translate-y-1/2 text-[#2d3494] text-sm pointer-events-none">▾</span>
-                  </div>
-                ) : (
-                  <input
-                    name={field.name}
-                    value={formData[field.name]}
-                    onChange={handleChange}
-                    ref={(el) => { fieldRefs.current[field.name] = el; }}
-                    className={inputClass(field.name)}
-                    placeholder={field.placeholder}
-                  />
-                )}
+                <input
+                  name={field.name}
+                  value={formData[field.name]}
+                  onChange={handleChange}
+                  ref={(el) => { fieldRefs.current[field.name] = el; }}
+                  className={inputClass(field.name)}
+                  placeholder={field.placeholder}
+                />
                 {fieldErrors[field.name] && (
                   <span className="pl-2 text-[12px] text-red-500">{fieldErrors[field.name]}</span>
                 )}
@@ -289,15 +271,51 @@ export default function TravelForm() {
                   name="flexibility"
                   value={formData.flexibility}
                   onChange={handleChange}
-                  className="w-full cursor-pointer appearance-none border-0 border-b-[1.6px] border-[#2d3494] bg-transparent pl-2 pb-1.5 pr-6 text-[14px] text-[#7b84c9] outline-none font-light"
+                  ref={(el) => { fieldRefs.current["flexibility"] = el; }}
+                  className={`w-full cursor-pointer appearance-none border-0 border-b-[1.6px] bg-transparent pl-2 pb-1.5 pr-6 text-[14px] text-[#7b84c9] outline-none font-light ${fieldErrors.flexibility ? "border-red-500" : "border-[#2d3494]"}`}
                 >
-                  <option value="">Exact Match</option>
-                  <option>Flexible ±1 week</option>
-                  <option>Flexible ±2 weeks</option>
-                  <option>Very Flexible</option>
+                  <option value="">Select</option>
+                  <option>+/-30 days</option>
+                  <option>Exact Match</option>
+                  <option>Open to Possibility</option>
                 </select>
                 <span className="absolute right-1 top-1/2 -translate-y-1/2 text-[#2d3494] text-sm pointer-events-none">▾</span>
               </div>
+              {fieldErrors.flexibility && (
+                <span className="pl-2 text-[12px] text-red-500">{fieldErrors.flexibility}</span>
+              )}
+            </div>
+          </div>
+
+          {/* No. of Guests — adults/children counter */}
+          <div className="mt-8">
+            <label className="pl-2 font-normal text-[18px] leading-8 tracking-wider text-[#2C3078]">
+              No. of Guests
+            </label>
+            <div className="mt-3 flex flex-wrap items-center gap-8 text-[14px] text-[#2C3078] font-light">
+              {[
+                { label: "Adults", value: adults, setter: setAdults },
+                { label: "Children", value: children, setter: setChildren },
+              ].map(({ label, value, setter }) => (
+                <div key={label} className="flex items-center gap-3">
+                  <span style={{ minWidth: 64 }}>{label}</span>
+                  <button
+                    type="button"
+                    onClick={() => setter(Math.max(0, value - 1))}
+                    className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-[3px] bg-[#2C3078] text-[18px] leading-none text-white"
+                  >
+                    -
+                  </button>
+                  <span className="w-5 text-center text-[14px]">{value}</span>
+                  <button
+                    type="button"
+                    onClick={() => setter(value + 1)}
+                    className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-[3px] bg-[#2C3078] text-[18px] leading-none text-white"
+                  >
+                    +
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
 

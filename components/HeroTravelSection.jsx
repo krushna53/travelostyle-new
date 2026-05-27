@@ -60,7 +60,7 @@ export default function HeroTravelSection() {
             textAlign: "center",
           }}
         >
-          Making travel feel the way it is supposed to
+          Making travel feel the way it’s supposed to
         </h1>
         <p
           className="mx-auto mt-4 max-w-[92vw] sm:max-w-[50vw]"
@@ -74,12 +74,12 @@ export default function HeroTravelSection() {
             color: "#2C3078",
           }}
         >
-          Travel is full of options. TravelOStyle makes sense of them — for
-          your budget, your time, your preferences and your idea of an
-          exceptional trip.
+         Travel is full of options. TravelOStyle makes sense of them — for
+         your budget, your time, your preferences and your idea of an
+         exceptional trip.
         </p>
         <div className="mt-4">
-          <Link href="#land-journeys">
+          <Link href="#cruise-journeys">
             <Button className="rounded-full border-2 px-3 py-1 text-[#2C3078] font-medium text-lg tracking-wider">
               View Journeys
             </Button>

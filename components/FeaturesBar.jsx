@@ -15,7 +15,7 @@ const features = [
     desc: "When something matters to you, it matters to us. You can always reach out to us for anything.",
   },
   {
-    title: "On-ground Support",
+    title: "On‑Ground Support",
     desc: "If plans shift, you won't be left to figure it out alone. We're ready to assist wherever you need us.",
   },
 ];

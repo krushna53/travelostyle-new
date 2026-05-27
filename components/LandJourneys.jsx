@@ -104,18 +104,15 @@ function JourneyCard({ journey, onOpen }) {
       <div className="px-4 pt-4 pb-0 relative">
         {journey.bookingsOpen && (
           <div
-            className="absolute top-5 left-5 z-10 flex items-center gap-2 rounded-full px-3.5 py-1.5 text-white"
+            className="absolute top-5 left-5 z-10 flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[#2C3078]"
             style={{
-              background: "linear-gradient(135deg, rgba(44,48,120,0.88), rgba(74,82,201,0.82))",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-              border: "1px solid rgba(255,255,255,0.25)",
-              boxShadow: "0 4px 18px rgba(44,48,120,0.45)",
+              background: "#EFF3CF",
+              border: "2px solid #2C3078",
               fontFamily: "Nohemi, sans-serif",
               fontWeight: 600,
-              fontSize: "12px",
-              letterSpacing: "0.08em",
-              alignItems:"baseline"
+              fontSize: "16px",
+              lineHeight: "24px",
+              letterSpacing: "0.05em",
             }}
           >
             <span
@@ -190,7 +187,7 @@ function JourneyCard({ journey, onOpen }) {
           <Button
             type="button"
             onClick={onOpen}
-            className="rounded-full bg-[#2C3078] text-xl pt-1 px-3 font-medium text-white disabled:cursor-not-allowed disabled:bg-[#2C3078]/70"
+            className="rounded-full bg-[#2C3078] text-sm sm:text-xl pt-1 px-3 font-medium text-white disabled:cursor-not-allowed disabled:bg-[#2C3078]/70"
             size="md"
           >
             Get Details
@@ -687,17 +684,17 @@ export default function LandJourneys() {
           </div>
 
           {/* Mobile + Tablet: card with arrows at notch height */}
-          <div className="lg:hidden relative mx-auto max-w-[78.2vw]">
+          <div className="lg:hidden relative">
             <div key={currentIndex} className="transition-all duration-500 ease-in-out">
               <JourneyCard
                 journey={journeys[currentIndex]}
                 onOpen={() => openJourneyModal(journeys[currentIndex])}
               />
             </div>
-            <div className="absolute -left-10 top-[220px] -translate-y-1/2 z-10">
+            <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
               <NavButton direction="prev" onClick={handlePrev} />
             </div>
-            <div className="absolute -right-10 top-[220px] -translate-y-1/2 z-10">
+            <div className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 z-10">
               <NavButton direction="next" onClick={handleNext} />
             </div>
           </div>

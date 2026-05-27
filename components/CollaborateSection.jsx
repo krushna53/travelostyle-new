@@ -40,7 +40,7 @@ export default function CollaborateSection() {
                 className="font-taprom tracking-[5%] leading-snug text-white md:text-[#2C3078] text-[40px] md:text-[56px] md:text-nowrap"
               >
                 Interested in collaborating <br className="hidden md:block" />
-                with TravelOStyle?
+                with Travel O&apos; Style?
               </h2>
 
               <p className="mt-6 mb-12 text-lg font-light leading-relaxed text-white/90 md:text-[#2C3078]/80">

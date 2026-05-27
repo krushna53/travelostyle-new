@@ -31,20 +31,6 @@ export default function HowItWorks() {
       className="bg-[#2c3078] px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20"
     >
       <div className="mx-auto max-w-[85.2vw] text-center">
-        {/* season's favorite — Taprom, exact Figma specs */}
-        <p
-          className="font-taprom text-white"
-          style={{
-            fontSize: "clamp(24px, 2.5vw, 48px)",
-            fontWeight: 400,
-            lineHeight: "1.4",
-            letterSpacing: "0.05em",
-            textAlign: "center",
-          }}
-        >
-          reader&apos;s favorite
-        </p>
-
         <h2
           className="mt-2 font-bold text-white leading-tight"
           style={{ fontSize: "clamp(26px, 2.8vw, 48px)" }}

@@ -21,13 +21,13 @@ export default function WhereTravelStyle() {
           <p className="mx-auto max-w-[90vw]">
             We believe every traveller carries a dream of what a journey could
             be. Our role is to bring that dream to life with grace regardless of
-            budget or experience level. Every traveler deserves to experience
+            budget or experience level. Every traveller deserves to experience
             the version of a journey that genuinely fits them. Not a compromised
             version.
           </p>
 
           <p className="mx-auto max-w-[90vw]">
-            With 30+ years of combined experience across land, air, and cruise, and across very different travel budgets and expectations – we’ve taken everything we know – about systems, logistics, on-ground operations and high - expectations, to build a travel company that leads with honesty. We’re here to meet you where you are and then expand on what’s possible.
+            With 30+ years of combined experience across land, air, and cruise, and across very different travel budgets and expectations – we’ve taken everything we know – about systems, logistics, on-ground operations and high-expectations, to build a travel company that leads with honesty. We’re here to meet you where you are and then expand on what’s possible.
           </p>
         </div>
 

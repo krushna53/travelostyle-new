@@ -1,12 +1,19 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const quickLinks = [
-  "Journeys",
-  "About Us",
-  "Build Your Journey",
-  "How It Works",
+  { label: "Journeys", href: "/#land-journeys" },
+  { label: "About Us", href: "/#where-travel-style" },
+  { label: "Build Your Journey", href: "/#inquiry-form" },
+  { label: "How It Works", href: "/#how-it-works" },
 ];
-const usefulLinks = ["FAQs", "Write To Us", "Terms and Conditions", "Policies"];
+
+const usefulLinks = [
+  { label: "FAQs", href: "/#faq" },
+  { label: "Write To Us", href: "mailto:info@travelostyle.com" },
+  { label: "Terms and Conditions", href: "/terms-and-conditions" },
+  { label: "Policies", href: "/policies" },
+];
 
 export function FacebookIcon() {
   return (
@@ -89,10 +96,10 @@ export default function FooterSection() {
             </h3>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
-                <li key={link}>
-                  <a href="#" className="transition hover:text-white text-md">
-                    {link}
-                  </a>
+                <li key={link.label}>
+                  <Link href={link.href} className="transition hover:text-white text-md">
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -104,10 +111,16 @@ export default function FooterSection() {
             </h3>
             <ul className="space-y-2.5">
               {usefulLinks.map((link) => (
-                <li key={link}>
-                  <a href="#" className="transition hover:text-white">
-                    {link}
-                  </a>
+                <li key={link.label}>
+                  {link.href.startsWith("mailto:") ? (
+                    <a href={link.href} className="transition hover:text-white">
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link href={link.href} className="transition hover:text-white">
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -115,16 +128,18 @@ export default function FooterSection() {
         </div>
 
         <div className="md:mt-16 flex flex-col items-center justify-center sm:mt-20">
-          <Image
-            src="/logo.svg"
-            alt="Travel O Style"
-            width={560}
-            height={104}
-            className="h-auto w-[min(660px,88vw)]"
-            priority
-          />
+          <Link href="/">
+            <Image
+              src="/logo.svg"
+              alt="Travel O Style"
+              width={560}
+              height={104}
+              className="h-auto w-[min(660px,88vw)]"
+              priority
+            />
+          </Link>
           <div className="flex sm:hidden flex-col justify-center items-center mt-5">
-            <h3 className="mb-2 text- font-semibold text-white">
+            <h3 className="mb-2 font-semibold text-white">
               Connect With Us
             </h3>
             <div className="flex items-center gap-4 mb-2">
@@ -149,6 +164,20 @@ export default function FooterSection() {
             <p className="text-[12px] normal-case tracking-normal text-white/90">
               info@travelostyle.com
             </p>
+            {/* Mobile useful links */}
+            <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[11px] uppercase tracking-[0.04em] text-white/75">
+              {usefulLinks.map((link) =>
+                link.href.startsWith("mailto:") ? (
+                  <a key={link.label} href={link.href} className="hover:text-white transition">
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link key={link.label} href={link.href} className="hover:text-white transition">
+                    {link.label}
+                  </Link>
+                )
+              )}
+            </div>
           </div>
           <p className="mt-3 text-center text-[12px] text-white/85 hidden sm:block">
             &copy; TravelOStyle 2026 | Designed by Eunola Design House
