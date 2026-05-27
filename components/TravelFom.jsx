@@ -274,10 +274,10 @@ export default function TravelForm() {
                   ref={(el) => { fieldRefs.current["flexibility"] = el; }}
                   className={`w-full cursor-pointer appearance-none border-0 border-b-[1.6px] bg-transparent pl-2 pb-1.5 pr-6 text-[14px] text-[#7b84c9] outline-none font-light ${fieldErrors.flexibility ? "border-red-500" : "border-[#2d3494]"}`}
                 >
-                  <option value="">Select</option>
-                  <option>+/-30 days</option>
-                  <option>Exact Match</option>
-                  <option>Open to Possibility</option>
+                  <option value="">Exact Match</option>
+                  <option>Flexible ±1 week</option>
+                  <option>Flexible ±2 weeks</option>
+                  <option>Very Flexible</option>
                 </select>
                 <span className="absolute right-1 top-1/2 -translate-y-1/2 text-[#2d3494] text-sm pointer-events-none">▾</span>
               </div>
