@@ -79,7 +79,7 @@ export default function HeroTravelSection() {
          exceptional trip.
         </p>
         <div className="mt-4">
-          <Link href="#cruise-journeys">
+          <Link href="#land-journeys">
             <Button className="rounded-full border-2 px-3 py-1 text-[#2C3078] font-medium text-lg tracking-wider">
               View Journeys
             </Button>
