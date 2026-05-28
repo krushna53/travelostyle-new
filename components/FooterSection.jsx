@@ -1,12 +1,18 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const quickLinks = [
-  "Journeys",
-  "About Us",
-  "Build Your Journey",
-  "How It Works",
+  { label: "Journeys", href: "#land-journeys" },
+  { label: "About Us", href: "#about" },
+  { label: "Build Your Journey", href: "#inquiry-form" },
+  { label: "How It Works", href: "#how-it-works" },
 ];
-const usefulLinks = ["FAQs", "Write To Us", "Terms and Conditions", "Policies"];
+const usefulLinks = [
+  { label: "FAQs", href: "#faq" },
+  { label: "Write To Us", href: "#inquiry-form" },
+  { label: "Terms and Conditions", href: "/terms-and-conditions" },
+  { label: "Policies", href: "/cookie-policy" },
+];
 
 export function FacebookIcon() {
   return (
@@ -89,9 +95,9 @@ export default function FooterSection() {
             </h3>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
-                <li key={link}>
-                  <a href="#" className="transition hover:text-white text-md">
-                    {link}
+                <li key={link.label}>
+                  <a href={link.href} className="transition hover:text-white text-md">
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -104,10 +110,16 @@ export default function FooterSection() {
             </h3>
             <ul className="space-y-2.5">
               {usefulLinks.map((link) => (
-                <li key={link}>
-                  <a href="#" className="transition hover:text-white">
-                    {link}
-                  </a>
+                <li key={link.label}>
+                  {link.href.startsWith("/") ? (
+                    <Link href={link.href} className="transition hover:text-white">
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a href={link.href} className="transition hover:text-white">
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
