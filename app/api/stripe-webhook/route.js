@@ -46,9 +46,20 @@ export async function POST(req) {
     if (event.type === "payment_intent.succeeded" || event.type === "payment_intent.payment_failed") {
       const intent = event.data.object;
 
+      // `intent.payment_method_types` lists the types ALLOWED on this
+      // PaymentIntent (now always ["card", "us_bank_account"] since we
+      // restrict it in create-payment-intent), not the one the customer
+      // actually used — checking it directly would fire ACH follow-up
+      // emails for card payments too. Retrieve the intent with the actual
+      // payment_method expanded to get the real type.
+      const fullIntent = await stripe.paymentIntents.retrieve(intent.id, {
+        expand: ["payment_method"],
+      });
+      const actualMethodType = fullIntent.payment_method?.type;
+
       // Only act on ACH — card payments were already handled synchronously
       // when the customer completed checkout.
-      if (intent.payment_method_types?.includes("us_bank_account") || intent.payment_method?.type === "us_bank_account") {
+      if (actualMethodType === "us_bank_account") {
         const { tour = "your journey", leadEmail, leadName = "Traveler" } = intent.metadata || {};
         const amount = (intent.amount / 100).toLocaleString();
         const succeeded = event.type === "payment_intent.succeeded";

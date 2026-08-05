@@ -25,9 +25,12 @@ export async function POST(req) {
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency,
-      // Offers Card + US bank account (ACH) automatically, as long as
-      // ACH Direct Debit is enabled in the Stripe Dashboard.
-      automatic_payment_methods: { enabled: true },
+      // Explicitly restrict to Card + US bank account (ACH) — using
+      // automatic_payment_methods would also surface Amazon Pay/Affirm/
+      // Klarna/etc. whenever they're enabled on the Stripe account.
+      // ACH Direct Debit must still be enabled on the Stripe Dashboard for
+      // us_bank_account to actually appear.
+      payment_method_types: ["card", "us_bank_account"],
       metadata,
     });
 
