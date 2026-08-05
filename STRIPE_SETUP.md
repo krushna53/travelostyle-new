@@ -49,18 +49,40 @@ Restart `npm run dev` after adding these.
 5. Confirm the PaymentIntent shows up in **Stripe Dashboard → Payments**
    (test mode).
 
-## 6. (Recommended) Confirm payments with a webhook
-Cards confirm instantly; ACH settles over a few business days. To know for
-certain when funds have cleared:
-1. Add `app/api/stripe-webhook/route.js` that verifies the Stripe
-   signature and handles `payment_intent.succeeded` /
-   `payment_intent.payment_failed`.
-2. In Stripe Dashboard → **Developers → Webhooks**, point an endpoint at
-   `https://yoursite.com/api/stripe-webhook`.
-3. Add the **Signing secret** to Netlify as `STRIPE_WEBHOOK_SECRET`.
-4. On success, send the confirmation email (you already have `nodemailer`
-   wired up in `app/api/contact/route.js` — reuse that transporter) and/or
-   update your booking records.
+## 6. Webhook (required for ACH — already built)
+Cards confirm instantly in the browser, so `BookingModal.jsx` sends the
+booking email itself right after `confirmPayment()`. ACH resolves to
+`"processing"` at that same moment — the money hasn't actually moved yet,
+and can still fail days later — so `app/api/stripe-webhook/route.js`
+listens for `payment_intent.succeeded` / `payment_intent.payment_failed`
+and sends a **separate** "your ACH payment has cleared / failed" follow-up
+email to both admin and the lead traveler, using the `leadEmail`/`leadName`
+stored in the PaymentIntent's metadata. It intentionally ignores card
+events (those are already handled client-side) to avoid double-emailing.
+
+### Sandbox (test mode) setup
+1. Stripe Dashboard, with **Test mode** on → **Developers → Webhooks → Add destination**.
+2. Endpoint URL: your Netlify preview/staging URL + `/api/stripe-webhook`
+   (e.g. `https://your-preview.netlify.app/api/stripe-webhook`).
+3. Select events: `payment_intent.succeeded` and `payment_intent.payment_failed`.
+4. After creating it, open the endpoint and copy the **Signing secret**
+   (`whsec_...`).
+5. Add it to `.env.local` **and** Netlify's environment variables (for the
+   deploy context the preview URL points at) as `STRIPE_WEBHOOK_SECRET`.
+6. Test it: Stripe Dashboard → your webhook → **Send test event**, pick
+   `payment_intent.succeeded`, confirm it returns `200` and that you get
+   the follow-up email (only fires if the fake event's `payment_method_types`
+   includes `us_bank_account` — the Dashboard's test event payload includes
+   this by default). You can also trigger a real one end-to-end with the
+   ACH test routing/account numbers below.
+
+### Live setup
+1. Same steps, but with **Test mode off** and your **production** URL
+   (e.g. `https://travelostyle.com/api/stripe-webhook`).
+2. This creates a **separate** signing secret from the test one — set it as
+   `STRIPE_WEBHOOK_SECRET` in Netlify's *production* environment variables,
+   not the same value you used for test mode.
+3. Re-deploy so the new variable takes effect.
 
 ## 7. Go live
 1. Toggle Stripe out of Test mode and grab your **live** keys.
@@ -68,13 +90,11 @@ certain when funds have cleared:
    Netlify's environment variables with the live values, then redeploy.
 3. Complete Stripe's business verification under **Settings → Business
    settings** — required before accepting live payments.
+4. Don't forget the **live** webhook (step 6, "Live setup") — it's separate
+   from the test one and easy to miss.
 
 ## Notes
 - Deposit amounts are calculated automatically from the tour price using
   the tiers from your Terms & Conditions (under $2,499 → $500 deposit;
   $2,500–$4,999 → $1,000; over $5,000 → $1,500), multiplied by the number
   of adult/child travelers.
-- The **Essence of Japan** card currently references
-  `public/LandJourney/Japan-Image.jpg`, which doesn't exist yet — add a
-  real photo at that path (or update the `image` field in
-  `components/LandJourneys.jsx`) before shipping.

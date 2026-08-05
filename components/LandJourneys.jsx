@@ -185,7 +185,7 @@ function JourneyCard({ journey, onOpen, onBook }) {
           />
         </div>
 
-        <div className="flex justify-between items-center mt-auto">
+        <div className="flex flex-col gap-3 mt-auto sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-[14px] font-light text-[#2B3481]">from</p>
             <p className="text-lg font-medium text-[#2B3481]">
@@ -203,7 +203,7 @@ function JourneyCard({ journey, onOpen, onBook }) {
             <Button
               type="button"
               onClick={onOpen}
-              className="rounded-full border-2 border-[#2C3078] bg-white text-base pt-1 px-3 font-medium text-[#2C3078] disabled:cursor-not-allowed"
+              className="flex-1 whitespace-nowrap rounded-full border-2 border-[#2C3078] bg-white px-3 text-sm font-medium text-[#2C3078] disabled:cursor-not-allowed sm:flex-none sm:text-base"
               size="md"
             >
               Get Details
@@ -212,7 +212,7 @@ function JourneyCard({ journey, onOpen, onBook }) {
               <Button
                 type="button"
                 onClick={onBook}
-                className="rounded-full bg-[#2C3078] text-base pt-1 px-3 font-medium text-white disabled:cursor-not-allowed disabled:bg-[#2C3078]/70"
+                className="flex-1 whitespace-nowrap rounded-full bg-[#2C3078] px-3 text-sm font-medium text-white disabled:cursor-not-allowed disabled:bg-[#2C3078]/70 sm:flex-none sm:text-base"
                 size="md"
               >
                 Book Now

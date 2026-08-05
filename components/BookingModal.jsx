@@ -68,7 +68,7 @@ export default function BookingModal({ journey, onClose }) {
   const [step, setStep] = useState(1);
   const [counts, setCounts] = useState({ adults: 1, children: 0, infants: 0 });
   const [travelers, setTravelers] = useState([emptyTraveler("Adult")]);
-  const [lead, setLead] = useState({ phone: "", email: "", city: "" });
+  const [lead, setLead] = useState({ phone: "", email: "", address1: "", address2: "", city: "", state: "", zip: "" });
   const [flexibleDates, setFlexibleDates] = useState("No");
   const [flights, setFlights] = useState({ departureCity: "", airline: "", cabin: "Economy", frequentFlyer: "" });
   const [meal, setMeal] = useState({ type: "No Preference", allergies: "" });
@@ -85,6 +85,7 @@ export default function BookingModal({ journey, onClose }) {
   const [paymentReady, setPaymentReady] = useState(false);
   const [paymentError, setPaymentError] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [paymentProcessing, setPaymentProcessing] = useState(false);
   const [payLoading, setPayLoading] = useState(false);
   const stripeRef = useRef(null);
   const elementsRef = useRef(null);
@@ -150,8 +151,15 @@ export default function BookingModal({ journey, onClose }) {
           return false;
         }
       }
-      if (!lead.phone.trim() || !lead.email.trim()) {
-        setValidationMsg("Please provide the lead traveler's contact number and email.");
+      if (
+        !lead.phone.trim() ||
+        !lead.email.trim() ||
+        !lead.address1.trim() ||
+        !lead.city.trim() ||
+        !lead.state.trim() ||
+        !lead.zip.trim()
+      ) {
+        setValidationMsg("Please provide the lead traveler's contact number, email, and address (line 1, city, state, zip).");
         return false;
       }
     }
@@ -182,7 +190,7 @@ export default function BookingModal({ journey, onClose }) {
   }
 
   const bookingEmailSentRef = useRef(false);
-  async function submitBookingRequest() {
+  async function submitBookingRequest(paymentIntentId, paymentStatus = "Paid") {
     if (bookingEmailSentRef.current) return;
     bookingEmailSentRef.current = true;
     try {
@@ -212,7 +220,8 @@ export default function BookingModal({ journey, onClose }) {
           declaration,
           payMode: effectivePayMode,
           amountDue,
-          paymentStatus: "Paid",
+          paymentStatus,
+          paymentIntentId,
         }),
       });
     } catch (err) {
@@ -267,7 +276,13 @@ export default function BookingModal({ journey, onClose }) {
           body: JSON.stringify({
             amount: Math.round(amountDue * 100),
             currency: "usd",
-            metadata: { tour: journey.title, travelers: travelerTotal, payMode: effectivePayMode },
+            metadata: {
+              tour: journey.title,
+              travelers: String(travelerTotal),
+              payMode: effectivePayMode,
+              leadEmail: lead.email || "",
+              leadName: travelers[0]?.fullName || declaration.name || "",
+            },
           }),
         });
         const data = await res.json();
@@ -300,7 +315,7 @@ export default function BookingModal({ journey, onClose }) {
     if (!stripeRef.current || !elementsRef.current) return;
     setPayLoading(true);
     setPaymentError("");
-    const { error } = await stripeRef.current.confirmPayment({
+    const { error, paymentIntent } = await stripeRef.current.confirmPayment({
       elements: elementsRef.current,
       confirmParams: { return_url: window.location.href },
       redirect: "if_required",
@@ -308,9 +323,19 @@ export default function BookingModal({ journey, onClose }) {
     setPayLoading(false);
     if (error) {
       setPaymentError(error.message);
+      return;
+    }
+    // Card payments resolve to "succeeded" immediately. ACH (us_bank_account)
+    // resolves to "processing" here — the money hasn't actually cleared yet,
+    // it can still fail days later, so don't tell the customer it's "Paid".
+    // The /api/stripe-webhook route sends a separate follow-up once Stripe
+    // confirms the ACH transfer has actually settled.
+    if (paymentIntent?.status === "processing") {
+      setPaymentProcessing(true);
+      submitBookingRequest(paymentIntent?.id, "Processing (ACH — funds not yet cleared)");
     } else {
       setPaymentSuccess(true);
-      submitBookingRequest();
+      submitBookingRequest(paymentIntent?.id, "Paid");
     }
   }
 
@@ -392,8 +417,14 @@ export default function BookingModal({ journey, onClose }) {
                     <TextInput label="Contact Number (WhatsApp preferred) *" value={lead.phone} onChange={(v) => setLead((p) => ({ ...p, phone: v }))} />
                     <TextInput label="Email Address *" type="email" value={lead.email} onChange={(v) => setLead((p) => ({ ...p, email: v }))} />
                     <div className="sm:col-span-2">
-                      <TextInput label="City & Country of Residence" value={lead.city} onChange={(v) => setLead((p) => ({ ...p, city: v }))} />
+                      <TextInput label="Address Line 1 *" value={lead.address1} onChange={(v) => setLead((p) => ({ ...p, address1: v }))} />
                     </div>
+                    <div className="sm:col-span-2">
+                      <TextInput label="Address Line 2" value={lead.address2} onChange={(v) => setLead((p) => ({ ...p, address2: v }))} />
+                    </div>
+                    <TextInput label="City *" value={lead.city} onChange={(v) => setLead((p) => ({ ...p, city: v }))} />
+                    <TextInput label="State *" value={lead.state} onChange={(v) => setLead((p) => ({ ...p, state: v }))} />
+                    <TextInput label="Zip Code *" value={lead.zip} onChange={(v) => setLead((p) => ({ ...p, zip: v }))} />
                   </div>
                 </FieldsetBox>
 
@@ -426,7 +457,7 @@ export default function BookingModal({ journey, onClose }) {
                       label="Meal Type"
                       value={meal.type}
                       onChange={(v) => setMeal((p) => ({ ...p, type: v }))}
-                      options={["No Preference", "Vegetarian", "Vegan", "Gluten-Free", "Kosher", "Halal", "Jain", "Other"]}
+                      options={["No Preference", "Vegetarian", "Vegan", "Gluten-Free", "Kosher", "Halal", "Jain"]}
                     />
                     <TextInput label="Food Allergies / Restrictions" value={meal.allergies} onChange={(v) => setMeal((p) => ({ ...p, allergies: v }))} />
                   </div>
@@ -596,6 +627,12 @@ export default function BookingModal({ journey, onClose }) {
                     Payment successful! A confirmation email will be sent to you shortly. Thank you for booking with
                     TravelOStyle.
                   </div>
+                ) : paymentProcessing ? (
+                  <div className="rounded-lg border-2 border-amber-500 bg-amber-50 p-4 text-sm text-amber-800">
+                    Your ACH bank transfer has been submitted and is processing — this typically takes a few business
+                    days to clear. We&rsquo;ve emailed you a copy of your booking details, and you&rsquo;ll get a
+                    separate confirmation once the payment has fully cleared.
+                  </div>
                 ) : (
                   <>
                     <div id="booking-payment-element" className="min-h-[120px]" />
@@ -622,7 +659,7 @@ export default function BookingModal({ journey, onClose }) {
             >
               Back
             </button>
-            {step === 8 && !paymentSuccess ? (
+            {step === 8 && !paymentSuccess && !paymentProcessing ? (
               <Button
                 type="button"
                 onClick={handlePay}
@@ -634,10 +671,16 @@ export default function BookingModal({ journey, onClose }) {
             ) : (
               <Button
                 type="button"
-                onClick={paymentSuccess ? onClose : next}
+                onClick={paymentSuccess || paymentProcessing ? onClose : next}
                 className="rounded-full bg-[#2C3078] px-6 py-2 font-medium text-white"
               >
-                {paymentSuccess ? "Close" : step === TOTAL_STEPS ? "Done" : step === 7 ? "Proceed to Payment" : "Continue"}
+                {paymentSuccess || paymentProcessing
+                  ? "Close"
+                  : step === TOTAL_STEPS
+                    ? "Done"
+                    : step === 7
+                      ? "Proceed to Payment"
+                      : "Continue"}
               </Button>
             )}
           </div>
@@ -687,6 +730,11 @@ function TextInput({ label, value, onChange, type = "text", readOnly = false }) 
     </label>
   );
 }
+
+// Note: an earlier version of this field used Google Places Autocomplete
+// (see GOOGLE_PLACES_SETUP.md). For now the address is plain structured
+// fields (Address Line 1/2, City, State, Zip) below — simpler, no API key
+// required. Re-introduce the autocomplete component later if needed.
 
 function TextAreaInput({ label, value, onChange }) {
   return (
