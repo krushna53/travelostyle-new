@@ -155,6 +155,14 @@ export default function BookingModal({ journey, onClose }) {
         return false;
       }
     }
+    if (step === 5) {
+      for (const c of emergencyContacts) {
+        if (!c.phone.trim()) {
+          setValidationMsg("Please provide a contact number for every emergency contact.");
+          return false;
+        }
+      }
+    }
     if (step === 6) {
       if (!declaration.checked) {
         setValidationMsg("Please confirm the declaration and accept the Terms & Conditions to continue.");
@@ -169,9 +177,6 @@ export default function BookingModal({ journey, onClose }) {
     if (step === TOTAL_STEPS) {
       onClose();
       return;
-    }
-    if (step === 7) {
-      submitBookingRequest();
     }
     setStep((s) => s + 1);
   }
@@ -207,11 +212,13 @@ export default function BookingModal({ journey, onClose }) {
           declaration,
           payMode: effectivePayMode,
           amountDue,
+          paymentStatus: "Paid",
         }),
       });
     } catch (err) {
-      // Non-blocking: booking still proceeds to payment even if the
-      // notification email fails; surfaced only in the console for now.
+      // Non-blocking: the booking has already been paid for at this point,
+      // so a failed notification shouldn't disrupt the customer's flow —
+      // surfaced only in the console for now.
       console.error("Failed to send booking notification:", err);
       bookingEmailSentRef.current = false;
     }
@@ -303,6 +310,7 @@ export default function BookingModal({ journey, onClose }) {
       setPaymentError(error.message);
     } else {
       setPaymentSuccess(true);
+      submitBookingRequest();
     }
   }
 
@@ -479,7 +487,7 @@ export default function BookingModal({ journey, onClose }) {
                         <TextInput label="Name" value={c.name} onChange={(v) => updateEmergencyContact(i, "name", v)} />
                         <TextInput label="Relationship" value={c.relationship} onChange={(v) => updateEmergencyContact(i, "relationship", v)} />
                         <div className="sm:col-span-2">
-                          <TextInput label="Contact Number" value={c.phone} onChange={(v) => updateEmergencyContact(i, "phone", v)} />
+                          <TextInput label="Contact Number *" value={c.phone} onChange={(v) => updateEmergencyContact(i, "phone", v)} />
                         </div>
                       </div>
                     </div>

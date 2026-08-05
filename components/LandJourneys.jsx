@@ -208,14 +208,16 @@ function JourneyCard({ journey, onOpen, onBook }) {
             >
               Get Details
             </Button>
-            <Button
-              type="button"
-              onClick={onBook}
-              className="rounded-full bg-[#2C3078] text-base pt-1 px-3 font-medium text-white disabled:cursor-not-allowed disabled:bg-[#2C3078]/70"
-              size="md"
-            >
-              Book Now
-            </Button>
+            {journey.bookingsOpen && (
+              <Button
+                type="button"
+                onClick={onBook}
+                className="rounded-full bg-[#2C3078] text-base pt-1 px-3 font-medium text-white disabled:cursor-not-allowed disabled:bg-[#2C3078]/70"
+                size="md"
+              >
+                Book Now
+              </Button>
+            )}
           </div>
         </div>
       </div>
