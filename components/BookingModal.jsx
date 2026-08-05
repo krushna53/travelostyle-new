@@ -785,9 +785,12 @@ export default function BookingModal({ journey, onClose }) {
                   </button>
                 </div>
                 <div className="mt-4 flex items-center justify-between rounded-lg bg-[#2C3078] px-4 py-3 text-white">
-                  <span className="text-sm">Amount Due Now</span>
+                  <span className="text-sm">Amount Due Now *</span>
                   <span className="text-xl font-bold">${amountDue.toLocaleString()}</span>
                 </div>
+                <p className="mt-2 text-xs text-[#7772a8]">
+                  * A processing fee may be applied by Stripe at checkout, in addition to the amount shown above.
+                </p>
               </div>
             )}
 
