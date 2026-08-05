@@ -79,6 +79,29 @@ const COUNTRIES = [
   "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe",
 ];
 
+// Major departure hubs — travelers can still type any city not listed here;
+// this is just a convenience shortlist for the autocomplete suggestions.
+const DEPARTURE_CITIES = [
+  "New York", "Newark", "Los Angeles", "San Francisco", "Chicago", "Boston", "Washington D.C.", "Miami",
+  "Atlanta", "Dallas", "Houston", "Denver", "Seattle", "Las Vegas", "Orlando", "Philadelphia", "Phoenix",
+  "San Diego", "Detroit", "Minneapolis", "Charlotte", "Toronto", "Vancouver", "Montreal", "London", "Paris",
+  "Frankfurt", "Amsterdam", "Madrid", "Rome", "Zurich", "Dubai", "Doha", "Istanbul", "Delhi", "Mumbai",
+  "Bangalore", "Hyderabad", "Chennai", "Singapore", "Hong Kong", "Tokyo", "Sydney",
+];
+
+const AIRLINES = [
+  "American Airlines", "Delta Air Lines", "United Airlines", "Southwest Airlines", "JetBlue", "Alaska Airlines",
+  "Air Canada", "British Airways", "Lufthansa", "Air France", "KLM", "Emirates", "Qatar Airways",
+  "Etihad Airways", "Turkish Airlines", "Singapore Airlines", "Cathay Pacific", "Japan Airlines", "ANA",
+  "Qantas", "Air India", "IndiGo", "Vistara", "Swiss International Air Lines", "Virgin Atlantic",
+];
+
+const LANGUAGES = [
+  "English", "Spanish", "French", "German", "Italian", "Portuguese", "Mandarin", "Cantonese", "Japanese",
+  "Korean", "Hindi", "Gujarati", "Punjabi", "Marathi", "Bengali", "Tamil", "Telugu", "Arabic", "Russian",
+  "Vietnamese", "Thai", "Indonesian", "Dutch", "Greek", "Hebrew", "Turkish", "Polish", "Swedish",
+];
+
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
 const DEPOSIT_CUTOFF_DAYS = 90; // matches the Terms & Conditions final-payment window (3 months)
 
@@ -131,7 +154,7 @@ export default function BookingModal({ journey, onClose }) {
   const flexibleDates = "No";
   const [flights, setFlights] = useState({ departureCity: "", airline: "", cabin: "Economy", frequentFlyer: "" });
   const [meal, setMeal] = useState({ type: "No Preference", allergies: "" });
-  const [transfers, setTransfers] = useState({ airport: "Yes", guide: "Yes", language: "" });
+  const [transfers, setTransfers] = useState({ airport: "Yes", guide: "Yes", language: [] });
   const [visa, setVisa] = useState("Yes");
   const [insurance, setInsurance] = useState("Yes");
   const [emergencyContacts, setEmergencyContacts] = useState([emptyEmergencyContact()]);
@@ -534,7 +557,7 @@ export default function BookingModal({ journey, onClose }) {
                           <TextInput label="City" value={t.city} onChange={(v) => updateTraveler(i, "city", v)} />
                           <TextInput label="State" value={t.state} onChange={(v) => updateTraveler(i, "state", v)} />
                           <TextInput label="Zip Code" value={t.zip} onChange={(v) => updateTraveler(i, "zip", v)} />
-                          <CountryInput label="Country" value={t.country} onChange={(v) => updateTraveler(i, "country", v)} />
+                          <AutocompleteInput label="Country" value={t.country} onChange={(v) => updateTraveler(i, "country", v)} options={COUNTRIES} />
                         </div>
                       )}
                     </div>
@@ -554,7 +577,7 @@ export default function BookingModal({ journey, onClose }) {
                     <TextInput label="City *" value={lead.city} onChange={(v) => setLead((p) => ({ ...p, city: v }))} />
                     <TextInput label="State *" value={lead.state} onChange={(v) => setLead((p) => ({ ...p, state: v }))} />
                     <TextInput label="Zip Code *" value={lead.zip} onChange={(v) => setLead((p) => ({ ...p, zip: v }))} />
-                    <CountryInput label="Country *" value={lead.country} onChange={(v) => setLead((p) => ({ ...p, country: v }))} />
+                    <AutocompleteInput label="Country *" value={lead.country} onChange={(v) => setLead((p) => ({ ...p, country: v }))} options={COUNTRIES} />
                   </div>
                 </FieldsetBox>
 
@@ -576,8 +599,19 @@ export default function BookingModal({ journey, onClose }) {
                 <StepTitle n={3} title="Flights & Meal Preferences" />
                 <FieldsetBox title="Flights">
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    <TextInput label="Departure City" value={flights.departureCity} onChange={(v) => setFlights((p) => ({ ...p, departureCity: v }))} />
-                    <TextInput label="Preferred Airline" value={flights.airline} onChange={(v) => setFlights((p) => ({ ...p, airline: v }))} />
+                    <AutocompleteInput
+                      label="Departure City"
+                      value={flights.departureCity}
+                      onChange={(v) => setFlights((p) => ({ ...p, departureCity: v }))}
+                      options={DEPARTURE_CITIES}
+                    />
+                    <AutocompleteInput
+                      label="Preferred Airline"
+                      value={flights.airline}
+                      onChange={(v) => setFlights((p) => ({ ...p, airline: v }))}
+                      options={AIRLINES}
+                      placeholder="Start typing, or enter your own..."
+                    />
                     <SelectInput label="Cabin Class" value={flights.cabin} onChange={(v) => setFlights((p) => ({ ...p, cabin: v }))} options={["Economy", "Premium", "Business Class"]} />
                     <TextInput label="Frequent Flyer Details" value={flights.frequentFlyer} onChange={(v) => setFlights((p) => ({ ...p, frequentFlyer: v }))} />
                   </div>
@@ -594,14 +628,21 @@ export default function BookingModal({ journey, onClose }) {
                   </div>
                 </FieldsetBox>
                 <FieldsetBox title="Transfers & Services" className="mt-4">
+                  <p className="mb-3 rounded-md border border-[#f3c98b] bg-[#fff4e5] px-3 py-2 text-xs font-semibold text-[#92400e]">
+                    * Not applicable for escorted journeys — already included as part of the tour.
+                  </p>
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <SelectInput label="Airport Transfers Required" value={transfers.airport} onChange={(v) => setTransfers((p) => ({ ...p, airport: v }))} options={["Yes", "No"]} />
                     <SelectInput label="Guide Required" value={transfers.guide} onChange={(v) => setTransfers((p) => ({ ...p, guide: v }))} options={["Yes", "No"]} />
                     <div className="sm:col-span-2">
-                      <TextInput label="Language Preference" value={transfers.language} onChange={(v) => setTransfers((p) => ({ ...p, language: v }))} />
+                      <MultiAutocompleteInput
+                        label="Language Preference"
+                        values={transfers.language}
+                        onChange={(v) => setTransfers((p) => ({ ...p, language: v }))}
+                        options={LANGUAGES}
+                      />
                     </div>
                   </div>
-                  <p className="mt-3 text-xs text-[#7772a8]">* Not applicable for escorted journeys — already included as part of the tour.</p>
                 </FieldsetBox>
               </div>
             )}
@@ -870,20 +911,22 @@ function TextInput({ label, value, onChange, type = "text", readOnly = false, ma
 // fields (Address Line 1/2, City, State, Zip) below — simpler, no API key
 // required. Re-introduce the autocomplete component later if needed.
 
-// Type-to-filter country combobox — plain text input + a filtered dropdown
-// of COUNTRIES, no external library or API key (same "keep it simple"
-// approach as the address fields above). Native <select> works fine but is
-// slow to scan with ~190 options; native <datalist> autocomplete is also an
-// option but has inconsistent/weak support on iOS Safari, so this is a
-// small hand-rolled combobox instead for consistent behavior everywhere.
-function CountryInput({ label, value, onChange }) {
+// Type-to-filter single-value combobox — plain text input + a filtered
+// dropdown of `options`, no external library or API key (same "keep it
+// simple" approach as the address fields above). Native <select> works fine
+// but is slow to scan with a long option list; native <datalist>
+// autocomplete is also an option but has inconsistent/weak support on iOS
+// Safari, so this is a small hand-rolled combobox instead for consistent
+// behavior everywhere. The value is plain free text, not locked to the
+// list, so typing anything not suggested (an "Other" answer) just works.
+function AutocompleteInput({ label, value, onChange, options, placeholder = "Start typing to search..." }) {
   const [open, setOpen] = useState(false);
 
   const filtered = useMemo(() => {
     const q = value.trim().toLowerCase();
-    if (!q) return COUNTRIES;
-    return COUNTRIES.filter((c) => c.toLowerCase().includes(q));
-  }, [value]);
+    if (!q) return options;
+    return options.filter((o) => o.toLowerCase().includes(q));
+  }, [value, options]);
 
   return (
     <label className="relative block">
@@ -897,25 +940,111 @@ function CountryInput({ label, value, onChange }) {
         }}
         onFocus={() => setOpen(true)}
         onBlur={() => setTimeout(() => setOpen(false), 150)}
-        placeholder="Start typing to search..."
+        placeholder={placeholder}
         autoComplete="off"
         className="w-full rounded-md border-2 border-[#c9c4ea] bg-white px-3 py-2 text-sm text-[#3a219a] outline-none"
       />
       {open && filtered.length > 0 && (
         <ul className="absolute z-20 mt-1 max-h-48 w-full overflow-y-auto rounded-md border-2 border-[#c9c4ea] bg-white text-sm shadow-lg">
-          {filtered.map((c) => (
+          {filtered.map((o) => (
             <li
-              key={c}
+              key={o}
               // onMouseDown (not onClick) fires before the input's onBlur closes the list.
               onMouseDown={() => {
-                onChange(c);
+                onChange(o);
                 setOpen(false);
               }}
               className="cursor-pointer px-3 py-2 text-[#3a219a] hover:bg-[#f1f1f6]"
             >
-              {c}
+              {o}
             </li>
           ))}
+        </ul>
+      )}
+    </label>
+  );
+}
+
+// Multi-value version of AutocompleteInput — used for Language Preference,
+// where a traveler may want more than one language noted (e.g. "English,
+// Hindi"). Selected values render as removable chips; typing filters the
+// suggestion list, and anything typed that isn't in the list can still be
+// added as a custom value ("Other").
+function MultiAutocompleteInput({ label, values, onChange, options }) {
+  const [query, setQuery] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return options.filter((o) => !values.includes(o) && (!q || o.toLowerCase().includes(q)));
+  }, [query, options, values]);
+
+  const queryTrimmed = query.trim();
+  const showAddCustom =
+    queryTrimmed && !options.some((o) => o.toLowerCase() === queryTrimmed.toLowerCase()) && !values.includes(queryTrimmed);
+
+  function addValue(v) {
+    const trimmed = v.trim();
+    if (!trimmed || values.includes(trimmed)) return;
+    onChange([...values, trimmed]);
+    setQuery("");
+  }
+  function removeValue(v) {
+    onChange(values.filter((x) => x !== v));
+  }
+
+  return (
+    <label className="relative block">
+      <span className="mb-1 block text-xs font-semibold text-[#3a219a]">{label}</span>
+      <div className="flex min-h-[42px] w-full flex-wrap items-center gap-1.5 rounded-md border-2 border-[#c9c4ea] bg-white px-2 py-1.5">
+        {values.map((v) => (
+          <span key={v} className="flex items-center gap-1 rounded-full bg-[#efe9ff] px-2.5 py-1 text-xs font-medium text-[#3a219a]">
+            {v}
+            <button
+              type="button"
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={() => removeValue(v)}
+              aria-label={`Remove ${v}`}
+              className="text-[#7772a8] hover:text-[#3a219a]"
+            >
+              ×
+            </button>
+          </span>
+        ))}
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setOpen(true);
+          }}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setTimeout(() => setOpen(false), 150)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              addValue(query);
+            } else if (e.key === "Backspace" && !query && values.length) {
+              removeValue(values[values.length - 1]);
+            }
+          }}
+          placeholder={values.length ? "" : "Start typing to search or add..."}
+          autoComplete="off"
+          className="min-w-[120px] flex-1 border-none text-sm text-[#3a219a] outline-none"
+        />
+      </div>
+      {open && (filtered.length > 0 || showAddCustom) && (
+        <ul className="absolute z-20 mt-1 max-h-48 w-full overflow-y-auto rounded-md border-2 border-[#c9c4ea] bg-white text-sm shadow-lg">
+          {filtered.map((o) => (
+            <li key={o} onMouseDown={() => addValue(o)} className="cursor-pointer px-3 py-2 text-[#3a219a] hover:bg-[#f1f1f6]">
+              {o}
+            </li>
+          ))}
+          {showAddCustom && (
+            <li onMouseDown={() => addValue(queryTrimmed)} className="cursor-pointer px-3 py-2 italic text-[#3a219a] hover:bg-[#f1f1f6]">
+              Add &ldquo;{queryTrimmed}&rdquo;
+            </li>
+          )}
         </ul>
       )}
     </label>
