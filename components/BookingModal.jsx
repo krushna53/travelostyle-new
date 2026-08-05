@@ -35,6 +35,50 @@ function parseJourneyDate(str) {
   return null;
 }
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Accepts an optional leading +, then 7-15 digits, with spaces/dashes/parens
+// allowed as separators (covers international formats without being overly strict).
+const PHONE_PATTERN = /^\+?[\d\s()-]{7,20}$/;
+
+function isValidEmail(value) {
+  return EMAIL_PATTERN.test(value.trim());
+}
+
+function isValidPhone(value) {
+  const trimmed = value.trim();
+  const digitCount = trimmed.replace(/\D/g, "").length;
+  return PHONE_PATTERN.test(trimmed) && digitCount >= 7;
+}
+
+// Used to cap the Date of Birth picker so it can't be set to a future date.
+const TODAY_STR = new Date().toISOString().slice(0, 10);
+
+const COUNTRIES = [
+  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia",
+  "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium",
+  "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria",
+  "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad",
+  "Chile", "China", "Colombia", "Comoros", "Congo (Congo-Brazzaville)", "Costa Rica", "Croatia", "Cuba", "Cyprus",
+  "Czechia", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador",
+  "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland",
+  "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea",
+  "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq",
+  "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait",
+  "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania",
+  "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania",
+  "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique",
+  "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria",
+  "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama",
+  "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia",
+  "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino",
+  "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore",
+  "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain",
+  "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania",
+  "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan",
+  "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay",
+  "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe",
+];
+
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
 const DEPOSIT_CUTOFF_DAYS = 90; // matches the Terms & Conditions final-payment window (3 months)
 
@@ -52,11 +96,24 @@ function emptyTraveler(type) {
   return {
     type,
     fullName: "",
-    dob: "",
-    gender: "Female",
-    nationality: "",
     passportNumber: "",
     passportExpiry: "",
+    nationality: "",
+    dob: "",
+    gender: "Female",
+    // Contact defaults to the lead traveler's info (most bookings — one
+    // room, one point of contact). Uncheck to give this traveler their own
+    // phone/email/address, e.g. two adults sharing a room who each want
+    // their own documents.
+    sameAsLead: true,
+    phone: "",
+    email: "",
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    zip: "",
+    country: "",
   };
 }
 
@@ -68,8 +125,10 @@ export default function BookingModal({ journey, onClose }) {
   const [step, setStep] = useState(1);
   const [counts, setCounts] = useState({ adults: 1, children: 0, infants: 0 });
   const [travelers, setTravelers] = useState([emptyTraveler("Adult")]);
-  const [lead, setLead] = useState({ phone: "", email: "", address1: "", address2: "", city: "", state: "", zip: "" });
-  const [flexibleDates, setFlexibleDates] = useState("No");
+  const [lead, setLead] = useState({ phone: "", email: "", address1: "", address2: "", city: "", state: "", zip: "", country: "" });
+  // Not user-editable — flexible dates aren't offered for escorted group
+  // journeys with a fixed departure, so this is always "No".
+  const flexibleDates = "No";
   const [flights, setFlights] = useState({ departureCity: "", airline: "", cabin: "Economy", frequentFlyer: "" });
   const [meal, setMeal] = useState({ type: "No Preference", allergies: "" });
   const [transfers, setTransfers] = useState({ airport: "Yes", guide: "Yes", language: "" });
@@ -146,9 +205,34 @@ export default function BookingModal({ journey, onClose }) {
     setValidationMsg("");
     if (step === 2) {
       for (const t of travelers) {
-        if (!t.fullName.trim() || !t.dob || !t.passportNumber.trim()) {
-          setValidationMsg("Please complete Full Name, Date of Birth, and Passport Number for every traveler.");
+        if (
+          !t.fullName.trim() ||
+          !t.dob ||
+          !t.passportNumber.trim() ||
+          !t.passportExpiry ||
+          !t.nationality.trim()
+        ) {
+          setValidationMsg(
+            "Please complete Full Name, Date of Birth, and all passport details (Number, Expiry Date, Nationality) for every traveler."
+          );
           return false;
+        }
+        if (t.dob > TODAY_STR) {
+          setValidationMsg(`Date of Birth for ${t.fullName || "traveler"} cannot be a future date.`);
+          return false;
+        }
+        // Contact fields are optional per-traveler, but if this traveler has
+        // their own contact info (unchecked "Same as lead"), whatever they
+        // did enter must be a valid phone number / email address.
+        if (!t.sameAsLead) {
+          if (t.phone.trim() && !isValidPhone(t.phone)) {
+            setValidationMsg(`Please enter a valid phone number for ${t.fullName || "traveler"}.`);
+            return false;
+          }
+          if (t.email.trim() && !isValidEmail(t.email)) {
+            setValidationMsg(`Please enter a valid email address for ${t.fullName || "traveler"}.`);
+            return false;
+          }
         }
       }
       if (
@@ -157,9 +241,18 @@ export default function BookingModal({ journey, onClose }) {
         !lead.address1.trim() ||
         !lead.city.trim() ||
         !lead.state.trim() ||
-        !lead.zip.trim()
+        !lead.zip.trim() ||
+        !lead.country.trim()
       ) {
-        setValidationMsg("Please provide the lead traveler's contact number, email, and address (line 1, city, state, zip).");
+        setValidationMsg("Please provide the lead traveler's contact number, email, and address (line 1, city, state, zip, country).");
+        return false;
+      }
+      if (!isValidPhone(lead.phone)) {
+        setValidationMsg("Please enter a valid contact number for the lead traveler.");
+        return false;
+      }
+      if (!isValidEmail(lead.email)) {
+        setValidationMsg("Please enter a valid email address for the lead traveler.");
         return false;
       }
     }
@@ -167,6 +260,10 @@ export default function BookingModal({ journey, onClose }) {
       for (const c of emergencyContacts) {
         if (!c.phone.trim()) {
           setValidationMsg("Please provide a contact number for every emergency contact.");
+          return false;
+        }
+        if (!isValidPhone(c.phone)) {
+          setValidationMsg(`Please enter a valid phone number for emergency contact "${c.name || "unnamed"}".`);
           return false;
         }
       }
@@ -388,38 +485,65 @@ export default function BookingModal({ journey, onClose }) {
             {/* STEP 2 */}
             {step === 2 && (
               <div>
-                <StepTitle n={2} title="Client & Travel Details" sub="One record per Adult/Child traveler. Passport details are required." />
+                <StepTitle n={2} title="Traveler & Passport Details" sub="One record per Adult/Child traveler. Name and passport details are required." />
                 <div className="space-y-4">
                   {travelers.map((t, i) => (
                     <div key={i} className="rounded-lg bg-[#f6f5fc] p-4">
                       <p className="mb-3 text-sm font-semibold text-[#3a219a]">
                         Traveler {i + 1} ({t.type})
                       </p>
-                      <p className="mb-1.5 text-[11px] font-bold uppercase tracking-wide text-[#7772a8]">Client Details</p>
+
                       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                         <TextInput label="Full Name (as per passport) *" value={t.fullName} onChange={(v) => updateTraveler(i, "fullName", v)} />
-                        <TextInput label="Date of Birth *" type="date" value={t.dob} onChange={(v) => updateTraveler(i, "dob", v)} />
+                        <TextInput label="Passport Number *" value={t.passportNumber} onChange={(v) => updateTraveler(i, "passportNumber", v)} />
+                        <TextInput label="Passport Expiry Date *" type="date" value={t.passportExpiry} onChange={(v) => updateTraveler(i, "passportExpiry", v)} />
+                        <TextInput label="Nationality *" value={t.nationality} onChange={(v) => updateTraveler(i, "nationality", v)} />
+                      </div>
+
+                      <p className="mb-1.5 mt-3 text-[11px] font-bold uppercase tracking-wide text-[#7772a8]">Additional Details</p>
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                        <TextInput label="Date of Birth *" type="date" max={TODAY_STR} value={t.dob} onChange={(v) => updateTraveler(i, "dob", v)} />
                         <SelectInput
                           label="Gender"
                           value={t.gender}
                           onChange={(v) => updateTraveler(i, "gender", v)}
                           options={["Female", "Male", "Non-binary", "Prefer not to say"]}
                         />
-                        <TextInput label="Nationality" value={t.nationality} onChange={(v) => updateTraveler(i, "nationality", v)} />
                       </div>
-                      <p className="mb-1.5 mt-3 text-[11px] font-bold uppercase tracking-wide text-[#7772a8]">Travel Details</p>
-                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                        <TextInput label="Passport Number *" value={t.passportNumber} onChange={(v) => updateTraveler(i, "passportNumber", v)} />
-                        <TextInput label="Passport Expiry Date" type="date" value={t.passportExpiry} onChange={(v) => updateTraveler(i, "passportExpiry", v)} />
-                        <TextInput label="Travel Type" value="Escorted" readOnly />
-                      </div>
+
+                      <label className="mt-3 flex items-center gap-2 text-[13px] text-[#3a219a]">
+                        <input
+                          type="checkbox"
+                          checked={t.sameAsLead}
+                          onChange={(e) => updateTraveler(i, "sameAsLead", e.target.checked)}
+                          className="h-4 w-4 rounded-sm border-2 border-[#4b2aa3] accent-[#4b2aa3]"
+                        />
+                        Same contact info as lead traveler
+                      </label>
+
+                      {!t.sameAsLead && (
+                        <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                          <TextInput label="Phone" type="tel" value={t.phone} onChange={(v) => updateTraveler(i, "phone", v)} />
+                          <TextInput label="Email" type="email" value={t.email} onChange={(v) => updateTraveler(i, "email", v)} />
+                          <div className="sm:col-span-2">
+                            <TextInput label="Address Line 1" value={t.address1} onChange={(v) => updateTraveler(i, "address1", v)} />
+                          </div>
+                          <div className="sm:col-span-2">
+                            <TextInput label="Address Line 2" value={t.address2} onChange={(v) => updateTraveler(i, "address2", v)} />
+                          </div>
+                          <TextInput label="City" value={t.city} onChange={(v) => updateTraveler(i, "city", v)} />
+                          <TextInput label="State" value={t.state} onChange={(v) => updateTraveler(i, "state", v)} />
+                          <TextInput label="Zip Code" value={t.zip} onChange={(v) => updateTraveler(i, "zip", v)} />
+                          <CountryInput label="Country" value={t.country} onChange={(v) => updateTraveler(i, "country", v)} />
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
 
                 <FieldsetBox title="Lead Traveler Contact" className="mt-4">
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    <TextInput label="Contact Number (WhatsApp preferred) *" value={lead.phone} onChange={(v) => setLead((p) => ({ ...p, phone: v }))} />
+                    <TextInput label="Contact Number (WhatsApp preferred) *" type="tel" value={lead.phone} onChange={(v) => setLead((p) => ({ ...p, phone: v }))} />
                     <TextInput label="Email Address *" type="email" value={lead.email} onChange={(v) => setLead((p) => ({ ...p, email: v }))} />
                     <div className="sm:col-span-2">
                       <TextInput label="Address Line 1 *" value={lead.address1} onChange={(v) => setLead((p) => ({ ...p, address1: v }))} />
@@ -430,6 +554,7 @@ export default function BookingModal({ journey, onClose }) {
                     <TextInput label="City *" value={lead.city} onChange={(v) => setLead((p) => ({ ...p, city: v }))} />
                     <TextInput label="State *" value={lead.state} onChange={(v) => setLead((p) => ({ ...p, state: v }))} />
                     <TextInput label="Zip Code *" value={lead.zip} onChange={(v) => setLead((p) => ({ ...p, zip: v }))} />
+                    <CountryInput label="Country *" value={lead.country} onChange={(v) => setLead((p) => ({ ...p, country: v }))} />
                   </div>
                 </FieldsetBox>
 
@@ -438,7 +563,8 @@ export default function BookingModal({ journey, onClose }) {
                     <TextInput label="Destination(s)" value={journey.destinationsList || journey.location} readOnly />
                     <TextInput label="Date of Departure" value={journey.date} readOnly />
                     <TextInput label="Duration" value={journey.duration} readOnly />
-                    <SelectInput label="Flexible Dates" value={flexibleDates} onChange={setFlexibleDates} options={["No", "Yes"]} />
+                    <TextInput label="Flexible Dates" value={flexibleDates} readOnly />
+                    <TextInput label="Travel Type" value="Escorted" readOnly />
                   </div>
                 </FieldsetBox>
               </div>
@@ -475,6 +601,7 @@ export default function BookingModal({ journey, onClose }) {
                       <TextInput label="Language Preference" value={transfers.language} onChange={(v) => setTransfers((p) => ({ ...p, language: v }))} />
                     </div>
                   </div>
+                  <p className="mt-3 text-xs text-[#7772a8]">* Not applicable for escorted journeys — already included as part of the tour.</p>
                 </FieldsetBox>
               </div>
             )}
@@ -523,7 +650,7 @@ export default function BookingModal({ journey, onClose }) {
                         <TextInput label="Name" value={c.name} onChange={(v) => updateEmergencyContact(i, "name", v)} />
                         <TextInput label="Relationship" value={c.relationship} onChange={(v) => updateEmergencyContact(i, "relationship", v)} />
                         <div className="sm:col-span-2">
-                          <TextInput label="Contact Number *" value={c.phone} onChange={(v) => updateEmergencyContact(i, "phone", v)} />
+                          <TextInput label="Contact Number *" type="tel" value={c.phone} onChange={(v) => updateEmergencyContact(i, "phone", v)} />
                         </div>
                       </div>
                     </div>
@@ -719,7 +846,7 @@ function FieldsetBox({ title, children, className = "" }) {
   );
 }
 
-function TextInput({ label, value, onChange, type = "text", readOnly = false }) {
+function TextInput({ label, value, onChange, type = "text", readOnly = false, max, min }) {
   return (
     <label className="block">
       <span className="mb-1 block text-xs font-semibold text-[#3a219a]">{label}</span>
@@ -727,6 +854,8 @@ function TextInput({ label, value, onChange, type = "text", readOnly = false }) 
         type={type}
         value={value}
         readOnly={readOnly}
+        max={max}
+        min={min}
         onChange={onChange ? (e) => onChange(e.target.value) : undefined}
         className={`w-full rounded-md border-2 px-3 py-2 text-sm outline-none ${
           readOnly ? "border-[#e5e3f5] bg-[#f1f1f6] text-[#7772a8]" : "border-[#c9c4ea] bg-white text-[#3a219a]"
@@ -740,6 +869,58 @@ function TextInput({ label, value, onChange, type = "text", readOnly = false }) 
 // (see GOOGLE_PLACES_SETUP.md). For now the address is plain structured
 // fields (Address Line 1/2, City, State, Zip) below — simpler, no API key
 // required. Re-introduce the autocomplete component later if needed.
+
+// Type-to-filter country combobox — plain text input + a filtered dropdown
+// of COUNTRIES, no external library or API key (same "keep it simple"
+// approach as the address fields above). Native <select> works fine but is
+// slow to scan with ~190 options; native <datalist> autocomplete is also an
+// option but has inconsistent/weak support on iOS Safari, so this is a
+// small hand-rolled combobox instead for consistent behavior everywhere.
+function CountryInput({ label, value, onChange }) {
+  const [open, setOpen] = useState(false);
+
+  const filtered = useMemo(() => {
+    const q = value.trim().toLowerCase();
+    if (!q) return COUNTRIES;
+    return COUNTRIES.filter((c) => c.toLowerCase().includes(q));
+  }, [value]);
+
+  return (
+    <label className="relative block">
+      <span className="mb-1 block text-xs font-semibold text-[#3a219a]">{label}</span>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => {
+          onChange(e.target.value);
+          setOpen(true);
+        }}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setTimeout(() => setOpen(false), 150)}
+        placeholder="Start typing to search..."
+        autoComplete="off"
+        className="w-full rounded-md border-2 border-[#c9c4ea] bg-white px-3 py-2 text-sm text-[#3a219a] outline-none"
+      />
+      {open && filtered.length > 0 && (
+        <ul className="absolute z-20 mt-1 max-h-48 w-full overflow-y-auto rounded-md border-2 border-[#c9c4ea] bg-white text-sm shadow-lg">
+          {filtered.map((c) => (
+            <li
+              key={c}
+              // onMouseDown (not onClick) fires before the input's onBlur closes the list.
+              onMouseDown={() => {
+                onChange(c);
+                setOpen(false);
+              }}
+              className="cursor-pointer px-3 py-2 text-[#3a219a] hover:bg-[#f1f1f6]"
+            >
+              {c}
+            </li>
+          ))}
+        </ul>
+      )}
+    </label>
+  );
+}
 
 function TextAreaInput({ label, value, onChange }) {
   return (
@@ -755,7 +936,7 @@ function TextAreaInput({ label, value, onChange }) {
   );
 }
 
-function SelectInput({ label, value, onChange, options }) {
+function SelectInput({ label, value, onChange, options, placeholder }) {
   return (
     <label className="block">
       <span className="mb-1 block text-xs font-semibold text-[#3a219a]">{label}</span>
@@ -764,6 +945,11 @@ function SelectInput({ label, value, onChange, options }) {
         onChange={(e) => onChange(e.target.value)}
         className="w-full rounded-md border-2 border-[#c9c4ea] bg-white px-3 py-2 text-sm text-[#3a219a] outline-none"
       >
+        {placeholder && (
+          <option value="" disabled>
+            {placeholder}
+          </option>
+        )}
         {options.map((o) => (
           <option key={o} value={o}>
             {o}

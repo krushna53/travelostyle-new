@@ -91,6 +91,36 @@ export async function POST(req) {
       });
     }
 
+    // 3. Individual traveler copies — only for travelers who unchecked
+    // "Same contact info as lead traveler" and gave their own email.
+    // Covers cases like two adults sharing one booking/room who still need
+    // their own documents sent to their own inbox. Deduped against the
+    // lead traveler and against other travelers already emailed.
+    const alreadyEmailed = new Set([leadEmail?.toLowerCase()].filter(Boolean));
+    const travelers = Array.isArray(body?.travelers) ? body.travelers : [];
+    for (const traveler of travelers) {
+      if (traveler?.sameAsLead !== false) continue; // default true, or explicitly true
+      const travelerEmail = traveler?.email?.trim();
+      if (!travelerEmail || alreadyEmailed.has(travelerEmail.toLowerCase())) continue;
+      alreadyEmailed.add(travelerEmail.toLowerCase());
+
+      await transporter.sendMail({
+        from: `"Travel O Style" <${process.env.SMTP_EMAIL}>`,
+        to: travelerEmail,
+        replyTo: process.env.EMAIL_TO,
+        subject: `Your TravelOStyle Travel Documents - ${journeyTitle}`,
+        html: `
+          <p>Hi ${traveler.fullName || "Traveler"},</p>
+          <p>You're listed as a traveler on a <strong>${journeyTitle}</strong> booking with TravelOStyle. A copy of
+          the submitted booking details is attached as a PDF for your records.</p>
+          <p>If you have any questions about this booking, please reach out to us or the lead traveler on the
+          reservation.</p>
+          <p>Safe travels,<br/>TravelOStyle</p>
+        `,
+        attachments,
+      });
+    }
+
     return Response.json({ success: true });
   } catch (error) {
     console.error("create-booking error:", error);
