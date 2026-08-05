@@ -7,20 +7,6 @@ import BookingModal from "./BookingModal";
 
 const journeys = [
   {
-    id: 1,
-    title: "Spirit of Vietnam & Cambodia",
-  shortDescription:
-    "Where emerald mountains, floating markets, and warm traditions shape a journey full of soul.",
-  description:
-    "Vietnam is a place where emerald landscapes, ancient traditions, and warm hospitality come together in perfect harmony. From the tranquil waters of Ha Long Bay to the lantern-lit streets of Hoi An and the vibrant energy of Hanoi and Ho Chi Minh City, every region offers its own rhythm and beauty. Rich history, flavorful cuisine, and breathtaking scenery make Vietnam a journey that feels both peaceful and deeply inspiring.\n\nCambodia is a land shaped by ancient glory and heartfelt warmth. The majestic temples of Angkor rise from the jungle like a living testament to the country’s rich past, while its villages, rivers, and bustling markets reveal a culture full of resilience and grace. From sunrise at Angkor Wat to the gentle flow of the Mekong, Cambodia offers a journey filled with history, spirituality, and unforgettable moments.",
-  image: "/LandJourney/Cambodia-Image.png",
-  duration: "12 Nights | 13 Days",
-  date: "16 Nov 2026",
-  location: "6 Destinations",
-  price: "2499",
-  bookingsOpen:"true",
-  },
-  {
     id: 7,
     title: "Essence of Japan",
     shortDescription:
@@ -35,6 +21,20 @@ const journeys = [
     destinationsList: "Tokyo, Nikko, Mt Fuji, Hakone, Hiroshima, Miyajima, Kyoto, Nara, Osaka",
     price: "3399",
     bookingsOpen: "true",
+  },
+  {
+    id: 1,
+    title: "Spirit of Vietnam & Cambodia",
+  shortDescription:
+    "Where emerald mountains, floating markets, and warm traditions shape a journey full of soul.",
+  description:
+    "Vietnam is a place where emerald landscapes, ancient traditions, and warm hospitality come together in perfect harmony. From the tranquil waters of Ha Long Bay to the lantern-lit streets of Hoi An and the vibrant energy of Hanoi and Ho Chi Minh City, every region offers its own rhythm and beauty. Rich history, flavorful cuisine, and breathtaking scenery make Vietnam a journey that feels both peaceful and deeply inspiring.\n\nCambodia is a land shaped by ancient glory and heartfelt warmth. The majestic temples of Angkor rise from the jungle like a living testament to the country’s rich past, while its villages, rivers, and bustling markets reveal a culture full of resilience and grace. From sunrise at Angkor Wat to the gentle flow of the Mekong, Cambodia offers a journey filled with history, spirituality, and unforgettable moments.",
+  image: "/LandJourney/Cambodia-Image.png",
+  duration: "12 Nights | 13 Days",
+  date: "16 Nov 2026",
+  location: "6 Destinations",
+  price: "2499",
+  bookingsOpen:"true",
   },
   {
     id: 2,
