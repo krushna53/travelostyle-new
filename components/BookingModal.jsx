@@ -781,16 +781,13 @@ export default function BookingModal({ journey, onClose }) {
                     onClick={() => setPayMode("full")}
                     className={`flex-1 rounded-lg border-2 border-[#2C3078] py-2 text-sm font-semibold ${effectivePayMode === "full" ? "bg-[#2C3078] text-white" : "text-[#2C3078]"}`}
                   >
-                    Pay Full Amount
+                    Pay Now
                   </button>
                 </div>
                 <div className="mt-4 flex items-center justify-between rounded-lg bg-[#2C3078] px-4 py-3 text-white">
-                  <span className="text-sm">Amount Due Now *</span>
+                  <span className="text-sm">Amount Due Now</span>
                   <span className="text-xl font-bold">${amountDue.toLocaleString()}</span>
                 </div>
-                <p className="mt-2 text-xs text-[#7772a8]">
-                  * A processing fee may be applied by Stripe at checkout, in addition to the amount shown above.
-                </p>
               </div>
             )}
 
@@ -798,6 +795,11 @@ export default function BookingModal({ journey, onClose }) {
             {step === 8 && (
               <div>
                 <StepTitle n={8} title="Secure Payment" sub="Pay by card or US bank transfer (ACH), powered by Stripe." />
+                {!paymentSuccess && !paymentProcessing && (
+                  <p className="mb-3 rounded-md border border-[#f3c98b] bg-[#fff4e5] px-3 py-2 text-xs font-semibold text-[#92400e]">
+                    A 3.5% processing fee will be applied to all credit card payments.
+                  </p>
+                )}
                 {paymentSuccess ? (
                   <div className="rounded-lg border-2 border-green-600 bg-green-50 p-4 text-sm text-green-800">
                     Payment successful! A confirmation email will be sent to you shortly. Thank you for booking with
