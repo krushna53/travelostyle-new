@@ -3,8 +3,25 @@
 import { Button } from "@heroui/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import BookingModal from "./BookingModal";
 
 const journeys = [
+  {
+    id: 7,
+    title: "Essence of Japan",
+    shortDescription:
+      "From neon-lit Tokyo to timeless Kyoto — temples, mountains, and culture across nine unforgettable stops.",
+    description:
+      "Japan is a country where centuries-old tradition and cutting-edge modernity exist side by side. Begin in the electric energy of Tokyo, journey through the shrines of Nikko and the iconic views of Mt Fuji and Hakone, then travel south to the moving history of Hiroshima and the sacred torii gates of Miyajima. End your journey among the temples, gardens, and geisha districts of Kyoto and Nara, before a final taste of Osaka's food culture. Nine unforgettable stops, one seamless escorted journey.",
+    // NOTE: add a real photo at public/LandJourney/Japan-Image.jpg (placeholder path referenced below)
+    image: "/LandJourney/Japan-Image.jpg",
+    duration: "10 Nights | 11 Days",
+    date: "7 Sep 2026",
+    location: "9 Destinations",
+    destinationsList: "Tokyo, Nikko, Mt Fuji, Hakone, Hiroshima, Miyajima, Kyoto, Nara, Osaka",
+    price: "3399",
+    bookingsOpen: "true",
+  },
   {
     id: 1,
     title: "Spirit of Vietnam & Cambodia",
@@ -88,7 +105,7 @@ duration: "6 Nights | 7 Days",
 
 const MODAL_SCRIPT_URL = process.env.NEXT_PUBLIC_SCRIPT_URL;
 
-function JourneyCard({ journey, onOpen }) {
+function JourneyCard({ journey, onOpen, onBook }) {
   return (
     <div
       className="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col relative"
@@ -168,7 +185,7 @@ function JourneyCard({ journey, onOpen }) {
           />
         </div>
 
-        <div className="flex justify-between items-center mt-auto">
+        <div className="flex flex-col gap-3 mt-auto sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-[14px] font-light text-[#2B3481]">from</p>
             <p className="text-lg font-medium text-[#2B3481]">
@@ -182,14 +199,26 @@ function JourneyCard({ journey, onOpen }) {
             </p>
           </div>
 
-          <Button
-            type="button"
-            onClick={onOpen}
-            className="rounded-full bg-[#2C3078] text-xl pt-1 px-3 font-medium text-white disabled:cursor-not-allowed disabled:bg-[#2C3078]/70"
-            size="md"
-          >
-            Get Details
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              onClick={onOpen}
+              className="flex-1 whitespace-nowrap rounded-full border-2 border-[#2C3078] bg-white px-3 text-sm font-medium text-[#2C3078] disabled:cursor-not-allowed sm:flex-none sm:text-base"
+              size="md"
+            >
+              Get Details
+            </Button>
+            {journey.bookingsOpen && (
+              <Button
+                type="button"
+                onClick={onBook}
+                className="flex-1 whitespace-nowrap rounded-full bg-[#2C3078] px-3 text-sm font-medium text-white disabled:cursor-not-allowed disabled:bg-[#2C3078]/70 sm:flex-none sm:text-base"
+                size="md"
+              >
+                Book Now
+              </Button>
+            )}
+          </div>
         </div>
       </div>
 
@@ -551,6 +580,7 @@ function Counter({ label, value, onIncrement, onDecrement }) {
 export default function LandJourneys() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedJourney, setSelectedJourney] = useState(null);
+  const [bookingJourney, setBookingJourney] = useState(null);
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -708,6 +738,7 @@ export default function LandJourneys() {
               <JourneyCard
                 journey={journeys[currentIndex]}
                 onOpen={() => openJourneyModal(journeys[currentIndex])}
+                onBook={() => setBookingJourney(journeys[currentIndex])}
               />
             </div>
             <div className="mt-6 flex items-center justify-between gap-6">
@@ -733,6 +764,7 @@ export default function LandJourneys() {
                   key={`${currentIndex}-${index}`}
                   journey={journey}
                   onOpen={() => openJourneyModal(journey)}
+                  onBook={() => setBookingJourney(journey)}
                 />
               ))}
             </div>
@@ -761,6 +793,10 @@ export default function LandJourneys() {
           clearFieldError={(name) => setModalFieldErrors((prev) => { const next = { ...prev }; delete next[name]; return next; })}
           clearAgreeError={() => setModalAgreeError("")}
         />
+      ) : null}
+
+      {bookingJourney ? (
+        <BookingModal journey={bookingJourney} onClose={() => setBookingJourney(null)} />
       ) : null}
 
       {toastMessage ? (
