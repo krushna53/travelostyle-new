@@ -291,7 +291,12 @@ export default function BookingModal({ journey, onClose }) {
         }
         if (cancelled) return;
         elementsRef.current = stripeRef.current.elements({ clientSecret: data.clientSecret });
-        const paymentElement = elementsRef.current.create("payment");
+        // Link is hidden so the confirmed payment_method.type always reflects
+        // the actual funding method (card / us_bank_account) shown in our
+        // booking emails, instead of resolving to "link".
+        const paymentElement = elementsRef.current.create("payment", {
+          wallets: { link: "never" },
+        });
         paymentElement.mount("#booking-payment-element");
         paymentElRef.current = paymentElement;
         setPaymentReady(true);
