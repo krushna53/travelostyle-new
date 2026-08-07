@@ -127,7 +127,7 @@ function JourneyCard({ journey, onOpen, onBook }) {
               borderTopLeftRadius: "12px",
               borderTopRightRadius: "12px",
               background: "#EFF3CF",
-              fontFamily: "Nohemi, sans-serif",
+              fontFamily: "Inter, sans-serif",
               fontWeight: 600,
               fontSize: "16px",
               lineHeight: "24px",
