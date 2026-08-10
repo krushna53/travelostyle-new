@@ -404,8 +404,8 @@ function JourneyDetailsModal({
               />
               <Field
                 name="phone"
-                label="Number/ WhatsApp"
-                placeholder="+1773 983 8067"
+                label="Phone/WhatsApp Number*"
+                placeholder="+1 xxx xxx xxxx"
                 error={fieldErrors.phone}
                 onClearError={() => clearFieldError("phone")}
               />
