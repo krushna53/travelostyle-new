@@ -127,7 +127,7 @@ function JourneyCard({ journey, onOpen, onBook }) {
               borderTopLeftRadius: "12px",
               borderTopRightRadius: "12px",
               background: "#EFF3CF",
-              fontFamily: "Nohemi, sans-serif",
+              fontFamily: "Inter, sans-serif",
               fontWeight: 600,
               fontSize: "16px",
               lineHeight: "24px",
@@ -404,8 +404,8 @@ function JourneyDetailsModal({
               />
               <Field
                 name="phone"
-                label="Number/ WhatsApp"
-                placeholder="+1773 983 8067"
+                label="Phone/WhatsApp Number*"
+                placeholder="+1 xxx xxx xxxx"
                 error={fieldErrors.phone}
                 onClearError={() => clearFieldError("phone")}
               />

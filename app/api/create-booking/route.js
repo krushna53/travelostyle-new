@@ -39,7 +39,7 @@ export async function POST(req) {
     const body = await req.json();
     const journeyTitle = body?.journey?.title || "Land Journey";
     const leadEmail = body?.lead?.email;
-    const leadName = body?.travelers?.[0]?.fullName || body?.declaration?.name || "Traveler";
+    const leadName = body?.lead?.fullName || "Traveler";
 
     const paymentMethod = await resolvePaymentMethod(body?.paymentIntentId);
     const pdfBuffer = await generateBookingPdf({ ...body, paymentMethod });
@@ -85,36 +85,6 @@ export async function POST(req) {
           <p>Payment received: <strong>$${body?.amountDue ?? "-"}</strong>${paymentMethod ? ` via <strong>${paymentMethod}</strong>` : ""}.</p>
           <p>This confirms we've received your request — a booking is finalized once your deposit is received and
           we send written confirmation. Our team will be in touch shortly.</p>
-          <p>Safe travels,<br/>TravelOStyle</p>
-        `,
-        attachments,
-      });
-    }
-
-    // 3. Individual traveler copies — only for travelers who unchecked
-    // "Same contact info as lead traveler" and gave their own email.
-    // Covers cases like two adults sharing one booking/room who still need
-    // their own documents sent to their own inbox. Deduped against the
-    // lead traveler and against other travelers already emailed.
-    const alreadyEmailed = new Set([leadEmail?.toLowerCase()].filter(Boolean));
-    const travelers = Array.isArray(body?.travelers) ? body.travelers : [];
-    for (const traveler of travelers) {
-      if (traveler?.sameAsLead !== false) continue; // default true, or explicitly true
-      const travelerEmail = traveler?.email?.trim();
-      if (!travelerEmail || alreadyEmailed.has(travelerEmail.toLowerCase())) continue;
-      alreadyEmailed.add(travelerEmail.toLowerCase());
-
-      await transporter.sendMail({
-        from: `"Travel O Style" <${process.env.SMTP_EMAIL}>`,
-        to: travelerEmail,
-        replyTo: process.env.EMAIL_TO,
-        subject: `Your TravelOStyle Travel Documents - ${journeyTitle}`,
-        html: `
-          <p>Hi ${traveler.fullName || "Traveler"},</p>
-          <p>You're listed as a traveler on a <strong>${journeyTitle}</strong> booking with TravelOStyle. A copy of
-          the submitted booking details is attached as a PDF for your records.</p>
-          <p>If you have any questions about this booking, please reach out to us or the lead traveler on the
-          reservation.</p>
           <p>Safe travels,<br/>TravelOStyle</p>
         `,
         attachments,

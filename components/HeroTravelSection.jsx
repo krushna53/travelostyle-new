@@ -65,7 +65,7 @@ export default function HeroTravelSection() {
         <p
           className="mx-auto mt-4 max-w-[92vw] sm:max-w-[50vw]"
           style={{
-            fontFamily: "Nohemi, sans-serif",
+            fontFamily: "Inter, sans-serif",
             fontWeight: 300,
             fontSize: "clamp(16px, 1.09vw, 21px)",
             lineHeight: "40px",
