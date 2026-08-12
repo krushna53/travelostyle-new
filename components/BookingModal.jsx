@@ -6,7 +6,7 @@ import Image from "next/image";
 import TermsModal from "./TermsModal";
 
 const STRIPE_PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "";
-const TOTAL_STEPS = 8;
+const TOTAL_STEPS = 7;
 
 function depositFor(price) {
   const p = Number(price);
@@ -124,11 +124,19 @@ function emptyTraveler(type) {
     nationality: "",
     dob: "",
     gender: "Female",
-    // Contact defaults to the lead traveler's info (most bookings — one
-    // room, one point of contact). Uncheck to give this traveler their own
-    // phone/email/address, e.g. two adults sharing a room who each want
-    // their own documents.
-    sameAsLead: true,
+    mealType: "No Preference",
+    mealAllergies: "",
+  };
+}
+
+function emptyLead() {
+  return {
+    fullName: "",
+    passportNumber: "",
+    passportExpiry: "",
+    nationality: "",
+    dob: "",
+    gender: "Female",
     phone: "",
     email: "",
     address1: "",
@@ -137,29 +145,31 @@ function emptyTraveler(type) {
     state: "",
     zip: "",
     country: "",
+    mealType: "No Preference",
+    mealAllergies: "",
+    emergencyContactName: "",
+    emergencyContactRelationship: "",
+    emergencyContactPhone: "",
   };
-}
-
-function emptyEmergencyContact() {
-  return { name: "", relationship: "", phone: "" };
 }
 
 export default function BookingModal({ journey, onClose }) {
   const [step, setStep] = useState(1);
   const [counts, setCounts] = useState({ adults: 1, children: 0, infants: 0 });
-  const [travelers, setTravelers] = useState([emptyTraveler("Adult")]);
-  const [lead, setLead] = useState({ phone: "", email: "", address1: "", address2: "", city: "", state: "", zip: "", country: "" });
+  // Only additional travelers (Traveler 2+) — the lead traveler (always one
+  // of the adults) has their own record in `lead`, merging identity/passport
+  // and contact/address into a single set of fields.
+  const [travelers, setTravelers] = useState([]);
+  const [lead, setLead] = useState(emptyLead());
   // Not user-editable — flexible dates aren't offered for escorted group
   // journeys with a fixed departure, so this is always "No".
   const flexibleDates = "No";
   const [flights, setFlights] = useState({ departureCity: "", airline: "", cabin: "Economy", frequentFlyer: "" });
-  const [meal, setMeal] = useState({ type: "No Preference", allergies: "" });
   const [transfers, setTransfers] = useState({ airport: "Yes", guide: "Yes", language: [] });
   const [visa, setVisa] = useState("Yes");
   const [insurance, setInsurance] = useState("Yes");
-  const [emergencyContacts, setEmergencyContacts] = useState([emptyEmergencyContact()]);
   const [notes, setNotes] = useState({ occasion: "", medical: "", other: "" });
-  const [declaration, setDeclaration] = useState({ checked: false, date: "", name: "" });
+  const [declaration, setDeclaration] = useState({ checked: false });
   const [payMode, setPayMode] = useState("deposit");
   const [showTerms, setShowTerms] = useState(false);
   const [validationMsg, setValidationMsg] = useState("");
@@ -173,16 +183,19 @@ export default function BookingModal({ journey, onClose }) {
   const elementsRef = useRef(null);
   const paymentElRef = useRef(null);
 
+  // The lead traveler occupies one adult slot, so additional travelers
+  // (this array) only need `adults - 1` Adult records plus all Child records.
   function resizeTravelers(prev, adults, children) {
-    const total = adults + children;
+    const additionalAdults = Math.max(adults - 1, 0);
+    const total = additionalAdults + children;
     const next = [...prev];
     while (next.length < total) {
-      next.push(emptyTraveler(next.length < adults ? "Adult" : "Child"));
+      next.push(emptyTraveler(next.length < additionalAdults ? "Adult" : "Child"));
     }
     while (next.length > total) {
       next.pop();
     }
-    return next.map((t, i) => ({ ...t, type: i < adults ? "Adult" : "Child" }));
+    return next.map((t, i) => ({ ...t, type: i < additionalAdults ? "Adult" : "Child" }));
   }
 
   const travelerTotal = counts.adults + counts.children;
@@ -214,49 +227,24 @@ export default function BookingModal({ journey, onClose }) {
     setTravelers((prev) => prev.map((t, i) => (i === index ? { ...t, [field]: value } : t)));
   }
 
-  function addEmergencyContact() {
-    setEmergencyContacts((prev) => [...prev, emptyEmergencyContact()]);
-  }
-  function removeEmergencyContact(index) {
-    setEmergencyContacts((prev) => prev.filter((_, i) => i !== index));
-  }
-  function updateEmergencyContact(index, field, value) {
-    setEmergencyContacts((prev) => prev.map((c, i) => (i === index ? { ...c, [field]: value } : c)));
-  }
-
   function validateStep() {
     setValidationMsg("");
     if (step === 2) {
-      for (const t of travelers) {
-        if (
-          !t.fullName.trim() ||
-          !t.dob ||
-          !t.passportNumber.trim() ||
-          !t.passportExpiry ||
-          !t.nationality.trim()
-        ) {
-          setValidationMsg(
-            "Please complete Full Name, Date of Birth, and all passport details (Number, Expiry Date, Nationality) for every traveler."
-          );
-          return false;
-        }
-        if (t.dob > TODAY_STR) {
-          setValidationMsg(`Date of Birth for ${t.fullName || "traveler"} cannot be a future date.`);
-          return false;
-        }
-        // Contact fields are optional per-traveler, but if this traveler has
-        // their own contact info (unchecked "Same as lead"), whatever they
-        // did enter must be a valid phone number / email address.
-        if (!t.sameAsLead) {
-          if (t.phone.trim() && !isValidPhone(t.phone)) {
-            setValidationMsg(`Please enter a valid phone number for ${t.fullName || "traveler"}.`);
-            return false;
-          }
-          if (t.email.trim() && !isValidEmail(t.email)) {
-            setValidationMsg(`Please enter a valid email address for ${t.fullName || "traveler"}.`);
-            return false;
-          }
-        }
+      if (
+        !lead.fullName.trim() ||
+        !lead.dob ||
+        !lead.passportNumber.trim() ||
+        !lead.passportExpiry ||
+        !lead.nationality.trim()
+      ) {
+        setValidationMsg(
+          "Please complete Full Name, Date of Birth, and all passport details (Number, Expiry Date, Nationality) for the lead traveler."
+        );
+        return false;
+      }
+      if (lead.dob > TODAY_STR) {
+        setValidationMsg("Date of Birth for the lead traveler cannot be a future date.");
+        return false;
       }
       if (
         !lead.phone.trim() ||
@@ -278,20 +266,34 @@ export default function BookingModal({ journey, onClose }) {
         setValidationMsg("Please enter a valid email address for the lead traveler.");
         return false;
       }
-    }
-    if (step === 5) {
-      for (const c of emergencyContacts) {
-        if (!c.phone.trim()) {
-          setValidationMsg("Please provide a contact number for every emergency contact.");
+      if (!lead.emergencyContactPhone.trim()) {
+        setValidationMsg("Please provide an emergency contact number for the lead traveler.");
+        return false;
+      }
+      if (!isValidPhone(lead.emergencyContactPhone)) {
+        setValidationMsg("Please enter a valid emergency contact phone number.");
+        return false;
+      }
+      for (const t of travelers) {
+        if (
+          !t.fullName.trim() ||
+          !t.dob ||
+          !t.passportNumber.trim() ||
+          !t.passportExpiry ||
+          !t.nationality.trim()
+        ) {
+          setValidationMsg(
+            "Please complete Full Name, Date of Birth, and all passport details (Number, Expiry Date, Nationality) for every traveler."
+          );
           return false;
         }
-        if (!isValidPhone(c.phone)) {
-          setValidationMsg(`Please enter a valid phone number for emergency contact "${c.name || "unnamed"}".`);
+        if (t.dob > TODAY_STR) {
+          setValidationMsg(`Date of Birth for ${t.fullName || "traveler"} cannot be a future date.`);
           return false;
         }
       }
     }
-    if (step === 6) {
+    if (step === 5) {
       if (!declaration.checked) {
         setValidationMsg("Please confirm the declaration and accept the Terms & Conditions to continue.");
         return false;
@@ -331,11 +333,9 @@ export default function BookingModal({ journey, onClose }) {
           lead,
           flexibleDates,
           flights,
-          meal,
           transfers,
           visa,
           insurance,
-          emergencyContacts,
           notes,
           declaration,
           payMode: effectivePayMode,
@@ -359,7 +359,7 @@ export default function BookingModal({ journey, onClose }) {
 
   // ---- Stripe payment (step 8) ----
   useEffect(() => {
-    if (step !== 8) return;
+    if (step !== 7) return;
     let cancelled = false;
 
     async function loadStripeJs() {
@@ -401,7 +401,7 @@ export default function BookingModal({ journey, onClose }) {
               travelers: String(travelerTotal),
               payMode: effectivePayMode,
               leadEmail: lead.email || "",
-              leadName: travelers[0]?.fullName || declaration.name || "",
+              leadName: lead.fullName || "",
             },
           }),
         });
@@ -508,66 +508,23 @@ export default function BookingModal({ journey, onClose }) {
             {/* STEP 2 */}
             {step === 2 && (
               <div>
-                <StepTitle n={2} title="Traveler & Passport Details" sub="One record per Adult/Child traveler. Name and passport details are required." />
-                <div className="space-y-4">
-                  {travelers.map((t, i) => (
-                    <div key={i} className="rounded-lg bg-[#f6f5fc] p-4">
-                      <p className="mb-3 text-sm font-semibold text-[#3a219a]">
-                        Traveler {i + 1} ({t.type})
-                      </p>
+                <StepTitle n={2} title="Traveler & Passport Details" sub="Lead traveler details are required first, followed by one record per additional Adult/Child traveler." />
 
-                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                        <TextInput label="Full Name (as per passport) *" value={t.fullName} onChange={(v) => updateTraveler(i, "fullName", v)} />
-                        <TextInput label="Passport Number *" value={t.passportNumber} onChange={(v) => updateTraveler(i, "passportNumber", v)} />
-                        <TextInput label="Passport Expiry Date *" type="date" value={t.passportExpiry} onChange={(v) => updateTraveler(i, "passportExpiry", v)} />
-                        <TextInput label="Nationality *" value={t.nationality} onChange={(v) => updateTraveler(i, "nationality", v)} />
-                      </div>
-
-                      <p className="mb-1.5 mt-3 text-[11px] font-bold uppercase tracking-wide text-[#7772a8]">Additional Details</p>
-                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                        <TextInput label="Date of Birth *" type="date" max={TODAY_STR} value={t.dob} onChange={(v) => updateTraveler(i, "dob", v)} />
-                        <SelectInput
-                          label="Gender"
-                          value={t.gender}
-                          onChange={(v) => updateTraveler(i, "gender", v)}
-                          options={["Female", "Male", "Non-binary", "Prefer not to say"]}
-                        />
-                      </div>
-
-                      <label className="mt-3 flex items-center gap-2 text-[13px] text-[#3a219a]">
-                        <input
-                          type="checkbox"
-                          checked={t.sameAsLead}
-                          onChange={(e) => updateTraveler(i, "sameAsLead", e.target.checked)}
-                          className="h-4 w-4 rounded-sm border-2 border-[#4b2aa3] accent-[#4b2aa3]"
-                        />
-                        Same contact info as lead traveler
-                      </label>
-
-                      {!t.sameAsLead && (
-                        <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                          <TextInput label="Phone" type="tel" value={t.phone} onChange={(v) => updateTraveler(i, "phone", v)} />
-                          <TextInput label="Email" type="email" value={t.email} onChange={(v) => updateTraveler(i, "email", v)} />
-                          <div className="sm:col-span-2">
-                            <TextInput label="Address Line 1" value={t.address1} onChange={(v) => updateTraveler(i, "address1", v)} />
-                          </div>
-                          <div className="sm:col-span-2">
-                            <TextInput label="Address Line 2" value={t.address2} onChange={(v) => updateTraveler(i, "address2", v)} />
-                          </div>
-                          <TextInput label="City" value={t.city} onChange={(v) => updateTraveler(i, "city", v)} />
-                          <TextInput label="State" value={t.state} onChange={(v) => updateTraveler(i, "state", v)} />
-                          <TextInput label="Zip Code" value={t.zip} onChange={(v) => updateTraveler(i, "zip", v)} />
-                          <AutocompleteInput label="Country" value={t.country} onChange={(v) => updateTraveler(i, "country", v)} options={COUNTRIES} />
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                <FieldsetBox title="Lead Traveler Contact" className="mt-4">
+                <FieldsetBox title="Lead Traveler">
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    <TextInput label="Contact Number (WhatsApp preferred) *" type="tel" value={lead.phone} onChange={(v) => setLead((p) => ({ ...p, phone: v }))} />
+                    <TextInput label="Full Name (as per passport) *" value={lead.fullName} onChange={(v) => setLead((p) => ({ ...p, fullName: v }))} />
+                    <SelectInput
+                      label="Gender"
+                      value={lead.gender}
+                      onChange={(v) => setLead((p) => ({ ...p, gender: v }))}
+                      options={["Female", "Male", "Non-binary", "Prefer not to say"]}
+                    />
+                    <TextInput label="WhatsApp Number *" type="tel" value={lead.phone} onChange={(v) => setLead((p) => ({ ...p, phone: v }))} />
                     <TextInput label="Email Address *" type="email" value={lead.email} onChange={(v) => setLead((p) => ({ ...p, email: v }))} />
+                    <TextInput label="Passport Number *" value={lead.passportNumber} onChange={(v) => setLead((p) => ({ ...p, passportNumber: v }))} />
+                    <TextInput label="Passport Expiry Date *" type="date" value={lead.passportExpiry} onChange={(v) => setLead((p) => ({ ...p, passportExpiry: v }))} />
+                    <TextInput label="Nationality *" value={lead.nationality} onChange={(v) => setLead((p) => ({ ...p, nationality: v }))} />
+                    <TextInput label="Date of Birth *" type="date" max={TODAY_STR} value={lead.dob} onChange={(v) => setLead((p) => ({ ...p, dob: v }))} />
                     <div className="sm:col-span-2">
                       <TextInput label="Address Line 1 *" value={lead.address1} onChange={(v) => setLead((p) => ({ ...p, address1: v }))} />
                     </div>
@@ -579,7 +536,72 @@ export default function BookingModal({ journey, onClose }) {
                     <TextInput label="Zip Code *" value={lead.zip} onChange={(v) => setLead((p) => ({ ...p, zip: v }))} />
                     <AutocompleteInput label="Country *" value={lead.country} onChange={(v) => setLead((p) => ({ ...p, country: v }))} options={COUNTRIES} />
                   </div>
+
+                  <p className="mb-1.5 mt-4 text-[11px] font-bold uppercase tracking-wide text-[#7772a8]">Meal Preferences</p>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <SelectInput
+                      label="Meal Type"
+                      value={lead.mealType}
+                      onChange={(v) => setLead((p) => ({ ...p, mealType: v }))}
+                      options={["No Preference", "Vegetarian", "Vegan", "Gluten-Free", "Kosher", "Halal", "Jain"]}
+                    />
+                    <TextInput label="Food Allergies / Restrictions" value={lead.mealAllergies} onChange={(v) => setLead((p) => ({ ...p, mealAllergies: v }))} />
+                  </div>
+
+                  <p className="mb-1.5 mt-4 text-[11px] font-bold uppercase tracking-wide text-[#7772a8]">Emergency Contact</p>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <TextInput label="Name" value={lead.emergencyContactName} onChange={(v) => setLead((p) => ({ ...p, emergencyContactName: v }))} />
+                    <TextInput label="Relationship" value={lead.emergencyContactRelationship} onChange={(v) => setLead((p) => ({ ...p, emergencyContactRelationship: v }))} />
+                    <div className="sm:col-span-2">
+                      <TextInput label="Contact Number *" type="tel" value={lead.emergencyContactPhone} onChange={(v) => setLead((p) => ({ ...p, emergencyContactPhone: v }))} />
+                    </div>
+                  </div>
                 </FieldsetBox>
+
+                {travelers.length > 0 && (
+                  <div className="mt-4 space-y-4">
+                    {travelers.map((t, i) => (
+                      <div key={i} className="rounded-lg bg-[#f6f5fc] p-4">
+                        <p className="mb-3 text-sm font-semibold text-[#3a219a]">
+                          Traveler {i + 2} ({t.type})
+                        </p>
+
+                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                          <TextInput label="Full Name (as per passport) *" value={t.fullName} onChange={(v) => updateTraveler(i, "fullName", v)} />
+                          <TextInput label="Passport Number *" value={t.passportNumber} onChange={(v) => updateTraveler(i, "passportNumber", v)} />
+                          <TextInput label="Passport Expiry Date *" type="date" value={t.passportExpiry} onChange={(v) => updateTraveler(i, "passportExpiry", v)} />
+                          <TextInput label="Nationality *" value={t.nationality} onChange={(v) => updateTraveler(i, "nationality", v)} />
+                          <TextInput label="Date of Birth *" type="date" max={TODAY_STR} value={t.dob} onChange={(v) => updateTraveler(i, "dob", v)} />
+                          <SelectInput
+                            label="Gender"
+                            value={t.gender}
+                            onChange={(v) => updateTraveler(i, "gender", v)}
+                            options={["Female", "Male", "Non-binary", "Prefer not to say"]}
+                          />
+                        </div>
+
+                        <p className="mb-1.5 mt-3 text-[11px] font-bold uppercase tracking-wide text-[#7772a8]">Meal Preferences</p>
+                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                          <SelectInput
+                            label="Meal Type"
+                            value={t.mealType}
+                            onChange={(v) => updateTraveler(i, "mealType", v)}
+                            options={["No Preference", "Vegetarian", "Vegan", "Gluten-Free", "Kosher", "Halal", "Jain"]}
+                          />
+                          <TextInput label="Food Allergies / Restrictions" value={t.mealAllergies} onChange={(v) => updateTraveler(i, "mealAllergies", v)} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className="mt-3 text-sm font-semibold text-[#3a219a] underline underline-offset-2"
+                >
+                  Missing someone? Add traveler
+                </button>
 
                 <FieldsetBox title="Trip Travel Details" className="mt-4">
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -596,7 +618,7 @@ export default function BookingModal({ journey, onClose }) {
             {/* STEP 3 */}
             {step === 3 && (
               <div>
-                <StepTitle n={3} title="Flights & Meal Preferences" />
+                <StepTitle n={3} title="Flights" />
                 <FieldsetBox title="Flights">
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <AutocompleteInput
@@ -614,17 +636,6 @@ export default function BookingModal({ journey, onClose }) {
                     />
                     <SelectInput label="Cabin Class" value={flights.cabin} onChange={(v) => setFlights((p) => ({ ...p, cabin: v }))} options={["Economy", "Premium", "Business Class"]} />
                     <TextInput label="Frequent Flyer Details" value={flights.frequentFlyer} onChange={(v) => setFlights((p) => ({ ...p, frequentFlyer: v }))} />
-                  </div>
-                </FieldsetBox>
-                <FieldsetBox title="Meal Preferences" className="mt-4">
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    <SelectInput
-                      label="Meal Type"
-                      value={meal.type}
-                      onChange={(v) => setMeal((p) => ({ ...p, type: v }))}
-                      options={["No Preference", "Vegetarian", "Vegan", "Gluten-Free", "Kosher", "Halal", "Jain"]}
-                    />
-                    <TextInput label="Food Allergies / Restrictions" value={meal.allergies} onChange={(v) => setMeal((p) => ({ ...p, allergies: v }))} />
                   </div>
                 </FieldsetBox>
                 <FieldsetBox title="Transfers & Services" className="mt-4">
@@ -674,43 +685,7 @@ export default function BookingModal({ journey, onClose }) {
             {/* STEP 5 */}
             {step === 5 && (
               <div>
-                <StepTitle n={5} title="Emergency Contact" sub="Add one or more emergency contacts." />
-                <div className="space-y-3">
-                  {emergencyContacts.map((c, i) => (
-                    <div key={i} className="relative rounded-lg bg-[#f6f5fc] p-4">
-                      {emergencyContacts.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => removeEmergencyContact(i)}
-                          className="absolute right-3 top-3 text-xs font-semibold text-red-600"
-                        >
-                          Remove
-                        </button>
-                      )}
-                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                        <TextInput label="Name" value={c.name} onChange={(v) => updateEmergencyContact(i, "name", v)} />
-                        <TextInput label="Relationship" value={c.relationship} onChange={(v) => updateEmergencyContact(i, "relationship", v)} />
-                        <div className="sm:col-span-2">
-                          <TextInput label="Contact Number *" type="tel" value={c.phone} onChange={(v) => updateEmergencyContact(i, "phone", v)} />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <button
-                  type="button"
-                  onClick={addEmergencyContact}
-                  className="mt-3 w-full rounded-lg border-2 border-dashed border-[#4b2aa3] py-2.5 text-sm font-semibold text-[#3a219a]"
-                >
-                  + Add Another Contact
-                </button>
-              </div>
-            )}
-
-            {/* STEP 6 */}
-            {step === 6 && (
-              <div>
-                <StepTitle n={6} title="Additional Notes & Declaration" />
+                <StepTitle n={5} title="Additional Notes & Declaration" />
                 <FieldsetBox title="Additional Notes">
                   <div className="space-y-3">
                     <TextInput label="Special Occasions" value={notes.occasion} onChange={(v) => setNotes((p) => ({ ...p, occasion: v }))} />
@@ -737,16 +712,16 @@ export default function BookingModal({ journey, onClose }) {
                 </div>
 
                 <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <TextInput label="Date" type="date" value={declaration.date} onChange={(v) => setDeclaration((p) => ({ ...p, date: v }))} />
-                  <TextInput label="Name" value={declaration.name} onChange={(v) => setDeclaration((p) => ({ ...p, name: v }))} />
+                  <TextInput label="Date" type="date" value={TODAY_STR} readOnly />
+                  <TextInput label="Name" value={lead.fullName} readOnly />
                 </div>
               </div>
             )}
 
-            {/* STEP 7 */}
-            {step === 7 && (
+            {/* STEP 6 */}
+            {step === 6 && (
               <div>
-                <StepTitle n={7} title="Review Your Booking" />
+                <StepTitle n={6} title="Review Your Booking" />
                 <div className="overflow-hidden rounded-lg border border-[#e5e3f5]">
                   <div className="relative h-40 w-full">
                     <Image src={journey.image} alt={journey.title} fill className="object-cover" />
@@ -764,10 +739,10 @@ export default function BookingModal({ journey, onClose }) {
                 <p className="mb-2 mt-4 text-sm text-[#7772a8]">
                   {depositEligible
                     ? "Choose how much you’d like to pay now."
-                    : "Departure is within 90 days, so full payment is required now."}
+                    : "Departures within 90 days require full payment."}
                 </p>
-                <div className="flex gap-2">
-                  {depositEligible && (
+                {depositEligible && (
+                  <div className="flex gap-2">
                     <button
                       type="button"
                       onClick={() => setPayMode("deposit")}
@@ -775,26 +750,26 @@ export default function BookingModal({ journey, onClose }) {
                     >
                       Pay Deposit Now
                     </button>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => setPayMode("full")}
-                    className={`flex-1 rounded-lg border-2 border-[#2C3078] py-2 text-sm font-semibold ${effectivePayMode === "full" ? "bg-[#2C3078] text-white" : "text-[#2C3078]"}`}
-                  >
-                    Pay Now
-                  </button>
-                </div>
-                <div className="mt-4 flex items-center justify-between rounded-lg bg-[#2C3078] px-4 py-3 text-white">
-                  <span className="text-sm">Amount Due Now</span>
-                  <span className="text-xl font-bold">${amountDue.toLocaleString()}</span>
+                    <button
+                      type="button"
+                      onClick={() => setPayMode("full")}
+                      className={`flex-1 rounded-lg border-2 border-[#2C3078] py-2 text-sm font-semibold ${effectivePayMode === "full" ? "bg-[#2C3078] text-white" : "text-[#2C3078]"}`}
+                    >
+                      Pay Now
+                    </button>
+                  </div>
+                )}
+                <div className="mt-4 flex items-center justify-between rounded-lg bg-[#F6F5FC] px-4 py-3">
+                  <span className="text-sm text-[#7772a8]">Amount Due Now</span>
+                  <span className="text-xl font-bold text-[#2C3078]">${amountDue.toLocaleString()}</span>
                 </div>
               </div>
             )}
 
-            {/* STEP 8 */}
-            {step === 8 && (
+            {/* STEP 7 */}
+            {step === 7 && (
               <div>
-                <StepTitle n={8} title="Secure Payment" sub="Pay by card or US bank transfer (ACH), powered by Stripe." />
+                <StepTitle n={7} title="Secure Payment" sub="Pay by card or US bank transfer (ACH), powered by Stripe." />
                 {!paymentSuccess && !paymentProcessing && (
                   <p className="mb-3 rounded-md border border-[#f3c98b] bg-[#fff4e5] px-3 py-2 text-xs font-semibold text-[#92400e]">
                     A 3.5% processing fee will be applied to all credit card payments.
@@ -837,7 +812,7 @@ export default function BookingModal({ journey, onClose }) {
             >
               Back
             </button>
-            {step === 8 && !paymentSuccess && !paymentProcessing ? (
+            {step === 7 && !paymentSuccess && !paymentProcessing ? (
               <Button
                 type="button"
                 onClick={handlePay}
@@ -856,9 +831,9 @@ export default function BookingModal({ journey, onClose }) {
                   ? "Close"
                   : step === TOTAL_STEPS
                     ? "Done"
-                    : step === 7
+                    : step === 6
                       ? "Proceed to Payment"
-                      : "Continue"}
+                      : "Next"}
               </Button>
             )}
           </div>
