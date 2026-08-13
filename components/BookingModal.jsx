@@ -309,6 +309,43 @@ export default function BookingModal({ journey, onClose }) {
     setStep((s) => s + 1);
   }
 
+  const [formDownloading, setFormDownloading] = useState(false);
+  async function downloadTravelerForm() {
+    setFormDownloading(true);
+    setValidationMsg("");
+    try {
+      const res = await fetch("/api/download-traveler-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          journey: {
+            title: journey.title,
+            destinationsList: journey.destinationsList,
+            location: journey.location,
+            date: journey.date,
+            duration: journey.duration,
+          },
+          counts,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to generate form");
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `TravelOStyle-Traveler-Form-${journey.title?.replace(/[^a-z0-9]+/gi, "-") || "Journey"}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Failed to download traveler form:", err);
+      setValidationMsg("Sorry, we couldn't generate the form right now. Please try again.");
+    } finally {
+      setFormDownloading(false);
+    }
+  }
+
   const bookingEmailSentRef = useRef(false);
   async function submitBookingRequest(paymentIntentId, paymentStatus = "Paid") {
     if (bookingEmailSentRef.current) return;
@@ -847,19 +884,46 @@ export default function BookingModal({ journey, onClose }) {
                 {payLoading ? "Processing…" : "Pay Now"}
               </Button>
             ) : (
-              <Button
-                type="button"
-                onClick={paymentSuccess || paymentProcessing ? onClose : next}
-                className="rounded-full bg-[#2C3078] px-6 py-2 font-medium text-white"
-              >
-                {paymentSuccess || paymentProcessing
-                  ? "Close"
-                  : step === TOTAL_STEPS
-                    ? "Done"
-                    : step === 7
-                      ? "Proceed to Payment"
-                      : "Continue"}
-              </Button>
+              <div className="flex items-center gap-3">
+                {step === 1 && (
+                  <div className="flex items-center gap-2">
+                    <span className="hidden text-right text-sm leading-snug text-[#7772a8] md:block">
+                      More guests? Select their count above first so the form matches.
+                    </span>
+                    <button
+                      type="button"
+                      onClick={downloadTravelerForm}
+                      disabled={formDownloading}
+                      aria-label="Download blank traveler details form as PDF, matching the traveler counts selected above"
+                      title="Download traveler details form (PDF) — set Adults/Children/Infants above first so the form matches"
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-[#2C3078] text-[#2C3078] hover:bg-[#2C3078]/5 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      {formDownloading ? (
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#2C3078] border-t-transparent" />
+                      ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                          <path d="M12 3v12" />
+                          <path d="m7 10 5 5 5-5" />
+                          <path d="M5 21h14" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                )}
+                <Button
+                  type="button"
+                  onClick={paymentSuccess || paymentProcessing ? onClose : next}
+                  className="rounded-full bg-[#2C3078] px-6 py-2 font-medium text-white"
+                >
+                  {paymentSuccess || paymentProcessing
+                    ? "Close"
+                    : step === TOTAL_STEPS
+                      ? "Done"
+                      : step === 7
+                        ? "Proceed to Payment"
+                        : "Continue"}
+                </Button>
+              </div>
             )}
           </div>
         </div>
